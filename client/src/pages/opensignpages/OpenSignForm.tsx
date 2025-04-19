@@ -82,7 +82,7 @@ const Forms = (props) => {
   const [isAdvanceOpt, setIsAdvanceOpt] = useState(false);
   const handleStrInput = (e) => {
     setIsCorrectPass(true);
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target?.name]: e.target?.value });
   };
   const extUserData =
     localStorage.getItem("Extand_Class")! &&
@@ -124,22 +124,22 @@ const Forms = (props) => {
   function getFileAsArrayBuffer(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.onerror = (e) => reject(e.target.error);
+      reader.onload = (e) => resolve(e.target?.result);
+      reader.onerror = (e) => reject(e.target?.error);
       reader.readAsArrayBuffer(file);
     });
   }
   const handleFileInput = async (e) => {
     setpercentage(0);
     try {
-      let files = e.target.files;
-      setFormData((prev) => ({ ...prev, file: e.target.files[0] }));
+      let files = e.target?.files;
+      setFormData((prev) => ({ ...prev, file: e.target?.files[0] }));
       if (typeof files[0] !== "undefined") {
         const mb = Math.round(files[0].size / Math.pow(1024, 2));
         if (mb > maxFileSize) {
           alert(`${t("file-alert-1")} ${maxFileSize} MB`);
           setFileUpload("");
-          e.target.value = "";
+          e.target?.value = "";
           return;
         } else {
           if (files?.[0]?.type === "application/pdf") {
@@ -201,7 +201,7 @@ const Forms = (props) => {
                       setfileload(false);
                       setpercentage(0);
                       setFileUpload("");
-                      e.target.value = "";
+                      e.target?.value = "";
                     }
                   } else {
                     // Upload the file to Parse Server
@@ -241,13 +241,13 @@ const Forms = (props) => {
                   } else {
                     console.log("Error uploading file: ", err?.response);
                     setIsDecrypting(false);
-                    e.target.value = "";
+                    e.target?.value = "";
                   }
                 }
               } else {
                 console.log("err ", err);
                 setFileUpload("");
-                e.target.value = "";
+                e.target?.value = "";
               }
             }
           } else {
@@ -300,7 +300,7 @@ const Forms = (props) => {
                 } else {
                   setfileload(false);
                   setpercentage(0);
-                  e.target.value = "";
+                  e.target?.value = "";
                 }
               } else {
                 const getFile = await pdfDoc.save({
@@ -337,7 +337,7 @@ const Forms = (props) => {
                     return response.url();
                   }
                 } catch (error) {
-                  e.target.value = "";
+                  e.target?.value = "";
                   setfileload(false);
                   setpercentage(0);
                   console.error("Error uploading file:", error);
@@ -365,7 +365,7 @@ const Forms = (props) => {
                     setFormData((obj) => ({ ...obj, Name: title }));
                   }
                 } catch (err:any) {
-                  e.target.value = "";
+                  e.target?.value = "";
                   setfileload(false);
                   setpercentage(0);
                   console.log("err in libreconverter ", err);

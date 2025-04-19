@@ -183,8 +183,8 @@ export const paidUrl = (plan) => {
     const period = teamperiod[plan] || '';
     if (period) {
         const extUser =
-            localStorage.getItem('Extand_Class') &&
-            JSON.parse(localStorage.getItem('Extand_Class'))?.[0];
+            localStorage.getItem('Extand_Class')! &&
+            JSON.parse(localStorage.getItem('Extand_Class')!)?.[0];
         const user = {
             name: extUser?.Name,
             email: extUser?.Email,
@@ -212,9 +212,9 @@ export const paidUrl = (plan) => {
                 ? '&mobile=' + encodeURIComponent(user.phone)
                 : '';
         const allowedUsers =
-            localStorage.getItem('allowedUsers') &&
-            localStorage.getItem('allowedUsers') > 0
-                ? localStorage.getItem('allowedUsers') - 1
+            localStorage.getItem('allowedUsers')! &&
+            Number(localStorage.getItem('allowedUsers')!) > 0
+                ? Number(localStorage.getItem('allowedUsers')!) - 1
                 : '';
         const quantity = allowedUsers
             ? `addon_code%5B0%5D=extra-teams-users-${period}&addon_quantity%5B0%5D=${allowedUsers}&`

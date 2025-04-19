@@ -83,7 +83,7 @@ const WidgetNameModal = (props) => {
   };
   const handleChange = (e) => {
     if (e) {
-      setFormdata({ ...formdata, [e.target.name]: e.target.value });
+      setFormdata({ ...formdata, [e.target?.name]: e.target?.value });
     } else {
       setFormdata({ ...formdata, textvalidate: "" });
     }
@@ -92,12 +92,12 @@ const WidgetNameModal = (props) => {
   const handledefaultChange = (e) => {
     if (formdata.textvalidate) {
       const regexObject = RegexParser(handleValidation(formdata.textvalidate));
-      const isValidate = regexObject?.test(e.target.value);
+      const isValidate = regexObject?.test(e.target?.value);
       setIsValid(isValidate);
     } else {
       setIsValid(true);
     }
-    setFormdata({ ...formdata, [e.target.name]: e.target.value });
+    setFormdata({ ...formdata, [e.target?.name]: e.target?.value });
   };
 
   function handleValidation(type) {
@@ -352,7 +352,7 @@ const WidgetNameModal = (props) => {
               value={
                 props.fontSize || props.defaultdata?.options?.fontSize || 12
               }
-              onChange={(e) => props.setFontSize(parseInt(e.target.value))}
+              onChange={(e) => props.setFontSize(parseInt(e.target?.value))}
             >
               {fontsizeArr.map((size, ind) => {
                 return (
@@ -370,7 +370,7 @@ const WidgetNameModal = (props) => {
                   props.defaultdata?.options?.fontColor ||
                   "black"
                 }
-                onChange={(e) => props.setFontColor(e.target.value)}
+                onChange={(e) => props.setFontColor(e.target?.value)}
                 className="ml-[7px] op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content text-xs"
               >
                 {fontColorArr.map((color, ind) => {

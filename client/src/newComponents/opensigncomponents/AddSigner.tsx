@@ -235,7 +235,7 @@ const AddSigner = (props) => {
               type="text"
               id="name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target?.value)}
               required
               disabled={addYourself}
               onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity(t("input-required"))}
@@ -253,7 +253,7 @@ const AddSigner = (props) => {
               id="email"
               value={email}
               onChange={(e) =>
-                setEmail(e.target.value?.toLowerCase()?.replace(/\s/g, ""))
+                setEmail(e.target?.value?.toLowerCase()?.replace(/\s/g, ""))
               }
               required
               onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity(t("input-required"))}
@@ -270,7 +270,7 @@ const AddSigner = (props) => {
               type="text"
               id="phone"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target?.value)}
               disabled={addYourself}
               className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
               placeholder={t("phone-optional")}

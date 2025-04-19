@@ -3,6 +3,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
+const data: any = {
+  title: 'some title',
+  // other properties
+};
+
 function EmbedTab(props) {
   const { t } = useTranslation();
   const tabName = [
@@ -12,7 +17,7 @@ function EmbedTab(props) {
   ];
   const [activeTab, setActiveTab] = useState(0);
   // State to track if the code has been copied
-  const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState<any>(false);
   const reactCode = [
     {
       id: 0,

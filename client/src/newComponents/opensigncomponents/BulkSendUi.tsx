@@ -436,6 +436,8 @@ const BulkSendUi = (props) => {
                         </form>
                         <ModalUi
                           isOpen={isQuotaReached}
+                          title="Quota Reached" 
+                          reduceWidth={true} 
                           handleClose={() => handleCloseQuotaReached()}
                         >
                           <div className="p-4 flex justify-center items-center flex-col gap-y-3">

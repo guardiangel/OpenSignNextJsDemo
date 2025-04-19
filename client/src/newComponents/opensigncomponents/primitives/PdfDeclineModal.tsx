@@ -70,7 +70,7 @@ function CustomModal(props) {
                   placeholder="Reason (optional)"
                   className="px-4 op-textarea op-textarea-bordered focus:outline-none hover:border-base-content w-full text-xs"
                   value={reason}
-                  onChange={(e) => setReason(e.target.value)}
+                  onChange={(e) => setReason(e.target?.value)}
                 ></textarea>
               </div>
               <div className="m-[15px]">
@@ -106,7 +106,7 @@ function CustomModal(props) {
                 type="date"
                 className="rounded-full bg-base-300 w-full px-4 py-2 text-black border-2 hover:border-spacing-2"
                 defaultValue={props?.doc?.ExpiryDate?.iso?.split("T")?.[0]}
-                onChange={(e) => setExpiryDate(e.target.value)}
+                onChange={(e) => setExpiryDate(e.target?.value)}
               />
               <div className="flex flex-row items-center mt-2">
                 <button type="submit" className="op-btn op-btn-primary mr-2">

@@ -118,7 +118,8 @@ function Header({
                           onClick={() =>
                             handleDownloadCertificate(
                               pdfDetails,
-                              setIsDownloading
+                              setIsDownloading,
+                              undefined
                             )
                           }
                         >
@@ -376,7 +377,7 @@ function Header({
                     <button
                       type="button"
                       onClick={() =>
-                        handleDownloadCertificate(pdfDetails, setIsDownloading)
+                        handleDownloadCertificate(pdfDetails, setIsDownloading,undefined)
                       }
                       className="op-btn op-btn-secondary op-btn-sm mr-[3px] shadow"
                     >
@@ -464,7 +465,7 @@ function Header({
                   <button
                     type="button"
                     onClick={() =>
-                      handleDownloadCertificate(pdfDetails, setIsDownloading)
+                      handleDownloadCertificate(pdfDetails, setIsDownloading,undefined)
                     }
                     className="op-btn op-btn-secondary op-btn-sm gap-0 font-medium text-[12px] mr-[3px] shadow"
                   >
@@ -546,6 +547,7 @@ function Header({
               : t("pdf-download")
           }
           handleClose={() => setIsDownloading("")}
+          reduceWidth={true} 
         >
           <div className="p-3 md:p-5 text-[13px] md:text-base text-center text-base-content">
             {isDownloading === "certificate"}{" "}

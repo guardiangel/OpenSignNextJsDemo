@@ -13,9 +13,9 @@ function DriveBody(props) {
   const { t } = useTranslation();
   const [rename, setRename] = useState("");
   const [renameValue, setRenameValue] = useState("");
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isOpenMoveModal, setIsOpenMoveModal] = useState(false);
-  const [selectDoc, setSelectDoc] = useState();
+  const [selectDoc, setSelectDoc] = useState<any>();
   const [isDeleteDoc, setIsDeleteDoc] = useState(false);
   const contextMenu = [
     { type: "Download", icon: "fa-light fa-arrow-down" },
@@ -29,7 +29,7 @@ function DriveBody(props) {
   useEffect(() => {
     if (rename && inputRef.current) {
       setTimeout(() => {
-        inputRef.current.focus();
+        inputRef?.current?.focus();
       }, 10);
     }
   }, [rename]);
@@ -137,7 +137,7 @@ function DriveBody(props) {
   const handleMenuItemClick = async (selectType, data) => {
     switch (selectType) {
       case "Download": {
-        await handleDownloadPdf([data]);
+        await handleDownloadPdf([data],undefined);
         break;
       }
       case "Rename": {
@@ -386,7 +386,7 @@ function DriveBody(props) {
                   onKeyDown={(e) => handleEnterPress(e, data)}
                   ref={inputRef}
                   defaultValue={renameValue}
-                  onChange={(e) => setRenameValue(e.target.value)}
+                  onChange={(e) => setRenameValue(e.target?.value)}
                   className="op-input op-input-bordered op-input-xs w-[100px] focus:outline-none hover:border-base-content text-[10px]"
                 />
               ) : (
@@ -398,8 +398,9 @@ function DriveBody(props) {
           <ContextMenu.Portal>
             <ContextMenu.Content
               className="ContextMenuContent"
-              sideOffset={5}
-              align="end"
+              /* align="end"
+              alignOffset={5} */
+              style={{ marginLeft: "5px" }}
             >
               <ContextMenu.Item
                 onClick={() => handleMenuItemClick("Rename", data)}
@@ -454,7 +455,7 @@ function DriveBody(props) {
                         onKeyDown={(e) => handleEnterPress(e, data)}
                         ref={inputRef}
                         defaultValue={renameValue}
-                        onChange={(e) => setRenameValue(e.target.value)}
+                        onChange={(e) => setRenameValue(e.target?.value)}
                         className="op-input op-input-bordered op-input-xs w-[100px] focus:outline-none hover:border-base-content text-[10px]"
                       />
                     ) : (
@@ -490,8 +491,9 @@ function DriveBody(props) {
               <ContextMenu.Portal>
                 <ContextMenu.Content
                   className="ContextMenuContent"
-                  sideOffset={5}
-                  align="end"
+                  // sideOffset={5}
+                  // align="end"
+                  style={{ marginLeft: "5px" }}
                 >
                   {contextMenu.map((menu, ind) => {
                     return (
@@ -593,6 +595,7 @@ function DriveBody(props) {
       <ModalUi
         isOpen={isDeleteDoc}
         title={t("delete-document")}
+        reduceWidth={true} 
         handleClose={() => setIsDeleteDoc(false)}
       >
         <div className="h-full p-[20px] text-base-content">

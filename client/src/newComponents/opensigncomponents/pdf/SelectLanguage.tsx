@@ -13,9 +13,9 @@ function SelectLanguage(props) {
   const [lang, setLang] = useState(defaultLanguage);
   // This function put query that helps to change the language
   const handleChangeLang = (e) => {
-    setLang(e.target.value);
-    i18n.changeLanguage(e.target.value);
-    props?.updateExtUser && props.updateExtUser({ language: e.target.value });
+    setLang(e.target?.value);
+    i18n.changeLanguage(e.target?.value);
+    props?.updateExtUser && props.updateExtUser({ language: e.target?.value });
   };
   return (
     <div

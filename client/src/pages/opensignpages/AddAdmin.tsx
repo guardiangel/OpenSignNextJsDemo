@@ -221,7 +221,7 @@ const AddAdmin = () => {
     }
   };
   const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
+    const newPassword = e.target?.value;
     setPassword(newPassword);
     // Check conditions separately
     setLengthValid(newPassword.length >= 8);
@@ -271,7 +271,7 @@ const AddAdmin = () => {
                       type="text"
                       className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setName(e.target?.value)}
                       onInvalid={(e) =>
                         (e.target as HTMLInputElement).setCustomValidity(t("input-required"))
                       }
@@ -290,7 +290,7 @@ const AddAdmin = () => {
                       value={email}
                       onChange={(e) =>
                         setEmail(
-                          e.target.value?.toLowerCase()?.replace(/\s/g, "")
+                          e.target?.value?.toLowerCase()?.replace(/\s/g, "")
                         )
                       }
                       onInvalid={(e) =>
@@ -308,7 +308,7 @@ const AddAdmin = () => {
                       type="tel"
                       className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => setPhone(e.target?.value)}
                       onInvalid={(e) =>
                         (e.target as HTMLInputElement).setCustomValidity(t("input-required"))
                       }
@@ -324,7 +324,7 @@ const AddAdmin = () => {
                       type="text"
                       className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                       value={company}
-                      onChange={(e) => setCompany(e.target.value)}
+                      onChange={(e) => setCompany(e.target?.value)}
                       onInvalid={(e) =>
                         (e.target as HTMLInputElement).setCustomValidity(t("input-required"))
                       }
@@ -340,7 +340,7 @@ const AddAdmin = () => {
                       type="text"
                       className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                       value={jobTitle}
-                      onChange={(e) => setJobTitle(e.target.value)}
+                      onChange={(e) => setJobTitle(e.target?.value)}
                       onInvalid={(e) =>
                         (e.target as HTMLInputElement).setCustomValidity(t("input-required"))
                       }
@@ -408,7 +408,7 @@ const AddAdmin = () => {
                         className="op-checkbox op-checkbox-sm"
                         id="termsandcondition"
                         checked={isAuthorize}
-                        onChange={(e) => setIsAuthorize(e.target.checked)}
+                        onChange={(e) => setIsAuthorize(e.target?.checked)}
                         onInvalid={(e) =>
                           (e.target as HTMLInputElement).setCustomValidity(t("input-required"))
                         }
@@ -439,7 +439,7 @@ const AddAdmin = () => {
                         className="op-checkbox op-checkbox-sm"
                         id="subscribetoopensign"
                         checked={isSubscribeNews}
-                        onChange={(e) => setIsSubscribeNews(e.target.checked)}
+                        onChange={(e) => setIsSubscribeNews(e.target?.checked)}
                       />
                       <label
                         className="text-xs cursor-pointer ml-1 mb-0"

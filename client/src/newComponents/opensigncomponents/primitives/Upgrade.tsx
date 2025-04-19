@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { openInNewTab } from '../constant/Methods';
 
-function Upgrade({ message }) {
+function Upgrade({ message }:any) {
     const { t } = useTranslation();
     return (
         <sup>

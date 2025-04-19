@@ -42,9 +42,11 @@ export const fileasbytes = async (filepath) => {
 export const openInNewTab = (url, target) => {
   const router = useRouter();
   if (target) {
-    router.push(url, target, "noopener,noreferrer");
+    // router.push(url, target, "noopener,noreferrer");
+    window.open(url, target, "noopener,noreferrer");
   } else {
-    router.push(url, "_blank", "noopener,noreferrer");
+    // router.push(url, "_blank", "noopener,noreferrer");
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 };
 
@@ -257,7 +259,7 @@ export const contractUsers = async (jwttoken) => {
       }
     };
     const userDetails = await axios.post(url, {}, headers);
-    let data = [];
+    let data:any[] = [];
     if (userDetails?.data?.result) {
       const json = JSON.parse(JSON.stringify(userDetails.data.result));
       data.push(json);
@@ -513,12 +515,13 @@ export async function getBase64FromUrl(url, autosign) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
-      const pdfBase = this.result;
+      const pdfBase = this.result as string;
       if (autosign) {
         resolve(pdfBase);
       } else {
-        const suffixbase64 = pdfBase.split(",").pop();
+        const suffixbase64 = pdfBase!.split(",").pop();
         resolve(suffixbase64);
+        
       }
     };
   });
@@ -548,7 +551,7 @@ export const convertPNGtoJPEG = (base64Data) => {
       canvas.width = img.width;
       canvas.height = img.height;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d")!;
       ctx.fillStyle = "#ffffff"; // white color
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
@@ -610,7 +613,7 @@ export const signPdfFun = async (
   let isCustomCompletionMail = false;
   try {
     //get tenant details
-    const tenantDetails = await getTenantDetails(objectId);
+    const tenantDetails = await getTenantDetails(objectId,undefined,undefined);
     if (tenantDetails && tenantDetails === "user does not exist!") {
       return { status: "error", message: "User does not exist." };
     } else {
@@ -649,7 +652,7 @@ export const signPdfFun = async (
       }
     }
     //change image width and height to 300/120 in png base64
-    const imagebase64 = await changeImageWH(base64Sign);
+    const imagebase64 = await changeImageWH(base64Sign) as string;
     //remove suffiix of base64 (without type)
     const suffixbase64 = imagebase64 && imagebase64.split(",").pop();
 
@@ -666,7 +669,7 @@ export const signPdfFun = async (
       const signedPdf = JSON.parse(JSON.stringify(resSignPdf));
       return signedPdf;
     }
-  } catch (e) {
+  } catch (e:any) {
     console.log("Err in signPdf cloud function ", e.message);
     if (e && e?.message?.includes("is encrypted.")) {
       return {
@@ -700,7 +703,7 @@ export const createDocument = async (
     if (placeholders?.length > 0) {
       placeholdersArr = placeholders;
     }
-    let signers = [];
+    let signers:any[] = [];
     if (signerData?.length > 0) {
       signerData.forEach((x) => {
         if (x.objectId) {
@@ -1253,7 +1256,7 @@ export const onImageSelect = (event, setImgWH, setImage) => {
     let width, height;
     const image = new Image();
 
-    image.src = e.target.result;
+    image.src = e.target?.result as string;
     image.onload = function () {
       width = image.width;
       height = image.height;
@@ -1270,7 +1273,7 @@ export const onImageSelect = (event, setImgWH, setImage) => {
       setImgWH({ width: width, height: height });
     };
 
-    image.src = reader.result;
+    image.src = reader.result as string;
 
     setImage({ src: image.src, imgType: imageType });
   };
@@ -1292,7 +1295,7 @@ export const fetchImageBase64 = async (imageUrl) => {
         reject(error);
       };
     });
-  } catch (error) {
+  } catch (error:any) {
     throw new Error("Error converting URL to base64:", error);
   }
 };
@@ -1305,7 +1308,7 @@ export const changeImageWH = async (base64Image) => {
     img.src = base64Image;
     img.onload = async () => {
       const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d")!;
       canvas.width = newWidth;
       canvas.height = newHeight;
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
@@ -1530,7 +1533,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
 
           // Function to break text into lines based on the fixed width
           const NewbreakTextIntoLines = (textContent, width) => {
-            const lines = [];
+            const lines:any[] = [];
             let currentLine = "";
 
             for (const word of textContent.split(" ")) {
@@ -1552,7 +1555,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
           };
           // Function to break text into lines based on when user go next line on press enter button
           const breakTextIntoLines = (textContent, width) => {
-            const lines = [];
+            const lines:any[] = [];
             for (const word of textContent.split("\n")) {
               const lineWidth = font.widthOfTextAtSize(`${word}`, fontSize);
               //checking string length to container width
@@ -1789,7 +1792,7 @@ export const contractDocument = async (documentId, JwtToken) => {
     })
     .then((Listdata) => {
       const json = Listdata.data;
-      let data = [];
+      let data:any[] = [];
       if (json && json.result.error) {
         return json;
       } else if (json && json.result) {
@@ -1814,12 +1817,12 @@ export const addDefaultSignatureImg = (xyPostion, defaultSignImg) => {
   img.src = defaultSignImg;
   if (img.complete) {
     imgWH = {
-      width: img.width,
-      height: img.height
+      width: String(img.width) ,
+      height: String(img.height)
     };
   }
 
-  let xyDefaultPos = [];
+  let xyDefaultPos:any[] = [];
   for (let i = 0; i < xyPostion.length; i++) {
     let getIMGWH;
     const getXYdata = xyPostion[i].pos;
@@ -1869,7 +1872,7 @@ export const addDefaultSignatureImg = (xyPostion, defaultSignImg) => {
 
 //function for create list of year for date widget
 export const range = (start, end, step) => {
-  const range = [];
+  const range:any[] = [];
   for (let i = start; i <= end; i += step) {
     range.push(i);
   }
@@ -2070,7 +2073,7 @@ export const handleSendOTP = async (email) => {
     };
     const body = { email: email };
     await axios.post(url, body, { headers: headers });
-  } catch (error) {
+  } catch (error:any) {
     alert(error.message);
   }
 };
@@ -2187,12 +2190,12 @@ export const handleToPrint = async (
       console.log(`Utils.tsx handleToPrint evdocIdent:${docId},FileAdapterId:${FileAdapterId}`);
 
       const url = axiosRes.data.result;
-      const pdf = await getBase64FromUrl(url);
+      const pdf = await getBase64FromUrl(url,undefined);
       const isAndroidDevice = navigator.userAgent.match(/Android/i);
       const isAppleDevice = false;
       if (isAndroidDevice || isAppleDevice) {
         const byteArray = Uint8Array.from(
-          atob(pdf)
+          atob(pdf as string)
             .split("")
             .map((char) => char.charCodeAt(0))
         );
@@ -2313,15 +2316,15 @@ function compensateRotation(
   let rotationRads = (pageRotation * Math.PI) / 180;
 
   // Coordinates are from bottom-left
-  let coordsFromBottomLeft = { x: x / scale };
+  let coordsFromBottomLeft: { x: number; y: number } = { x: x / scale, y: 0 };
   if (pageRotation === 90 || pageRotation === 270) {
     coordsFromBottomLeft.y = dimensions.width - (y + fontSize) / scale;
   } else {
     coordsFromBottomLeft.y = dimensions.height - (y + fontSize) / scale;
   }
 
-  let drawX = null;
-  let drawY = null;
+  let drawX = 0;
+  let drawY = 0;
 
   if (pageRotation === 90) {
     drawX =
@@ -2393,7 +2396,10 @@ function getWidgetPosition(page, image, sizeRatio) {
     imageYFromTop,
     1,
     page.getSize(),
-    imageHeight
+    imageHeight,
+    "red",
+    "bond",
+    undefined
   );
 
   return {

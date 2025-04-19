@@ -81,7 +81,7 @@ function PlaceholderType(props) {
   };
 
   const handleTextValid = (e) => {
-    const textInput = e.target.value;
+    const textInput = e.target?.value;
     setTextValue(textInput);
   };
   function checkRegularExpress(validateType) {
@@ -365,7 +365,7 @@ function PlaceholderType(props) {
                   type="checkbox"
                   checked={selectCheckbox(ind)}
                   onChange={(e) => {
-                    if (e.target.checked) {
+                    if (e.target?.checked) {
                       if (!props.isPlaceholder) {
                         const maxRequired =
                           props.pos.options?.validation?.maxRequiredCount;
@@ -377,14 +377,14 @@ function PlaceholderType(props) {
                             selectedCheckbox &&
                             selectedCheckbox?.length <= maxCountInt - 1
                           ) {
-                            handleCheckboxValue(e.target.checked, ind);
+                            handleCheckboxValue(e.target?.checked, ind);
                           }
                         } else {
-                          handleCheckboxValue(e.target.checked, ind);
+                          handleCheckboxValue(e.target?.checked, ind);
                         }
                       }
                     } else {
-                      handleCheckboxValue(e.target.checked, ind);
+                      handleCheckboxValue(e.target?.checked, ind);
                     }
                   }}
                 />
@@ -415,9 +415,9 @@ function PlaceholderType(props) {
           value={textValue}
           onBlur={handleInputBlur}
           onChange={(e) => {
-            setTextValue(e.target.value);
+            setTextValue(e.target?.value);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -455,9 +455,9 @@ function PlaceholderType(props) {
           id="myDropdown"
           value={selectOption}
           onChange={(e) => {
-            setSelectOption(e.target.value);
+            setSelectOption(e.target?.value);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -539,7 +539,7 @@ function PlaceholderType(props) {
             const isDefault = false;
             handleTextValid(e);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -579,7 +579,7 @@ function PlaceholderType(props) {
           onChange={(e) => {
             handleTextValid(e);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -619,7 +619,7 @@ function PlaceholderType(props) {
           onChange={(e) => {
             handleTextValid(e);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -755,7 +755,7 @@ function PlaceholderType(props) {
           onChange={(e) => {
             handleTextValid(e);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,
@@ -806,7 +806,7 @@ function PlaceholderType(props) {
                   checked={handleRadioCheck(data)}
                   onChange={(e) => {
                     if (!props.isPlaceholder) {
-                      handleCheckRadio(e.target.checked, data);
+                      handleCheckRadio(e.target?.checked, data);
                     }
                   }}
                 />
@@ -835,9 +835,9 @@ function PlaceholderType(props) {
           value={textValue}
           onBlur={handleInputBlur}
           onChange={(e) => {
-            setTextValue(e.target.value);
+            setTextValue(e.target?.value);
             onChangeInput(
-              e.target.value,
+              e.target?.value,
               props.pos.key,
               props.xyPostion,
               props.index,

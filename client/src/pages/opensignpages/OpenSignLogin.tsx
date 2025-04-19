@@ -792,7 +792,7 @@ function Login() {
                   onChange={(e) =>
                     setUserDetails({
                       ...userDetails,
-                      Company: e.target.value
+                      Company: e.target?.value
                     })
                   }
                   onInvalid={(e) =>
@@ -819,7 +819,7 @@ function Login() {
                   onChange={(e) =>
                     setUserDetails({
                       ...userDetails,
-                      Destination: e.target.value
+                      Destination: e.target?.value
                     })
                   }
                   onInvalid={(e) =>

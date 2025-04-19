@@ -19,7 +19,7 @@ function DropdownWidgetOption(props) {
   const [status, setStatus] = useState("required");
   const [defaultValue, setDefaultValue] = useState("");
   const statusArr = ["required", "optional"];
-  const [defaultCheckbox, setDefaultCheckbox] = useState([]);
+  const [defaultCheckbox, setDefaultCheckbox] = useState<any[]>([]);
 
   const resetState = () => {
     setDropdownOptionList(["option-1", "option-2"]);
@@ -130,7 +130,7 @@ function DropdownWidgetOption(props) {
   };
 
   const handleSetMinMax = (e) => {
-    const minValue = e.target.value;
+    const minValue = e.target?.value;
     if (minValue > dropdownOptionList.length) {
       return "";
     } else {
@@ -148,7 +148,9 @@ function DropdownWidgetOption(props) {
   };
 
   return (
-    <ModalUi isOpen={props.showDropdown} title={props.title} showClose={false}>
+    <ModalUi isOpen={props.showDropdown} title={props.title} showClose={false}  
+    handleClose={props.handleClose}        
+    reduceWidth={props.reduceWidth}  >
       <div className="h-full p-[15px] text-base-content">
         <form
           onSubmit={(e) => {
@@ -167,7 +169,7 @@ function DropdownWidgetOption(props) {
               required
               defaultValue={dropdownName}
               value={dropdownName}
-              onChange={(e) => setDropdownName(e.target.value)}
+              onChange={(e) => setDropdownName(e.target?.value)}
               className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
             />
 
@@ -185,7 +187,7 @@ function DropdownWidgetOption(props) {
                       type="checkbox"
                       checked={handleDefaultCheck(index)}
                       onChange={(e) => {
-                        if (e.target.checked) {
+                        if (e.target?.checked) {
                           const getDefaultCheck =
                             defaultCheckbox?.includes(index);
                           if (!getDefaultCheck) {
@@ -210,7 +212,7 @@ function DropdownWidgetOption(props) {
                     className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                     type="text"
                     value={option}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onChange={(e) => handleInputChange(index, e.target?.value)}
                   />
 
                   <i
@@ -289,11 +291,11 @@ function DropdownWidgetOption(props) {
                   {t("default-value")}
                 </label>
                 <select
-                  onChange={(e) => setDefaultValue(e.target.value)}
+                  onChange={(e) => setDefaultValue(e.target?.value)}
                   className="op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content w-full text-xs"
                   name="defaultvalue"
                   value={defaultValue}
-                  placeholder="select default value"
+                  // placeholder="select default value"
                 >
                   <option value="" disabled hidden className="text-[13px]">
                     {t("select")}...
@@ -340,7 +342,7 @@ function DropdownWidgetOption(props) {
                   props.currWidgetsDetails?.options?.fontSize ||
                   12
                 }
-                onChange={(e) => props.setFontSize(parseInt(e.target.value))}
+                onChange={(e) => props.setFontSize(parseInt(e.target?.value))}
               >
                 {fontsizeArr.map((size, ind) => {
                   return (
@@ -358,7 +360,7 @@ function DropdownWidgetOption(props) {
                     props.currWidgetsDetails?.options?.fontColor ||
                     "black"
                   }
-                  onChange={(e) => props.setFontColor(e.target.value)}
+                  onChange={(e) => props.setFontColor(e.target?.value)}
                   className="ml-[7px] op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content text-xs"
                 >
                   {fontColorArr.map((color, ind) => {
@@ -389,7 +391,7 @@ function DropdownWidgetOption(props) {
                       type="checkbox"
                       checked={isReadOnly}
                       className="op-checkbox op-checkbox-sm"
-                      onChange={(e) => setIsReadOnly(e.target.checked)}
+                      onChange={(e) => setIsReadOnly(e.target?.checked)}
                     />
                     <label className="ml-1 mb-0" htmlFor="isreadonly">
                       {t("read-only")}
@@ -402,7 +404,7 @@ function DropdownWidgetOption(props) {
                     type="checkbox"
                     checked={isHideLabel}
                     className="op-checkbox op-checkbox-sm"
-                    onChange={(e) => setIsHideLabel(e.target.checked)}
+                    onChange={(e) => setIsHideLabel(e.target?.checked)}
                   />
 
                   <label className="ml-1 mb-0" htmlFor="ishidelabel">

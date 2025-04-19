@@ -1,5 +1,13 @@
 import { openInNewTab } from "@newComponents/opensigncomponents/constant/Methods";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+interface TooltipProps {
+  id?: string;
+  message?: string;
+  url?: string;
+  iconColor?: string;
+  maxWidth?: string;
+  handleOnlickHelp?: () => void;
+}
 const Tooltip = ({
   id,
   message,
@@ -7,7 +15,7 @@ const Tooltip = ({
   iconColor,
   maxWidth,
   handleOnlickHelp
-}) =>
+}:TooltipProps) =>
   url || handleOnlickHelp ? (
     <button
       onClick={() =>

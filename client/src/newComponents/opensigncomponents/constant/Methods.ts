@@ -3,7 +3,7 @@ export const toDataUrl = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = (e) => {
-            resolve(e.target.result);
+            resolve(e.target?.result);
         };
     });
 };

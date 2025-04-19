@@ -94,7 +94,7 @@ const ReportTable = (props) => {
     const [isPublicTour, setIsPublicTour] = useState();
     const [signatureType, setSignatureType] = useState([]);
     const [expiryDate, setExpiryDate] = useState('');
-    const Extand_Class = localStorage.getItem('Extand_Class');
+    const Extand_Class = localStorage.getItem('Extand_Class')!;
     const extClass = Extand_Class && JSON.parse(Extand_Class);
     const startIndex = (currentPage - 1) * props.docPerPage;
     const { isMoreDocs, setIsNextRecord } = props;
@@ -167,7 +167,7 @@ const ReportTable = (props) => {
         if (props.ReportName === 'Templates') {
             try {
                 const extUser = JSON.parse(
-                    localStorage.getItem('Extand_Class')
+                    localStorage.getItem('Extand_Class')!
                 )?.[0];
                 if (extUser?.OrganizationId?.objectId) {
                     const teamtRes = await Parse.Cloud.run('getteams', {
@@ -296,7 +296,7 @@ const ReportTable = (props) => {
                                 extClass[0].objectId
                             ) {
                                 const Extand_Class =
-                                    localStorage.getItem('Extand_Class');
+                                    localStorage.getItem('Extand_Class')!;
                                 const extClass =
                                     Extand_Class && JSON.parse(Extand_Class);
                                 if (extClass && extClass.length > 0) {
@@ -708,7 +708,7 @@ const ReportTable = (props) => {
         if (props.isDontShow) {
             const serverUrl = OpenSignServerURL;
             const appId = XParseApplicationId;
-            const json = JSON.parse(localStorage.getItem('Extand_Class'));
+            const json = JSON.parse(localStorage.getItem('Extand_Class')!);
             const extUserId = json && json.length > 0 && json[0].objectId;
             let updatedTourStatus = [];
             if (tourStatusArr.length > 0) {
@@ -1111,7 +1111,7 @@ const ReportTable = (props) => {
                     //condition for validate signature widgets should be all signers
                     if (checkIsSignatureExist) {
                         let extendUser = JSON.parse(
-                            localStorage.getItem('Extand_Class')
+                            localStorage.getItem('Extand_Class')!
                         );
                         const userName = extendUser[0]?.UserName;
                         setIsPublicUserName(extendUser[0]?.UserName);
@@ -1120,7 +1120,7 @@ const ReportTable = (props) => {
                             //`setIsPublic` variable is used to collect all template public status
                             props.setIsPublic((prevStates) => ({
                                 ...prevStates,
-                                [item.objectId]: e.target.checked,
+                                [item.objectId]: e.target?.checked,
                             }));
                             if (getPlaceholder[getIndex]?.Role) {
                                 setSelectedPublicRole(
@@ -1245,7 +1245,7 @@ const ReportTable = (props) => {
         setIsPublicProfile({
             [item.objectId]: true,
         });
-        let extendUser = JSON.parse(localStorage.getItem('Extand_Class'));
+        let extendUser = JSON.parse(localStorage.getItem('Extand_Class')!);
         setIsPublicUserName(extendUser[0]?.UserName || '');
     };
 

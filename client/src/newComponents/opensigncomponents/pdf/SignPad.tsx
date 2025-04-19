@@ -580,8 +580,8 @@ function SignPad(props) {
                           placeholder="Your signature"
                           value={signValue}
                           onChange={(e) => {
-                            setSignValue(e.target.value);
-                            convertToImg(fontSelect, e.target.value);
+                            setSignValue(e.target?.value);
+                            convertToImg(fontSelect, e.target?.value);
                           }}
                         />
                       </div>

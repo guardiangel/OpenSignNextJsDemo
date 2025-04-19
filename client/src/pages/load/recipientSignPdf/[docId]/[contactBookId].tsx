@@ -1914,7 +1914,7 @@ function PdfRequestFiles(props) {
                             onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
                             required
                             value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
+                            onChange={(e) => setOtp(e.target?.value)}
                             disabled={loading}
                             className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                           />

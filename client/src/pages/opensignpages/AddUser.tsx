@@ -306,7 +306,7 @@ const AddUser = (props) => {
     setTimeout(() => props.setIsAlert({ type: "success", msg: "" }), 1500); // Reset copied state after 1.5 seconds
   };
   const handlePricePerUser = (e) => {
-    const quantity = e.target.value;
+    const quantity = e.target?.value;
     const price = e.target?.value > 0 ? planInfo.priceperUser * quantity : 0;
     setAmount((prev) => ({ ...prev, quantity: quantity, price: price }));
   };

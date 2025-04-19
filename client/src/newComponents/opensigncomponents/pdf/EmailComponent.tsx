@@ -19,7 +19,7 @@ function EmailComponent({
   setIsDownloadModal
 }) {
   const { t } = useTranslation();
-  const [emailList, setEmailList] = useState([]);
+  const [emailList, setEmailList] = useState<any>([]);
   const [emailValue, setEmailValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
@@ -125,7 +125,7 @@ function EmailComponent({
   };
   //function for get email value
   const handleEmailValue = (e) => {
-    const value = e.target.value?.toLowerCase()?.replace(/\s/g, "");
+    const value = e.target?.value?.toLowerCase()?.replace(/\s/g, "");
     setEmailErr(false);
     setEmailValue(value);
   };
@@ -161,7 +161,11 @@ function EmailComponent({
     <div>
       {/* isEmail */}
       {isEmail && (
-        <ModalUi isOpen showHeader={false}>
+        <ModalUi isOpen showHeader={false}
+        title="Modal Title"  // Provide the title here
+        handleClose={() => { /* Handle close logic here */ }}  // Provide a function to handle closing the modal
+        reduceWidth={false} 
+  >
           {isLoading && (
             <div className="absolute w-full h-full flex flex-col justify-center items-center z-[20] bg-[#e6f2f2]/70">
               <Loader />

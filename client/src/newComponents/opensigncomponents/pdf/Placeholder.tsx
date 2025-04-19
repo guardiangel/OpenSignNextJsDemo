@@ -164,7 +164,7 @@ function Placeholder(props) {
 
   useEffect(() => {
     const closeMenuOnOutsideClick = (e) => {
-      if (!isDraggingEnabled && !e.target.closest("#changeIsDragging")) {
+      if (!isDraggingEnabled && !e.target?.closest("#changeIsDragging")) {
         setDraggingEnabled(true);
       }
     };
@@ -918,7 +918,7 @@ function Placeholder(props) {
                 className="ml-[7px] op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content text-xs"
                 defaultValue={""}
                 onChange={(e) => {
-                  const selectedIndex = e.target.value;
+                  const selectedIndex = e.target?.value;
                   e.stopPropagation();
                   setSelectDate(dateFormat[selectedIndex]);
                 }}
@@ -944,7 +944,7 @@ function Placeholder(props) {
             <select
               className="ml-[3px] md:ml:[7px] op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content text-xs"
               value={props.fontSize || clickonWidget.options?.fontSize || 12}
-              onChange={(e) => props.setFontSize(parseInt(e.target.value))}
+              onChange={(e) => props.setFontSize(parseInt(e.target?.value))}
             >
               {fontsizeArr.map((size, ind) => {
                 return (
@@ -960,7 +960,7 @@ function Placeholder(props) {
                 value={
                   props.fontColor || clickonWidget.options?.fontColor || "black"
                 }
-                onChange={(e) => props.setFontColor(e.target.value)}
+                onChange={(e) => props.setFontColor(e.target?.value)}
                 className="ml-[4px] md:ml[7px] op-select op-select-bordered op-select-sm focus:outline-none hover:border-base-content text-xs"
               >
                 {fontColorArr.map((color, ind) => {

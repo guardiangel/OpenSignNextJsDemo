@@ -264,7 +264,7 @@ function Opensigndrive() {
   //function for add new folder name
   const handleFolderName = (e) => {
     setError();
-    const value = e.target.value;
+    const value = e.target?.value;
     setNewFolderName(value);
   };
   //function for create folder
@@ -418,9 +418,9 @@ function Opensigndrive() {
   //handle to close drop down menu onclick screen
   useEffect(() => {
     const closeMenuOnOutsideClick = (e) => {
-      if (isShowSort && !e.target.closest("#menu-container")) {
+      if (isShowSort && !e.target?.closest("#menu-container")) {
         setIsShowSort(!isShowSort);
-      } else if (isNewFol && !e.target.closest("#folder-menu")) {
+      } else if (isNewFol && !e.target?.closest("#folder-menu")) {
         setIsNewFol(!isNewFol);
       }
     };

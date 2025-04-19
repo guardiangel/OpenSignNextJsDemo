@@ -418,7 +418,7 @@ export default function reportJson(id: any) {
                     ],
                 },
             ];
-            const Extand_Class = localStorage.getItem('Extand_Class');
+            const Extand_Class = localStorage.getItem('Extand_Class')!;
             const extClass = Extand_Class && JSON.parse(Extand_Class);
             let templateActions = templateAct;
             if (extClass && extClass.length > 0) {
@@ -426,7 +426,7 @@ export default function reportJson(id: any) {
                     templateActions = templateAct.map((item) => {
                         if (item.action === 'option') {
                             // Make a shallow copy of the item
-                            const newItem = { ...item };
+                            const newItem:any = { ...item };
                             //splice method used to add `Share with team` option on second index of list
                             newItem.subaction.splice(1, 0, {
                                 btnId: '1873',

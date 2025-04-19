@@ -29,7 +29,7 @@ function VerifyEmail(props) {
                 className="w-full op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content text-xs"
                 placeholder={t("otp-placeholder")}
                 value={props.otp}
-                onChange={(e) => props.setOtp(e.target.value)}
+                onChange={(e) => props.setOtp(e.target?.value)}
               />
             </div>
             <div className="px-6 my-3">

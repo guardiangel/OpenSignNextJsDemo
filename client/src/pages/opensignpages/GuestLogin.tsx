@@ -221,7 +221,7 @@ function GuestLogin() {
     }
   };
   const handleInputChange = (e) => {
-    setContact((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setContact((prev) => ({ ...prev, [e.target?.name]: e.target?.value }));
   };
   return (
     <div className="p-14">
@@ -283,7 +283,7 @@ function GuestLogin() {
                         className="mt-2 op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
                         name="OTP"
                         value={OTP}
-                        onChange={(e) => setOTP(e.target.value)}
+                        onChange={(e) => setOTP(e.target?.value)}
                       />
                     </div>
                     <div className="mt-2.5">

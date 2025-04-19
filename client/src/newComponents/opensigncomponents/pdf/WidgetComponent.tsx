@@ -163,7 +163,7 @@ function WidgetComponent({
     }
   };
   const handleRecipientChange=(e)=> {
-    console.log("WidgetComponent handleRecipientChange:",e.target.value);
+    console.log("WidgetComponent handleRecipientChange:",e.target?.value);
   }
   return (
     <>
@@ -178,7 +178,7 @@ function WidgetComponent({
                     className="w-full op-select op-select-bordered  pointer-events-none"
                     value={handleSelectRecipient()}
                     readOnly 
-                    onChange={(e) => handleRecipientChange(e.target.value)} 
+                    onChange={(e) => handleRecipientChange(e.target?.value)} 
                     style={{
                       backgroundColor: isSelectListId
                         ? color[isSelectListId % color.length]
