@@ -1,0 +1,61 @@
+services:
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+    env_file:
+      - server/.env
+    restart: unless-stopped
+    volumes:
+      - ./server:/app
+
+  # postgresdb:
+  #   image: postgres
+  #   container_name: postgres
+  #   restart: always
+  #   ports:
+  #     - "5432:5432"
+  #   command: postgres
+  #   env_file:
+  #     - api/.env
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=123456
+  #     - POSTGRES_DB=venture1
+  #   volumes:
+  #     - db:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+
+  mongo:
+    image: mongo:latest
+    command: ['mongod', '--quiet']
+    container_name: mongo-opensign
+    volumes:
+      - data-volume:/data/mongodb
+    ports:
+      - "27017:27017"
+
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./client:/app  # Mount the whole portal project into /app
+      - /app/node_modules  # Prevent overwriting node_modules
+      - /app/.next  # Keep build files persistent
+
+volumes:
+  data-volume:
