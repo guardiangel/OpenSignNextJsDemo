@@ -6,8 +6,4 @@ if (typeof window !== 'undefined') {
     Parse.serverURL = process.env.NEXT_PUBLIC_OpenSignServerURL;
 }
 
-// Parse.CoreManager.set('REQUEST_HEADERS', {
-//     'X-Parse-Application-Id': 'openSignApp', // Replace with your actual App ID
-//     'Content-Type': 'application/json'
-//     });
 export default Parse;

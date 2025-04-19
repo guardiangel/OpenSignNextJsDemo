@@ -34,8 +34,8 @@ const AddSignerModal = ({ isOpen, children }) => {
 
 const SignersInput = (props) => {
   const { t } = useTranslation();
-  const [state, setState] = useState(undefined);
-  const [selected, setSelected] = useState([]);
+  const [state, setState] = useState<any>(undefined);
+  const [selected, setSelected] = useState<any[]>([]);
   const [isModal, setIsModel] = useState(false);
   const onChange = (selectedOptions) => setSelected(selectedOptions);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -53,7 +53,7 @@ const SignersInput = (props) => {
 
   useEffect(() => {
     if (selected && selected.length) {
-      let newData = [];
+      let newData:any[] = [];
       selected.forEach((x) => {
         newData.push(x.value);
       });
@@ -135,6 +135,7 @@ const SignersInput = (props) => {
       <div className="flex gap-x-[5px]">
         <div className="w-full">
           <AsyncSelect
+          //@ts-ignore
             onSortEnd={onSortEnd}
             distance={4}
             isMulti

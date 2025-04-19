@@ -25,25 +25,25 @@ function Opensigndrive() {
   const { t } = useTranslation();
   // const navigate = useNavigate();
   const router = useRouter();
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<any>(null);
   const [isList, setIsList] = useState(false);
   const [selectedSort, setSelectedSort] = useState("Date");
   const [sortingOrder, setSortingOrder] = useState("Descending");
-  const [pdfData, setPdfData] = useState([]);
+  const [pdfData, setPdfData] = useState<any[]>([]);
   const [isFolder, setIsFolder] = useState(false);
-  const [newFolderName, setNewFolderName] = useState();
-  const [error, setError] = useState();
+  const [newFolderName, setNewFolderName] = useState<any>();
+  const [error, setError] = useState<any>();
   const [folderLoader, setIsFolderLoader] = useState(false);
   const [isShowSort, setIsShowSort] = useState(false);
   const [isTour, setIsTour] = useState(false);
   const [tourStatusArr, setTourStatusArr] = useState([]);
-  const [isLoading, setIsLoading] = useState({
+  const [isLoading, setIsLoading] = useState<any>({
     isLoad: true,
     message: t("loading-mssg")
   });
   const [docId, setDocId] = useState();
   const [handleError, setHandleError] = useState("");
-  const [folderName, setFolderName] = useState([]);
+  const [folderName, setFolderName] = useState<any[]>([]);
   const [isAlert, setIsAlert] = useState({ isShow: false, alertMessage: "" });
   const [isNewFol, setIsNewFol] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -52,7 +52,7 @@ function Opensigndrive() {
   const sortOrder = ["Ascending", "Descending"];
   const sortingValue = ["Name", "Date"];
   const [isDontShow, setIsDontShow] = useState(false);
-  const [tourData, setTourData] = useState();
+  const [tourData, setTourData] = useState<any>();
   const [showTourFirstTIme, setShowTourFirstTime] = useState(true);
   const orderName = {
     Ascending: "Ascending",
@@ -63,14 +63,14 @@ function Opensigndrive() {
   const currentUser =
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    ) &&
+    )! &&
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
   const jsonCurrentUser = JSON.parse(currentUser);
 
   useEffect(() => {
-    getPdfDocumentList();
+    getPdfDocumentList(undefined);
 
     // eslint-disable-next-line
   }, [docId]);
@@ -82,6 +82,7 @@ function Opensigndrive() {
         <TourContentWithBtn
           message={t("tour-mssg.opensign-drive-1")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -93,6 +94,7 @@ function Opensigndrive() {
         <TourContentWithBtn
           message={t("tour-mssg.opensign-drive-2")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -104,6 +106,7 @@ function Opensigndrive() {
         <TourContentWithBtn
           message={t("tour-mssg.opensign-drive-3")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -115,6 +118,7 @@ function Opensigndrive() {
         <TourContentWithBtn
           message={t("tour-mssg.opensign-drive-4")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -142,6 +146,7 @@ function Opensigndrive() {
               <TourContentWithBtn
                 message={t("tour-mssg.opensign-drive-5")}
                 isChecked={handleDontShow}
+                video={false}
               />
             ),
             position: "bottom",
@@ -153,6 +158,7 @@ function Opensigndrive() {
               <TourContentWithBtn
                 message={t("tour-mssg.opensign-drive-6")}
                 isChecked={handleDontShow}
+                video={false}
               />
             ),
             position: "bottom",
@@ -164,6 +170,7 @@ function Opensigndrive() {
               <TourContentWithBtn
                 message={t("tour-mssg.opensign-drive-7")}
                 isChecked={handleDontShow}
+                video={false}
               />
             ),
             position: "bottom",
@@ -263,7 +270,7 @@ function Opensigndrive() {
 
   //function for add new folder name
   const handleFolderName = (e) => {
-    setError();
+    setError(null);
     const value = e.target?.value;
     setNewFolderName(value);
   };
@@ -313,7 +320,7 @@ function Opensigndrive() {
 
             setPdfData((prev) => [...prev, result]);
             sortingData(null, null, [result], true);
-            setNewFolderName();
+            setNewFolderName(null);
             setIsFolderLoader(false);
             setIsFolder(false);
           }
@@ -469,7 +476,7 @@ function Opensigndrive() {
       const appId = XParseApplicationId;
       const json = JSON.parse(localStorage.getItem("Extand_Class")!);
       const extUserId = json && json.length > 0 && json[0].objectId;
-      let updatedTourStatus = [];
+      let updatedTourStatus:any[] = [];
       if (tourStatusArr.length > 0) {
         updatedTourStatus = [...tourStatusArr];
         const driveTourIndex = tourStatusArr.findIndex(
@@ -522,6 +529,7 @@ function Opensigndrive() {
             alertMessage: ""
           });
         }}
+        reduceWidth={true}
       >
         <div className="h-full p-[20px] pb-[15px]">
           <p>{isAlert.alertMessage}</p>
@@ -544,6 +552,7 @@ function Opensigndrive() {
         isOpen={isFolder}
         title={t("add-new-folder")}
         handleClose={oncloseFolder}
+        reduceWidth={true}
       >
         <div className="h-full p-[20px] pt-[10px] pb-[15px]">
           {folderLoader ? (
@@ -604,6 +613,7 @@ function Opensigndrive() {
           <div className="flex flex-row justify-between items-center px-[25px] pt-[20px]">
             {tourData && (
               <Tour
+              //@ts-ignore
                 onRequestClose={closeTour}
                 steps={tourData}
                 isOpen={isTour}
@@ -700,11 +710,11 @@ function Opensigndrive() {
                         key={ind}
                         onClick={() => {
                           setSelectedSort(value);
-                          sortingData(value, null, pdfData);
+                          sortingData(value, null, pdfData,undefined);
                         }}
                         className="dropdown-item text-[10px] md:text-[13px]"
                         style={{
-                          paddingLeft: selectedSort !== value && "31px"
+                          paddingLeft: selectedSort !== value ?"31px":"0px"
                         }}
                       >
                         {selectedSort === value && (
@@ -727,11 +737,11 @@ function Opensigndrive() {
                         key={ind}
                         onClick={() => {
                           setSortingOrder(order);
-                          sortingData(null, order, pdfData);
+                          sortingData(null, order, pdfData,undefined);
                         }}
                         className="dropdown-item text-[10px] md:text-[13px]"
                         style={{
-                          paddingLeft: sortingOrder !== order && "31px"
+                          paddingLeft: sortingOrder !== order?"31px":"0px"
                         }}
                       >
                         {sortingOrder === order && (

@@ -33,7 +33,7 @@ const AddAdmin = () => {
   const [isAuthorize, setIsAuthorize] = useState(false);
   const [isSubscribeNews, setIsSubscribeNews] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const [state, setState] = useState({
+  const [state, setState] = useState<any>({
     loading: false,
     alertType: "success",
     alertMsg: ""
@@ -67,12 +67,12 @@ const AddAdmin = () => {
     } catch (err:any) {
       console.log("Err while logging out", err);
     }
-    const baseUrl = OpenSignServerURL;
-    const appid = XParseApplicationId;
-    const applogo = localStorage.getItem("appLogo");
-    const defaultmenuid = localStorage.getItem("defaultmenuid");
-    const PageLanding = localStorage.getItem("PageLanding");
-    const userSettings = localStorage.getItem("userSettings");
+    const baseUrl = OpenSignServerURL!;
+    const appid = XParseApplicationId!;
+    const applogo = localStorage.getItem("appLogo")!;
+    const defaultmenuid = localStorage.getItem("defaultmenuid")!;
+    const PageLanding = localStorage.getItem("PageLanding")!;
+    const userSettings = localStorage.getItem("userSettings")!;
 
     localStorage.clear();
     saveLanguageInLocal(i18n);
@@ -134,7 +134,7 @@ const AddAdmin = () => {
               setState({ loading: false });
             }
           }
-        } catch (error) {
+        } catch (error:any) {
           console.log("err ", error);
             alert(error.message);
             setState({ loading: false });
@@ -151,7 +151,7 @@ const AddAdmin = () => {
       localStorage.setItem("accesstoken", sessionToken);
       localStorage.setItem("UserInformation", JSON.stringify(_user));
       localStorage.setItem("accesstoken", _user.sessionToken);
-      localStorage.setItem("scriptId", true);
+      localStorage.setItem("scriptId", "true");
       if (_user.ProfilePic) {
         localStorage.setItem("profileImg", _user.ProfilePic);
       } else {
@@ -211,7 +211,7 @@ const AddAdmin = () => {
             });
           }
         }
-      } catch (error) {
+      } catch (error:any) {
         console.log("error in fetch extuser", error);
         const msg = error.message || t("something-went-wrong-mssg");
         setState({ loading: false, alertType: "danger", alertMsg: msg });
@@ -243,7 +243,7 @@ const AddAdmin = () => {
   };
   return (
     <div className="h-screen flex justify-center">
-      <Title title="Add admin" />
+      <Title title="Add admin" drive={""}/>
       {state.loading ? (
         <div className="text-[grey] flex justify-center items-center text-lg md:text-2xl">
           <Loader />

@@ -1,4 +1,3 @@
-import customTheme from '@/ui/theme';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material/styles';
@@ -26,9 +25,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <CacheProvider value={muiCache}>
-                <ThemeProvider theme={customTheme}>
                     
-                </ThemeProvider>
             </CacheProvider>
         </>
     );

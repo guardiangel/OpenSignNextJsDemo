@@ -20,15 +20,15 @@ function GuestLogin() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const { id, userMail, contactBookId, base64url } = router.query;
-  const [email, setEmail] = useState(userMail);
+  const [email, setEmail] = useState<any>(userMail);
   const [OTP, setOTP] = useState("");
   const [EnterOTP, setEnterOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [appLogo, setAppLogo] = useState("");
+  const [isLoading, setIsLoading] = useState<any>(true);
+  const [appLogo, setAppLogo] = useState<any>("");
   const [documentId, setDocumentId] = useState(id);
   const [contactId, setContactId] = useState(contactBookId);
-  const [sendmail, setSendmail] = useState();
+  const [sendmail, setSendmail] = useState<any>();
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
   const [docDetailError, setDocDetailError] = useState("");
   const navigateToDoc = async (docId, contactId) => {
@@ -82,7 +82,7 @@ function GuestLogin() {
     //this condition is used decode base64 to string and get userEmail,documentId, contactBoookId data.
     if (!id) {
       //`atob` function is used to decode base64
-      const decodebase64 = atob(base64url);
+      const decodebase64 = atob(base64url as string);
       //split url in array from '/'
       const checkSplit = decodebase64.split("/");
       setDocumentId(checkSplit[0]);
@@ -159,7 +159,7 @@ function GuestLogin() {
           let _user = user.data.result;
           await Parse.User.become(_user.sessionToken);
           const parseId = XParseApplicationId;
-          const contractUserDetails = await contractUsers();
+          const contractUserDetails = await contractUsers(undefined);
           localStorage.setItem("UserInformation", JSON.stringify(_user));
           localStorage.setItem(
             `Parse/${parseId}/currentUser`,
@@ -175,14 +175,14 @@ function GuestLogin() {
           localStorage.setItem("username", _user.name);
           localStorage.setItem("accesstoken", _user.sessionToken);
           //save isGuestSigner true in local to handle login flow header in mobile view
-          localStorage.setItem("isGuestSigner", true);
+          localStorage.setItem("isGuestSigner", "true");
           setLoading(false);
           if (sendmail === "false") {
-            navigate(
+            router.push(
               `/load/recipientSignPdf/${documentId}/${contactId}?sendmail=${sendmail}`
             );
           } else {
-            navigate(`/load/recipientSignPdf/${documentId}/${contactId}`);
+            router.push(`/load/recipientSignPdf/${documentId}/${contactId}`);
           }
         }
       } catch (error) {

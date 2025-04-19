@@ -11,7 +11,7 @@ const Modal = ({ children, Title }) => {
           <div className="flex justify-between items-center py-[.75rem] px-[1.25rem] ">
             <div className="font-semibold text-xl text-black">{Title}</div>
             <div
-              onClick={() => SetIsOpen()}
+              onClick={() => SetIsOpen(!isOpen)}
               className="px-2 py-1 bg-gray-400 rounded cursor-pointer"
             >
               <i className="fa-light fa-xmark"></i>

@@ -8,12 +8,12 @@ import CreateFolder from "./CreateFolder";
 const SelectFolder = ({ required, onSuccess, folderCls, isReset }) => {
   const { t } = useTranslation();
   const [isOpen, SetIsOpen] = useState(false);
-  const [clickFolder, setClickFolder] = useState("");
-  const [selectFolder, setSelectedFolder] = useState({});
-  const [folderList, setFolderList] = useState([]);
-  const [tabList, setTabList] = useState([]);
+  const [clickFolder, setClickFolder] = useState<any>("");
+  const [selectFolder, setSelectedFolder] = useState<any>({});
+  const [folderList, setFolderList] = useState<any[]>([]);
+  const [tabList, setTabList] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
-  const [folderPath, setFolderPath] = useState("");
+  const [folderPath, setFolderPath] = useState<any>("");
   const [isAdd, setIsAdd] = useState(false);
   useEffect(() => {
     if (isOpen) {
@@ -21,7 +21,7 @@ const SelectFolder = ({ required, onSuccess, folderCls, isReset }) => {
       setClickFolder({});
       setFolderList([]);
       setTabList([]);
-      fetchFolder();
+      fetchFolder(undefined);
     }
     // eslint-disable-next-line
   }, [isOpen]);
@@ -163,7 +163,7 @@ const SelectFolder = ({ required, onSuccess, folderCls, isReset }) => {
         objectId: clickFolder.ObjectId
       });
     } else {
-      fetchFolder();
+      fetchFolder(undefined);
     }
     handleCreate();
   };
@@ -217,13 +217,14 @@ const SelectFolder = ({ required, onSuccess, folderCls, isReset }) => {
         title={t("select-folder")}
         isOpen={isOpen}
         handleClose={handleCancel}
+        reduceWidth={true} 
       >
         <div className="w-full min-w-[300px] md:min-w-[500px] max-w-[500px] px-3">
           <div className="pt-1 text-[#ac4848] text-[14px] font-[500]">
             <span
               className="cursor-pointer"
               title="VassuTech™ Drive"
-              onClick={(e) => removeTabListItem(e)}
+              onClick={(e) => removeTabListItem(e,undefined)}
             >
               {t("OpenSign-drive")} /{" "}
             </span>

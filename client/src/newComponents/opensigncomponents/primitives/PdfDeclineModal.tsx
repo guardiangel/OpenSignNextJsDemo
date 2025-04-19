@@ -11,7 +11,7 @@ function CustomModal(props) {
   const [expiryDate, setExpiryDate] = useState("");
   const localuser = localStorage.getItem(
     `Parse/${XParseApplicationId}/currentUser`
-  );
+  )!;
 
   const currentUser = JSON.parse(localuser);
   const isCreator = props?.doc

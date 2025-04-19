@@ -8,7 +8,7 @@ function Title({ title, drive }) {
       <link
         rel="icon"
         type="image/png"
-        href={localStorage.getItem("fev_Icon")}
+        href={localStorage.getItem("fev_Icon")!}
         sizes="40x40"
       />
     </Helmet>

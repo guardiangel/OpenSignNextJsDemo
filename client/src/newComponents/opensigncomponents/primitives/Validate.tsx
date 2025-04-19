@@ -16,7 +16,7 @@ const Validate = () => {
           const userDetails = JSON.parse(
             localStorage.getItem(
               `Parse/${XParseApplicationId}/currentUser`
-            )
+            )!
           );
           // Use the session token to validate the user
           const userQuery = new Parse.Query(Parse.User);
@@ -53,9 +53,11 @@ const Validate = () => {
       <Outlet />
     </div>
   ) : (
-    <ModalUi showHeader={false} isOpen={true} showClose={false}>
+    <ModalUi showHeader={false} isOpen={true} showClose={false} reduceWidth={true}  title=""
+    handleClose={() => {}}
+    >
       <div className="flex flex-col justify-center items-center py-4 md:py-5 gap-5">
-        <p className="text-xl font-medium">{this("session-expired")}</p>
+        <p className="text-xl font-medium">{t("session-expired")}</p>
         <button onClick={handleLoginBtn} className="op-btn op-btn-neutral">
           {t("login")}
         </button>

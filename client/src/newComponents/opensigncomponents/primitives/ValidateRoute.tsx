@@ -26,12 +26,12 @@ const ValidateRoute = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handlelogout = async () => {
-    let appdata = localStorage.getItem("userSettings");
-    let applogo = localStorage.getItem("appLogo");
-    let defaultmenuid = localStorage.getItem("defaultmenuid");
-    let PageLanding = localStorage.getItem("PageLanding");
-    let baseUrl = OpenSignServerURL;
-    let appid = XParseApplicationId;
+    let appdata = localStorage.getItem("userSettings")!;
+    let applogo = localStorage.getItem("appLogo")!;
+    let defaultmenuid = localStorage.getItem("defaultmenuid")!;
+    let PageLanding = localStorage.getItem("PageLanding")!;
+    let baseUrl = OpenSignServerURL!;
+    let appid = XParseApplicationId!;
 
     localStorage.clear();
     saveLanguageInLocal(i18n);

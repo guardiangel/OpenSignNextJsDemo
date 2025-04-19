@@ -6,9 +6,9 @@ import { OpenSignServerURL, XParseApplicationId } from "../../constant/Utils";
 
 const SelectSigners = (props) => {
   const { t } = useTranslation();
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState<any[]>([]);
   const [selected, setSelected] = useState();
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState<any>({});
   const [isError, setIsError] = useState(false);
   // `handleOptions` is used to set just save from quick form to selected option in dropdown
   const handleOptions = (item) => {
@@ -85,7 +85,7 @@ const SelectSigners = (props) => {
             loadOptions={loadOptions}
             onChange={handleOptions}
             unstyled
-            onFocus={() => loadOptions()}
+            onFocus={() => loadOptions("")}
             classNames={{
               control: () =>
                 "op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full h-full text-[11px]",

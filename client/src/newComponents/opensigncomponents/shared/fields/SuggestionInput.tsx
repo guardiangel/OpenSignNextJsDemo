@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { findContact } from "../../../opensigncomponents/constant/Utils";
 const SuggestionInput = (props) => {
   const [inputValue, setInputValue] = useState(props?.value || "");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
     document.addEventListener("mousedown", Clickout);
@@ -41,7 +41,7 @@ const SuggestionInput = (props) => {
   }, [inputValue]);
 
   const handleInputChange = async (e) => {
-    const value = e.target?.value;
+    const value = e.target.value;
     setInputValue(value?.toLowerCase()?.replace(/\s/g, ""));
     if (props.onChange) {
       props.onChange(value?.toLowerCase()?.replace(/\s/g, ""));

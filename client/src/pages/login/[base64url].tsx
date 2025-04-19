@@ -15,7 +15,10 @@ const LoginPage = () => {
   return (
     <div>
       <h1>Login Page</h1>
-      <GuestLogin base64url={base64url} />
+      <GuestLogin
+      //@ts-ignore
+       base64url={base64url} 
+       />
     </div>
   );
 };

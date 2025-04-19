@@ -19,7 +19,7 @@ function generatePassword(length) {
 
 const AddUser = (props) => {
   const { t } = useTranslation();
-  const [formdata, setFormdata] = useState({
+  const [formdata, setFormdata] = useState<any>({
     name: "",
     phone: "",
     email: "",
@@ -36,7 +36,7 @@ const AddUser = (props) => {
   });
   const [isFormLoader, setIsFormLoader] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
-  const [teamList, setTeamList] = useState([]);
+  const [teamList, setTeamList] = useState<any[]>([]);
   const [allowedUser, setAllowedUser] = useState(0);
   const [err, setErr] = useState("");
   const role = ["OrgAdmin", "Editor", "User"];
@@ -52,7 +52,7 @@ const AddUser = (props) => {
     if (isEnableSubscription) {
       try {
         setIsLoader(true);
-        const resSub = await fetchSubscriptionInfo();
+        const resSub:any = await fetchSubscriptionInfo();
         if (!resSub.error) {
           setPlanInfo((prev) => ({
             ...prev,
@@ -338,7 +338,7 @@ const AddUser = (props) => {
   };
   return (
     <div className="shadow-md rounded-box my-[1px] p-3 bg-base-100 relative">
-      <Title title={t("add-user")} />
+      <Title title={t("add-user")} drive={""}/>
       {isFormLoader && (
         <div className="absolute w-full h-full inset-0 flex justify-center items-center bg-base-content/30 z-50">
           <Loader />
@@ -508,6 +508,7 @@ const AddUser = (props) => {
                       {t("submit")}
                     </button>
                     <div
+                    //@ts-ignore
                       type="button"
                       onClick={() => handleReset()}
                       className="op-btn op-btn-secondary"

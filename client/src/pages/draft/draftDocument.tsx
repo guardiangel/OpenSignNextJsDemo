@@ -22,7 +22,7 @@ function DraftDocument() {
   //get document details
   const getDocumentDetails = async () => {
     //getting document details
-    const documentData = await contractDocument(docId);
+    const documentData = await contractDocument(docId,undefined);
     if (documentData && documentData.length > 0) {
       handleDraftDoc(documentData);
     } else if (

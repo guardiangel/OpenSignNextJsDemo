@@ -15,7 +15,6 @@ import { TouchBackend } from "react-dnd-touch-backend";
 import "@/pages/parseClient"; // Don't delete this, otherwise, we need to import the page separately GuiquanSun20250325
 import { pdfjs } from "react-pdf";
 import { Provider } from 'react-redux';
-import { msalConfig } from '../../src/config/authConfig';
 import createEmotionCache from '../createEmotionCache';
 import "../i18n"; // don't delete this line if we need to use useTransaction 20250227 Guiquan Sun
 import '../styles/AddUser.css';

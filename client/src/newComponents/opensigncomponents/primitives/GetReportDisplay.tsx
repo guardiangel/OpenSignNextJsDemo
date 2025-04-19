@@ -79,7 +79,7 @@ const ReportTable = (props) => {
     const [isLoader, setIsLoader] = useState({});
     const [isShareWith, setIsShareWith] = useState({});
     const [teamList, setTeamList] = useState([]);
-    const [selectedTeam, setSelectedTeam] = useState([]);
+    const [selectedTeam, setSelectedTeam] = useState<any[]>([]);
     const onChange = (selectedOptions) => setSelectedTeam(selectedOptions);
     const [selectedPublicRole, setSelectedPublicRole] = useState('');
     const [isCelebration, setIsCelebration] = useState(false);
@@ -376,12 +376,12 @@ const ReportTable = (props) => {
                                     setActLoader({});
                                     setIsAlert(true);
                                     setTimeout(() => setIsAlert(false), 1500);
-                                    router.push(
-                                        `/${act.redirectUrl}/${res.data.objectId}`,
-                                        {
-                                            state: { title: 'Use Template' },
+                                    router.push({
+                                         pathname:`/${act.redirectUrl}/${res.data.objectId}`,
+                                         query:{
+                                             title: 'Use Template'
                                         }
-                                    );
+                                });
                                 }
                             } catch (err:any) {
                                 console.log('Err', err);
@@ -591,7 +591,7 @@ const ReportTable = (props) => {
     const handleRevoke = async (item) => {
         const senderUser = localStorage.getItem(
             `Parse/${XParseApplicationId}/currentUser`
-        );
+        )!;
         const jsonSender = JSON.parse(senderUser);
         setIsRevoke({});
         setActLoader({ [`${item.objectId}`]: true });
@@ -1167,9 +1167,7 @@ const ReportTable = (props) => {
     };
 
     const publicUrl = () => {
-        const subDomain = isStaging
-            ? `https://staging.opensign.me/`
-            : `https://opensign.me/`;
+        const subDomain = `https://educationCa.com`;
         const url = `${subDomain}${publicUserName}`;
         return url;
     };
@@ -1422,6 +1420,7 @@ const ReportTable = (props) => {
                 {props.tourData && props.ReportName === 'Templates' && (
                     <>
                         <Tour
+                        //@ts-ignore
                             onRequestClose={closeTour}
                             steps={props.tourData}
                             isOpen={isTour}
@@ -1576,6 +1575,7 @@ const ReportTable = (props) => {
                                                                 handleClose={
                                                                     handleClose
                                                                 }
+                                                                reduceWidth={true} 
                                                             >
                                                                 <div className="m-[20px]">
                                                                     <div className="text-lg font-normal text-black">
@@ -1758,7 +1758,7 @@ const ReportTable = (props) => {
                                                                             onChange={(
                                                                                 e
                                                                             ) => {
-                                                                                setIsPublicTour();
+                                                                                setIsPublicTour("");
                                                                                 handlePublicChange(
                                                                                     e,
                                                                                     item
@@ -1810,6 +1810,7 @@ const ReportTable = (props) => {
                                                                             })
                                                                         );
                                                                     }}
+                                                                    reduceWidth={true} 
                                                                 >
                                                                     <div className="m-[20px]">
                                                                         <div className="font-normal text-black">
@@ -1894,6 +1895,7 @@ const ReportTable = (props) => {
                                                                             false
                                                                         );
                                                                     }}
+                                                                    reduceWidth={true} 
                                                                 >
                                                                     <div className="m-[20px]">
                                                                         {isEmbed &&
@@ -2326,6 +2328,7 @@ const ReportTable = (props) => {
                                                                                     >
                                                                                         <Select
                                                                                             // onSortEnd={onSortEnd}
+                                                                                            //@ts-ignore
                                                                                             distance={
                                                                                                 4
                                                                                             }
@@ -2400,7 +2403,7 @@ const ReportTable = (props) => {
                                                                             >
                                                                                 ✕
                                                                             </div>
-                                                                            <SubscribeCard plan="TEAMS" />
+                                                                            <SubscribeCard plan="TEAMS" price={0}/>
                                                                         </>
                                                                     )}
                                                                 {!isEnableSubscription &&
@@ -2555,6 +2558,7 @@ const ReportTable = (props) => {
                                                             handleClose={
                                                                 handleClose
                                                             }
+                                                            reduceWidth={true} 
                                                         >
                                                             <div className="m-[20px]">
                                                                 <div className="text-lg font-normal text-black">
@@ -2607,6 +2611,7 @@ const ReportTable = (props) => {
                                                                     {}
                                                                 )
                                                             }
+                                                            reduceWidth={true} 
                                                         >
                                                             {isLoader[
                                                                 item.objectId
@@ -2647,11 +2652,12 @@ const ReportTable = (props) => {
                                                                     false
                                                                 );
                                                             }}
+                                                            reduceWidth={true} 
                                                         >
                                                             <div className="m-[20px]">
                                                                 {shareUrls.map(
                                                                     (
-                                                                        share,
+                                                                        share:any,
                                                                         i
                                                                     ) => (
                                                                         <div
@@ -2717,6 +2723,7 @@ const ReportTable = (props) => {
                                                             handleClose={
                                                                 handleClose
                                                             }
+                                                            reduceWidth={true} 
                                                         >
                                                             <div className="m-[20px]">
                                                                 <div className="text-sm md:text-lg font-normal text-black">
@@ -2789,6 +2796,7 @@ const ReportTable = (props) => {
                                                                     {}
                                                                 );
                                                             }}
+                                                            reduceWidth={true} 
                                                         >
                                                             <div className=" overflow-y-auto max-h-[340px] md:max-h-[400px]">
                                                                 {item?.Placeholders?.map(
@@ -2920,10 +2928,7 @@ const ReportTable = (props) => {
                                                                                     </form>
                                                                                 </div>
                                                                             )}
-                                                                            {Object?.keys(
-                                                                                isNextStep
-                                                                            ) <=
-                                                                                0 && (
+                                                                            {Object.keys(isNextStep).length <= 0 && (
                                                                                 <div className="flex justify-between items-center gap-2 my-2 px-3">
                                                                                     <div className="text-black">
                                                                                         {user
@@ -3030,6 +3035,7 @@ const ReportTable = (props) => {
                     title={t('add-contact')}
                     isOpen={isContactform}
                     handleClose={handleContactFormModal}
+                    reduceWidth={true} 
                 >
                     <AddSigner
                         handleUserData={handleUserData}

@@ -1,4 +1,3 @@
-import { CreateFileInFolderMutation, formatDoc } from "@/newComponents/FileManager/helpers";
 import { isEnableSubscription } from "@/newComponents/opensigncomponents/constant/const";
 import {
   generatePdfName, generateTitleFromFilename,
@@ -33,7 +32,7 @@ import OpenSignPageNotFound from "./OpenSignPageNotFound";
 function OpenSignForm() {
   
   const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const id = searchParams.get("id")!;
   console.log("OpenSignForm id:",id);
 
   const config = formJson[id];

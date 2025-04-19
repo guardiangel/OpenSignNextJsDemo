@@ -12,7 +12,7 @@ const CreateFolder = ({ parentFolderId, onSuccess, folderCls }) => {
   };
   const { t } = useTranslation();
   const [name, setName] = useState("");
-  const [folderList, setFolderList] = useState([]);
+  const [folderList, setFolderList] = useState<any[]>([]);
   const [isAlert, setIsAlert] = useState(false);
   const [isLoader, setIsLoader] = useState(false);
   const [selectedParent, setSelectedParent] = useState();
@@ -108,14 +108,14 @@ const CreateFolder = ({ parentFolderId, onSuccess, folderCls }) => {
     }
   };
   const handleOptions = (e) => {
-    setSelectedParent(e.target?.value);
+    setSelectedParent(e.target.value);
   };
   const handleLoader = (status) => {
     setIsLoader(status);
   };
   return (
     <div>
-      {isAlert && <Alert type={alert.type}>{alert.message}</Alert>}
+      {isAlert && <Alert type={alert.type} className={""}>{alert.message}</Alert>}
       <div id="createFolder" className="relative">
         {isLoader && (
           <div className="absolute h-full w-full flex justify-center items-center">
@@ -133,7 +133,7 @@ const CreateFolder = ({ parentFolderId, onSuccess, folderCls }) => {
           <input
             className="op-input op-input-bordered op-input-sm focus:outline-none hover:border-base-content w-full text-xs"
             value={name}
-            onChange={(e) => setName(e.target?.value)}
+            onChange={(e) => setName(e.target.value)}
             onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity(t("input-required"))}
             onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
             required
@@ -148,7 +148,7 @@ const CreateFolder = ({ parentFolderId, onSuccess, folderCls }) => {
           >
             <option>select</option>
             {folderList.length > 0 &&
-              folderList.map((x) => (
+              folderList.map((x:any) => (
                 <option key={x.objectId} value={x.objectId}>
                   {x.Name}
                 </option>

@@ -6,15 +6,15 @@ import CreateFolder from "./CreateFolder";
 
 const FolderModal = (props) => {
   const { t } = useTranslation();
-  const [clickFolder, setClickFolder] = useState("");
-  const [folderList, setFolderList] = useState([]);
-  const [tabList, setTabList] = useState([]);
+  const [clickFolder, setClickFolder] = useState<any>("");
+  const [folderList, setFolderList] = useState<any[]>([]);
+  const [tabList, setTabList] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
   const [isAdd, setIsAdd] = useState(false);
   //   below useEffect is called when user open popup
   useEffect(() => {
     if (props.isOpenModal) {
-      fetchFolder();
+      fetchFolder(undefined);
     }
     // eslint-disable-next-line
   }, [props.isOpenModal]);
@@ -142,7 +142,7 @@ const FolderModal = (props) => {
         objectId: clickFolder.ObjectId
       });
     } else {
-      fetchFolder();
+      fetchFolder(undefined);
     }
     handleCreate();
   };
@@ -152,13 +152,14 @@ const FolderModal = (props) => {
         title={t("select-foler")}
         isOpen={props.isOpenModal}
         handleClose={handleCancel}
+        reduceWidth={true} 
       >
         <div className="w-full min-w-[300px] md:min-w-[500px] max-w-[500px] px-3">
           <div className="pt-1 text-[#ac4848] text-[14px] font-[500]">
             <span
               className="cursor-pointer"
               title="VassuTech™ Drive"
-              onClick={(e) => removeTabListItem(e)}
+              onClick={(e) => removeTabListItem(e,undefined)}
             >
               {t("OpenSign-drive")} /{" "}
             </span>

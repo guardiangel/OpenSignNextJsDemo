@@ -5,6 +5,12 @@ const DROPBOX_APP_KEY = process.env.REACT_APP_DROPBOX_API_KEY; // App key
 const DROPBOX_SDK_URL = "https://www.dropbox.com/static/api/2/dropins.js";
 const DROPBOX_SCRIPT_ID = "dropboxjs";
 
+declare global {
+  interface Window {
+    Dropbox: any; // or better type it with Dropbox types if available
+  }
+}
+
 export default function DropboxChooser({ children, onSuccess, onCancel }) {
   useDropScript(DROPBOX_SDK_URL, {
     attrs: { id: DROPBOX_SCRIPT_ID, "data-app-key": DROPBOX_APP_KEY }
