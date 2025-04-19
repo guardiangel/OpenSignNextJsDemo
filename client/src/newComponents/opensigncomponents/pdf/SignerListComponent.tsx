@@ -11,7 +11,7 @@ function SignerListComponent(props) {
           (data) => data.signerObjId === obj.objectId
         );
       }
-      return data && data.length > 0 && data[0].blockColor;
+      return data && data.length > 0 && (data[0] as any).blockColor;
     }
   };
   const checkUserNameColor = (obj) => {

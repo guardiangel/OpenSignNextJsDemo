@@ -6,6 +6,7 @@ function TextFontSetting(props) {
   const { t } = useTranslation();
   return (
     <ModalUi
+    //@ts-ignore
       headerColor={"#dc3545"}
       isOpen={props.isTextSetting}
       reduceWidth={"max-w-[350px]"}

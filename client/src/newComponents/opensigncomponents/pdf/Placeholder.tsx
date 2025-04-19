@@ -91,12 +91,12 @@ const getDefaultdate = (selectedDate, format = "dd-MM-yyyy") => {
 //function to get default format
 const getDefaultFormat = (dateFormat) => dateFormat || "MM/dd/yyyy";
 
-function Placeholder(props) {
+function Placeholder(props:any) {
   const { t } = useTranslation();
   const [placeholderBorder, setPlaceholderBorder] = useState({ w: 0, h: 0 });
   const [isDraggingEnabled, setDraggingEnabled] = useState(true);
   const [isDateModal, setIsDateModal] = useState(false);
-  const [containerScale, setContainerScale] = useState();
+  const [containerScale, setContainerScale] = useState<any>();
   const [selectDate, setSelectDate] = useState({
     date:
       props.pos.type === "date"
@@ -114,8 +114,8 @@ function Placeholder(props) {
         ? getDefaultFormat(props.pos?.options?.validation?.format)
         : ""
   });
-  const [dateFormat, setDateFormat] = useState([]);
-  const [clickonWidget, setClickonWidget] = useState({});
+  const [dateFormat, setDateFormat] = useState<any[]>([]);
+  const [clickonWidget, setClickonWidget] = useState<any>({});
   const [startDate, setStartDate] = useState(
     props.pos.type === "date" &&
       getDefaultdate(
@@ -124,8 +124,8 @@ function Placeholder(props) {
       )
   );
   const [getCheckboxRenderWidth, setGetCheckboxRenderWidth] = useState({
-    width: null,
-    height: null
+    width: 0,
+    height: 0
   });
 
   useEffect(() => {
@@ -178,7 +178,7 @@ function Placeholder(props) {
   }, [isDraggingEnabled]);
   //function change format array list with selected date and format
   const changeDateFormat = () => {
-    const updateDate = [];
+    const updateDate:any[] = [];
     dateFormatArr.map((data) => {
       let date;
       if (selectDate && selectDate.format === "dd-MM-yyyy") {
@@ -712,9 +712,6 @@ function Placeholder(props) {
           border: "1px solid #007bff",
           borderRadius: "2px",
           textAlign:
-            props.pos.type !== "name" &&
-            props.pos.type !== "company" &&
-            props.pos.type !== "job title" &&
             "center",
           cursor: getCursor(),
           zIndex:
@@ -909,7 +906,9 @@ function Placeholder(props) {
           </>
         )}
       </Rnd>
-      <ModalUi isOpen={isDateModal} title={t("widget-info")} showClose={false}>
+      <ModalUi isOpen={isDateModal} title={t("widget-info")} showClose={false} reduceWidth={true} 
+       handleClose={() => {}}>
+        
         <div className="h-[100%] p-[20px]">
           <div className="flex flex-row items-center">
             <span>{t("format")} : </span>
@@ -987,7 +986,7 @@ function Placeholder(props) {
             className="op-btn op-btn-primary"
             onClick={() => {
               setIsDateModal(false);
-              handleSaveDate(selectDate);
+              handleSaveDate(selectDate,undefined);
               props.setFontColor("");
               props.setFontSize("");
             }}

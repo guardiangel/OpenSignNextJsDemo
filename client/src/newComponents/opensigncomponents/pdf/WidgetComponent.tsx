@@ -106,7 +106,7 @@ function WidgetComponent({
   });
   const isMobile = window.innerWidth < 767;
   const scrollContainerRef = useRef(null);
-  const [widget, setWidget] = useState([]);
+  const [widget, setWidget] = useState<any[]>([]);
   const handleModal = () => {
     setIsSignersModal(!isSignersModal);
   };
@@ -177,7 +177,7 @@ function WidgetComponent({
                     data-tut="recipientArea"
                     className="w-full op-select op-select-bordered  pointer-events-none"
                     value={handleSelectRecipient()}
-                    readOnly 
+                    disabled 
                     onChange={(e) => handleRecipientChange(e.target?.value)} 
                     style={{
                       backgroundColor: isSelectListId
@@ -263,6 +263,7 @@ function WidgetComponent({
           title={title ? title : t("recipients")}
           isOpen={isSignersModal}
           handleClose={handleModal}
+          reduceWidth={true} 
         >
           {signersdata.length > 0 ? (
             <div className="max-h-[600px] overflow-auto pb-1">

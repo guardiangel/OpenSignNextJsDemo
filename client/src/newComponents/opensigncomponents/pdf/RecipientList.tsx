@@ -11,10 +11,10 @@ const cursor =
   "cursor-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAASElEQVR4nGNgwAMkJSUbpKSkOvCpIaT5PxSTbogUQjMYMwxeIIXmVFIxA8UGDDyQGg0DnIDi6JKUlCxHMqCeZAOghjSAMD5FAKfeaURdUFxCAAAAAElFTkSuQmCC'),_pointer]";
 const RecipientList = (props) => {
   const [animationParent] = useAutoAnimate();
-  const [isHover, setIsHover] = useState();
-  const [isEdit, setIsEdit] = useState(false);
+  const [isHover, setIsHover] = useState<any>();
+  const [isEdit, setIsEdit] = useState<any>(false);
   //function for onhover signer name change background color
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
   const isWidgetExist = (Id) => {
     return props.signerPos.some((x) => x.Id === Id && x.placeHolder);
   };
@@ -97,7 +97,7 @@ const RecipientList = (props) => {
                 props.sendInOrder && !isMobile && handleDragOver(e)
               }
               onDrop={(e) =>
-                props.sendInOrder && !isMobile && handleChangeSequence(e, ind)
+                props.sendInOrder && !isMobile && handleChangeSequence(e, ind,undefined,undefined)
               }
               data-tut="recipientArea"
               onMouseEnter={() => setIsHover(ind)}
@@ -222,7 +222,7 @@ const RecipientList = (props) => {
                     onClick={(e) => {
                       if (ind !== 0) {
                         e.stopPropagation();
-                        handleChangeSequence(e, ind, "up");
+                        handleChangeSequence(e, ind, "up",undefined);
                       }
                     }}
                     className={ind === 0 ? "text-[gray]" : "text-black"}

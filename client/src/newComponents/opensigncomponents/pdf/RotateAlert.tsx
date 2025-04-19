@@ -8,6 +8,7 @@ function RotateAlert(props) {
       isOpen={props.isRotate}
       title={t("Rotation-alert")}
       handleClose={() => props.setIsRotate({ status: false, degree: 0 })}
+      reduceWidth={true} 
     >
       {" "}
       <div className="p-[20px] h-full">

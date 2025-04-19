@@ -25,7 +25,7 @@ const WidgetNameModal = (props) => {
   const [isValid, setIsValid] = useState(true);
   const statusArr = ["Required", "Optional"];
   const inputOpt = ["text", "email", "number"];
-  const [signatureType, setSignatureType] = useState([]);
+  const [signatureType, setSignatureType] = useState<any[]>([]);
 
   useEffect(() => {
     if (props.defaultdata) {
@@ -142,6 +142,7 @@ const WidgetNameModal = (props) => {
       isOpen={props.isOpen}
       handleClose={props.handleClose && props.handleClose}
       title={t("widget-info")}
+      reduceWidth={true} 
     >
       <form
         onSubmit={handleSubmit}
@@ -214,7 +215,7 @@ const WidgetNameModal = (props) => {
                       onBlur={() => handleBlurRegex()}
                     >
                       <option
-                        disabled={formdata?.textvalidate}
+                        disabled={formdata?.textvalidate === "true"}
                         className="text-[13px]"
                       >
                         Select...

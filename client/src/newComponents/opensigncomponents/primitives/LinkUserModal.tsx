@@ -13,6 +13,7 @@ const LinkUserModal = (props) => {
         (props?.isAddUser && props?.isAddUser[props?.uniqueId])
       }
       handleClose={props.closePopup}
+      reduceWidth={true} 
     >
       <SelectSigners
         details={props.handleAddUser}

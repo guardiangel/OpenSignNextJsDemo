@@ -64,7 +64,7 @@ function PlaceholderCopy(props) {
 
   //function for copy placeholder as per select copy type
   const copyPlaceholder = (type) => {
-    let newPlaceholderPosition = [];
+    let newPlaceholderPosition:any[] = [];
     let newPageNumber = 1;
     const signerPosition = props.xyPostion;
     const signerId = props.signerObjId ? props.signerObjId : props.Id;
@@ -220,7 +220,8 @@ function PlaceholderCopy(props) {
           props.widgetType,
           props.xyPostion,
           getIndex,
-          props.setXyPostion
+          props.setXyPostion,
+          undefined
         );
       }
     } else {
@@ -241,6 +242,7 @@ function PlaceholderCopy(props) {
       isOpen={props.isPageCopy}
       title={t("copy-title")}
       handleClose={() => handleUniqueId()}
+      reduceWidth={true} 
     >
       <div className="h-full p-[20px] text-base-content">
         {copyType.map((data, key) => {

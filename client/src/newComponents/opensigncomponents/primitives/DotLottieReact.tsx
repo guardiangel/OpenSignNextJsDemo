@@ -7,7 +7,7 @@ const LottieWithLoader = () => {
   const { t } = useTranslation();
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [animationSrc, setAnimationSrc] = useState(null);
+  const [animationSrc, setAnimationSrc] = useState<any>(null);
   const src =
     "https://lottie.host/00a72a09-f2d4-493a-9b2d-2843bf067638/Ic7jJ44wLJ.json";
   useEffect(() => {

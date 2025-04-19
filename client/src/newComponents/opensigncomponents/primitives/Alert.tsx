@@ -1,7 +1,7 @@
 import React from "react";
 
 const Alert = ({ children, type, className }) => {
-  const textcolor = type ? theme(type) : theme();
+  const textcolor = type ? theme(type) : theme("");
   function theme(color) {
     switch (color) {
       case "success":

@@ -15,7 +15,7 @@ import ModalUi from "./ModalUi";
 function DownloadPdfZip(props) {
   const { t } = useTranslation();
   const [selectType, setSelectType] = useState(1);
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloading, setIsDownloading] = useState<any>(false);
   const downloadType = [
     { id: 1, label: t("download-pdf") },
     { id: 2, label: t("pdf-certificate") }
@@ -85,6 +85,7 @@ function DownloadPdfZip(props) {
       isOpen={props.isDownloadModal}
       title={t("download-files")}
       handleClose={() => props.setIsDownloadModal(false)}
+      reduceWidth={true} 
     >
       <div className="p-[20px] h-full">
         {downloadType.map((data, ind) => {
@@ -126,6 +127,7 @@ function DownloadPdfZip(props) {
             : t("pdf-download")
         }
         handleClose={() => setIsDownloading("")}
+        reduceWidth={true} 
       >
         <div className="p-3 md:p-5 text-[13px] md:text-base text-center text-base-content">
           {isDownloading === "certificate"}{" "}

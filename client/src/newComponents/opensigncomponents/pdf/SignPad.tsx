@@ -7,9 +7,9 @@ function SignPad(props) {
   const { t } = useTranslation();
   const [penColor, setPenColor] = useState("blue");
   const allColor = ["blue", "red", "black"];
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<any>(null);
   const [isDefaultSign, setIsDefaultSign] = useState(false);
-  const [isTab, setIsTab] = useState("");
+  const [isTab, setIsTab] = useState<any>("");
   const [isSignImg, setIsSignImg] = useState("");
   const [signValue, setSignValue] = useState("");
   const [textWidth, setTextWidth] = useState(0);
@@ -28,10 +28,10 @@ function SignPad(props) {
   const senderUser =
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    ) &&
+    )! &&
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
   const jsonSender = JSON.parse(senderUser);
   const currentUserName = jsonSender && jsonSender?.name;
 
@@ -221,7 +221,7 @@ function SignPad(props) {
       const firstCharacter = trimmedName?.charAt(0);
       const userName = props?.isInitial ? firstCharacter : signValue;
       setSignValue(userName);
-      convertToImg(fontSelect, userName);
+      convertToImg(fontSelect, userName,undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTab]);
@@ -246,7 +246,7 @@ function SignPad(props) {
     //create canvas to render text in canvas and convert in image
     const canvasElement = document.createElement("canvas");
     // Draw the text content on the canvas
-    const ctx = canvasElement.getContext("2d");
+    const ctx = canvasElement.getContext("2d")!;
     const pixelRatio = window.devicePixelRatio || 1;
     const addExtraWidth = props?.isInitial ? 10 : 50;
     const width = span.offsetWidth + addExtraWidth;
@@ -265,7 +265,7 @@ function SignPad(props) {
     ctx.textBaseline = "middle";
     ctx.scale(pixelRatio, pixelRatio);
     // Draw the content of the span onto the canvas
-    ctx.fillText(span.textContent, width / 2, height / 2); // Adjust the x,y-coordinate as needed
+    ctx.fillText(span.textContent?span.textContent:"", width / 2, height / 2); // Adjust the x,y-coordinate as needed
     //remove span tag
     document.body.removeChild(span);
     // Convert the canvas to image data
@@ -304,6 +304,7 @@ function SignPad(props) {
               }}
               key={key}
               className="fa-light fa-pen-nib"
+              //@ts-ignore
               width={20}
               height={20}
             ></i>
@@ -581,7 +582,7 @@ function SignPad(props) {
                           value={signValue}
                           onChange={(e) => {
                             setSignValue(e.target?.value);
-                            convertToImg(fontSelect, e.target?.value);
+                            convertToImg(fontSelect, e.target?.value,undefined);
                           }}
                         />
                       </div>
@@ -593,13 +594,14 @@ function SignPad(props) {
                               style={{
                                 cursor: "pointer",
                                 fontFamily: font.value,
+                                //@ts-ignore
                                 backgroundColor:
                                   fontSelect === font.value &&
                                   "rgb(206 225 247)"
                               }}
                               onClick={() => {
                                 setFontSelect(font.value);
-                                convertToImg(font.value, signValue);
+                                convertToImg(font.value, signValue,undefined);
                               }}
                             >
                               <div

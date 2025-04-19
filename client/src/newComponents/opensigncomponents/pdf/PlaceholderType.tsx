@@ -24,9 +24,9 @@ function PlaceholderType(props) {
   const widgetTypeTraslation = t(`widgets-name.${props?.pos?.type}`);
   const [selectOption, setSelectOption] = useState("");
   const [validatePlaceholder, setValidatePlaceholder] = useState("");
-  const inputRef = useRef(null);
-  const [textValue, setTextValue] = useState();
-  const [selectedCheckbox, setSelectedCheckbox] = useState([]);
+  const inputRef = useRef<any>(null);
+  const [textValue, setTextValue] = useState<any>();
+  const [selectedCheckbox, setSelectedCheckbox] = useState<any>([]);
   const years = range(1990, getYear(new Date()) + 16, 1);
   const fontSize = props.calculateFont(props.pos.options?.fontSize);
   const fontColor = props.pos.options?.fontColor || "black";
@@ -142,7 +142,7 @@ function PlaceholderType(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.pos?.options?.defaultValue]);
 
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+  const ExampleCustomInput = forwardRef(({ value, onClick }:any, ref) => (
     <div
       style={{
         fontSize: fontSize,
@@ -151,6 +151,7 @@ function PlaceholderType(props) {
       }}
       className={`${selectWidgetCls} overflow-hidden`}
       onClick={onClick}
+      //@ts-ignore
       ref={ref}
     >
       {value}
@@ -166,7 +167,7 @@ function PlaceholderType(props) {
       props.data?.signerObjId === props.signerObjId
     ) {
       const isDefault = true;
-      const senderUser = localStorage.getItem(`Extand_Class`);
+      const senderUser = localStorage.getItem(`Extand_Class`)!;
       const jsonSender = JSON.parse(senderUser);
       onChangeInput(
         jsonSender && jsonSender[0],
@@ -175,7 +176,12 @@ function PlaceholderType(props) {
         null,
         props.setXyPostion,
         props.data.Id,
-        isDefault
+        isDefault,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -217,7 +223,7 @@ function PlaceholderType(props) {
 
   //function for set checked and unchecked value of checkbox
   const handleCheckboxValue = (isChecked, ind) => {
-    let updateSelectedCheckbox = [],
+    let updateSelectedCheckbox:any[] = [],
       checkedList;
     let isDefaultValue, isDefaultEmpty;
     if (type === "checkbox") {
@@ -245,7 +251,10 @@ function PlaceholderType(props) {
         props.data && props.data.Id,
         false,
         null,
-        isDefaultEmpty
+        isDefaultEmpty,
+        undefined,
+        undefined,
+        undefined
       );
     }
   };
@@ -276,7 +285,9 @@ function PlaceholderType(props) {
       false,
       null,
       isDefaultEmpty,
-      isRadio
+      isRadio,
+      undefined,
+      undefined
     );
   };
   //function to set onchange date
@@ -423,7 +434,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -431,7 +447,7 @@ function PlaceholderType(props) {
             fontSize: fontSize,
             color: fontColor
           }}
-          cols="50"
+          cols={50}
         />
       ) : (
         <div
@@ -463,7 +479,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
         >
@@ -545,7 +566,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              isDefault
+              isDefault,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -553,7 +579,7 @@ function PlaceholderType(props) {
             fontSize: fontSize,
             color: fontColor
           }}
-          cols="50"
+          cols={50}
         />
       ) : (
         <div
@@ -585,7 +611,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -593,7 +624,7 @@ function PlaceholderType(props) {
             fontSize: fontSize,
             color: fontColor
           }}
-          cols="50"
+          cols={50}
         />
       ) : (
         <div
@@ -625,7 +656,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -633,7 +669,7 @@ function PlaceholderType(props) {
             fontSize: fontSize,
             color: fontColor
           }}
-          cols="50"
+          cols={50}
         />
       ) : (
         <div
@@ -670,7 +706,7 @@ function PlaceholderType(props) {
                 <select
                   className="bg-transparent outline-none"
                   value={getYear(date)}
-                  onChange={({ target: { value } }) => changeYear(value)}
+                  onChange={({ target: { value } }) => changeYear(Number(value))}
                 >
                   {years.map((option) => (
                     <option key={option} value={option}>
@@ -761,7 +797,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -770,7 +811,7 @@ function PlaceholderType(props) {
             color: fontColor,
             fontFamily: "Arial, sans-serif"
           }}
-          cols="50"
+          cols={50}
         />
       ) : (
         <div
@@ -843,7 +884,12 @@ function PlaceholderType(props) {
               props.index,
               props.setXyPostion,
               props.data && props.data?.Id,
-              false
+              false,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined
             );
           }}
           className={textWidgetCls}
@@ -852,7 +898,7 @@ function PlaceholderType(props) {
             fontSize: fontSize,
             color: fontColor
           }}
-          cols="50"
+          cols={50}
         />
       );
     default:

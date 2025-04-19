@@ -261,7 +261,7 @@ function RenderPdf({
   return (
     <>
       {successEmail && (
-        <Alert type={"success"}>{t("success-email-alert")}</Alert>
+        <Alert type={"success"} className="">{t("success-email-alert")}</Alert>
       )}
       {isMobile ? (
         <Scrollbars

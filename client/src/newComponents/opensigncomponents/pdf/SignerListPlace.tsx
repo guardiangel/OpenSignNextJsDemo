@@ -41,6 +41,7 @@ function SignerListPlace(props) {
           <div
             role="button"
             data-tut="reactourAddbtn"
+            //@ts-ignore
             disabled={props?.isMailSend ? true : false}
             className="op-btn op-btn-accent op-btn-outline w-full mt-[14px]"
             onClick={() => props.handleAddSigner()}
@@ -52,6 +53,7 @@ function SignerListPlace(props) {
             role="button"
             data-tut="addRecipient"
             className="op-btn op-btn-accent op-btn-outline w-full mt-[14px]"
+            //@ts-ignore
             disabled={props?.isMailSend ? true : false}
             onClick={() => props.setIsAddSigner(true)}
           >

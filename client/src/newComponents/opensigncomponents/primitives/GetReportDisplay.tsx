@@ -63,7 +63,7 @@ const ReportTable = (props) => {
     const [isRevoke, setIsRevoke] = useState({});
     const [isShare, setIsShare] = useState({});
     const [shareUrls, setShareUrls] = useState([]);
-    const [copied, setCopied] = useState(false);
+    const [copied, setCopied] = useState<any>(false);
     const [isOption, setIsOption] = useState({});
     const [alertMsg, setAlertMsg] = useState({ type: 'success', message: '' });
     const [isTour, setIsTour] = useState(false);
@@ -71,7 +71,7 @@ const ReportTable = (props) => {
     const [isResendMail, setIsResendMail] = useState({});
     const [isMakePublicModal, setIsMakePublicModal] = useState({});
     const [mail, setMail] = useState({ subject: '', body: '' });
-    const [userDetails, setUserDetails] = useState({});
+    const [userDetails, setUserDetails] = useState<any>({});
     const [isNextStep, setIsNextStep] = useState({});
     const [isBulkSend, setIsBulkSend] = useState({});
     const [templateDeatils, setTemplateDetails] = useState({});
@@ -86,12 +86,12 @@ const ReportTable = (props) => {
     const [isPublicProfile, setIsPublicProfile] = useState({});
     const [publicUserName, setIsPublicUserName] = useState('');
     const [isViewShare, setIsViewShare] = useState({});
-    const [isSubscribe, setIsSubscribe] = useState(true);
+    const [isSubscribe, setIsSubscribe] = useState<any>(true);
     const [isModal, setIsModal] = useState({});
     const [reason, setReason] = useState('');
-    const [isDownloadModal, setIsDownloadModal] = useState(false);
+    const [isDownloadModal, setIsDownloadModal] = useState<any>(false);
     const [isEmbed, setIsEmbed] = useState(false);
-    const [isPublicTour, setIsPublicTour] = useState();
+    const [isPublicTour, setIsPublicTour] = useState<any>();
     const [signatureType, setSignatureType] = useState([]);
     const [expiryDate, setExpiryDate] = useState('');
     const Extand_Class = localStorage.getItem('Extand_Class')!;
@@ -101,7 +101,7 @@ const ReportTable = (props) => {
 
     const getPaginationRange = () => {
         const totalPageNumbers = 7; // Adjust this value to show more/less page numbers
-        const pages = [];
+        const pages:any[] = [];
         const totalPages = Math.ceil(props.List.length / props.docPerPage);
         if (totalPages <= totalPageNumbers) {
             for (let i = 1; i <= totalPages; i++) {
@@ -224,11 +224,11 @@ const ReportTable = (props) => {
         const user = JSON.parse(
             localStorage.getItem(
                 `Parse/${XParseApplicationId}/currentUser`
-            )
+            )!
         );
         if (user) {
             try {
-                const tenantDetails = await getTenantDetails(user?.objectId);
+                const tenantDetails = await getTenantDetails(user?.objectId,undefined,undefined);
                 if (tenantDetails && tenantDetails === 'user does not exist!') {
                     alert(t('user-not-exist'));
                 } else if (tenantDetails) {
@@ -273,7 +273,7 @@ const ReportTable = (props) => {
                     if (!templateData.error) {
                         const Doc = templateData;
 
-                        let signers = [];
+                        let signers:any[] = [];
                         if (Doc.Signers?.length > 0) {
                             Doc.Signers?.forEach((x) => {
                                 if (x.objectId) {
@@ -439,7 +439,7 @@ const ReportTable = (props) => {
             handleBulkSend(item);
         } else if (act.action === 'sharewith') {
             if (isEnableSubscription) {
-                const subscribe = await checkIsSubscribed();
+                const subscribe = await checkIsSubscribed("");
                 setIsSubscribe(subscribe);
             } else {
                 setIsSubscribe({ plan: 'teams-yearly', isValid: true });
@@ -710,7 +710,7 @@ const ReportTable = (props) => {
             const appId = XParseApplicationId;
             const json = JSON.parse(localStorage.getItem('Extand_Class')!);
             const extUserId = json && json.length > 0 && json[0].objectId;
-            let updatedTourStatus = [];
+            let updatedTourStatus:any[] = [];
             if (tourStatusArr.length > 0) {
                 updatedTourStatus = [...tourStatusArr];
                 const templateTourIndex = tourStatusArr.findIndex(
@@ -1215,7 +1215,7 @@ const ReportTable = (props) => {
         try {
             const templateCls = new Parse.Object('contracts_Template');
             templateCls.id = template.objectId;
-            const teamArr = selectedTeam.map((x) => ({
+            const teamArr = selectedTeam.map((x:any) => ({
                 __type: 'Pointer',
                 className: 'contracts_Teams',
                 objectId: x.value,
@@ -1258,7 +1258,7 @@ const ReportTable = (props) => {
         },
     ];
     const closePublicTour = () => {
-        setIsPublicTour();
+        setIsPublicTour(false);
     };
     const handleUpdateExpiry = async (e, item) => {
         e.preventDefault();
@@ -1313,7 +1313,7 @@ const ReportTable = (props) => {
                     });
                 } finally {
                     setActLoader({});
-                    setExpiryDate();
+                    setExpiryDate("");
                     setTimeout(() => setIsAlert(false), 2000);
                     setIsModal({});
                 }
@@ -1386,6 +1386,7 @@ const ReportTable = (props) => {
                         isOpen
                         title={t('document-logs')}
                         handleClose={() => setIsModal({})}
+                        reduceWidth={true} 
                     >
                         <div className="pl-3 first:mt-2 border-t-[1px] border-gray-600 text-[12px] py-2">
                             <p className="font-bold"> {x?.Email}</p>
@@ -1416,7 +1417,7 @@ const ReportTable = (props) => {
                     </div>
                 )}
                 {isAlert && (
-                    <Alert type={alertMsg.type}>{alertMsg.message}</Alert>
+                    <Alert type={alertMsg.type} className={""}>{alertMsg.message}</Alert>
                 )}
                 {props.tourData && props.ReportName === 'Templates' && (
                     <>
@@ -1433,6 +1434,7 @@ const ReportTable = (props) => {
                                 showNavigation={false}
                                 showNavigationNumber={false}
                                 onRequestClose={closePublicTour}
+                                //@ts-ignore
                                 steps={publicTourConfig}
                                 isOpen={true}
                                 rounded={5}

@@ -60,10 +60,10 @@ const AddContact = (props) => {
       const user = JSON.parse(
         localStorage.getItem(
           `Parse/${XParseApplicationId}/currentUser`
-        )
+        )!
       );
       const userId = user?.objectId || "";
-      const tenantDetails = await getTenantDetails(userId, props.jwttoken);
+      const tenantDetails = await getTenantDetails(userId, props.jwttoken,undefined);
       const tenantId = tenantDetails?.objectId || "";
       if (tenantId) {
         try {

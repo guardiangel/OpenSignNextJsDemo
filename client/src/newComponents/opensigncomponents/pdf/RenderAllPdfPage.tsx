@@ -16,7 +16,7 @@ function RenderAllPdfPage({
   pdfRotateBase64
 }) {
   const { t } = useTranslation();
-  const [signPageNumber, setSignPageNumber] = useState([]);
+  const [signPageNumber, setSignPageNumber] = useState<any>([]);
   const [bookmarkColor, setBookmarkColor] = useState("");
   //set all number of pages after load pdf
   function onDocumentLoad({ numPages }) {
@@ -27,9 +27,9 @@ function RenderAllPdfPage({
         (data) => data.signerObjId === signerObjectId
       );
       setBookmarkColor(checkUser[0]?.blockColor);
-      let pageNumberArr = [];
+      let pageNumberArr:any[] = [];
       if (checkUser?.length > 0) {
-        checkUser[0]?.placeHolder?.map((data) => {
+        checkUser[0]?.placeHolder?.map((data:any) => {
           pageNumberArr.push(data?.pageNumber);
         });
 
@@ -37,9 +37,9 @@ function RenderAllPdfPage({
       }
     }
   }
-  const pageContainer = useRef();
-  const isHeader = useSelector((state) => state.showHeader);
-  const [pageWidth, setPageWidth] = useState("");
+  const pageContainer = useRef<any>();
+  const isHeader = useSelector((state:any) => state.showHeader);
+  const [pageWidth, setPageWidth] = useState(0);
 
   useEffect(() => {
     const updateSize = () => {
