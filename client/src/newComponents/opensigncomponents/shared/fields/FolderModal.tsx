@@ -79,7 +79,7 @@ const FolderModal = (props) => {
 
   // `handleSubmit` is used to pass folderPtr to parent component
   const handleSubmit = () => {
-    let url = "VassuTech™ Drive";
+    let url = "EducationCa™ Drive";
     tabList.forEach((t) => {
       url = url + " / " + t.Name;
     });
@@ -158,7 +158,7 @@ const FolderModal = (props) => {
           <div className="pt-1 text-[#ac4848] text-[14px] font-[500]">
             <span
               className="cursor-pointer"
-              title="VassuTech™ Drive"
+              title="EducationCa™ Drive"
               onClick={(e) => removeTabListItem(e,undefined)}
             >
               {t("OpenSign-drive")} /{" "}

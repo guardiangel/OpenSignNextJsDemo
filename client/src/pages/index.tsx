@@ -17,7 +17,7 @@ export default function Home() {
         <>
             <Head>
                 <title>DocVenture</title>
-                <meta name="description" content="Created by VassuTech" />
+                <meta name="description" content="Created by EducationCa" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"

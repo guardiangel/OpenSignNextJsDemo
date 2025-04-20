@@ -63,7 +63,7 @@ function EmailComponent({
           "X-Parse-Application-Id": XParseApplicationId,
           sessionToken: localStorage.getItem("accesstoken")
         };
-        const openSignUrl = "https://vassutech.com";
+        const openSignUrl = "https://EducationCa.com";
         const themeBGcolor = themeColor;
         let params = {
           mailProvider: activeMailAdapter,
@@ -80,9 +80,9 @@ function EmailComponent({
             themeBGcolor +
             ";'>    <p style='font-size:20px;font-weight:400;color:white;padding-left:20px',>  Document Copy</p></div><div><p style='padding:20px;font-family:system-ui;font-size:14px'>A copy of the document <strong>" +
             pdfName +
-            " </strong>is attached to this email. Kindly download the document from the attachment.</p></div> </div><div><p>This is an automated email from VassuTech™. For any queries regarding this email, please contact the sender " +
+            " </strong>is attached to this email. Kindly download the document from the attachment.</p></div> </div><div><p>This is an automated email from EducationCa™. For any queries regarding this email, please contact the sender " +
             sender.email +
-            " directly. If you think this email is inappropriate or spam, you may file a complaint with VassuTech™  <a href= " +
+            " directly. If you think this email is inappropriate or spam, you may file a complaint with EducationCa™  <a href= " +
             openSignUrl +
             " target=_blank>here</a> </p></div></div></body></html>"
         };

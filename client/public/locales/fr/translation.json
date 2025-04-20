@@ -78,7 +78,7 @@
             "Create template": "Créer un modèle",
             "Manage templates": "Gérer les modèles"
         },
-        "VassuTech™ Drive": "Lecteur VassuTech™",
+        "EducationCa™ Drive": "Lecteur EducationCa™",
         "Reports": "Rapports",
         "Reports-Children": {
             "Need your sign": "Besoin de votre signature",
@@ -192,7 +192,7 @@
     "remind-once": "Rappeler une fois tous les (jours)",
     "next": "Suivant",
     "select-folder": "Sélectionner le dossier",
-    "OpenSign-drive": "Lecteur VassuTech™",
+    "OpenSign-drive": "Lecteur EducationCa™",
     "drive-document-status": {
         "Completed": "Complété",
         "Declined": "Refuser",

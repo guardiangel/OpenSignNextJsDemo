@@ -78,7 +78,7 @@
             "Create template": "Create template",
             "Manage templates": "Manage templates"
         },
-        "VassuTech™ Drive": "VassuTech™ Drive",
+        "EducationCa™ Drive": "EducationCa™ Drive",
         "Reports": "Reports",
         "Reports-Children": {
             "Need your sign": "Need your sign",
@@ -193,7 +193,7 @@
     "remind-once": " Remind once in every (Days)",
     "next": "Next",
     "select-folder": "Select Folder",
-    "OpenSign-drive": "VassuTech™ Drive",
+    "OpenSign-drive": "EducationCa™ Drive",
     "drive-document-status": {
         "Completed": "Completed",
         "Declined": "Declined",

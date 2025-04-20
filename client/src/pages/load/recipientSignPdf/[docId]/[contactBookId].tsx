@@ -1050,12 +1050,12 @@ function PdfRequestFiles(props) {
                           );
                         }
                         const hostPublicUrl = 
-                           "https://vassutech.com";
+                           "https://EducationCa.com";
                         let signPdf = props?.templateId
                           ? `${hostPublicUrl}/login/${encodeBase64}`
                           : `${hostUrl}/login/${encodeBase64}`;
                         const openSignUrl =
-                          "https://vassutech.com";
+                          "https://EducationCa.com";
                         const orgName = pdfDetails[0]?.ExtUserPtr.Company
                           ? pdfDetails[0].ExtUserPtr.Company
                           : "";
@@ -1117,7 +1117,7 @@ function PdfRequestFiles(props) {
                               localExpireDate +
                               "</td></tr><tr> <td></td> <td> </td></tr></table> </div> <div style='margin-left:70px'><a target=_blank href=" +
                               signPdf +
-                              "> <button style='padding: 12px 12px 12px 12px;background-color: #d46b0f;color: white;  border: 0px;box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;font-weight:bold;margin-top:30px'>Sign here</button></a> </div> <div style='display: flex; justify-content: center;margin-top: 10px;'> </div></div></div><div><p> This is an automated email from VassuTech™. For any queries regarding this email, please contact the sender " +
+                              "> <button style='padding: 12px 12px 12px 12px;background-color: #d46b0f;color: white;  border: 0px;box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;font-weight:bold;margin-top:30px'>Sign here</button></a> </div> <div style='display: flex; justify-content: center;margin-top: 10px;'> </div></div></div><div><p> This is an automated email from EducationCa™. For any queries regarding this email, please contact the sender " +
                               senderEmail +
                               " directly.If you think this email is inappropriate or spam, you may file a complaint with OpenSign™   <a href= " +
                               openSignUrl +

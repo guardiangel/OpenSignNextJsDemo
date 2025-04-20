@@ -61,16 +61,16 @@ function DownloadPdfZip(props) {
         const pdf2Blob = await pdf2Response.blob();
         // Add files to ZIP
         zip.file(
-          `${sanitizeFileName(pdfName)}_signed_by_VassuTech™.pdf`,
+          `${sanitizeFileName(pdfName)}_signed_by_EducationCa™.pdf`,
           pdf1Blob
         );
-        zip.file("Certificate_signed_by_VassuTech™.pdf", pdf2Blob);
+        zip.file("Certificate_signed_by_EducationCa™.pdf", pdf2Blob);
 
         // Generate the ZIP and trigger download
         const zipBlob = await zip.generateAsync({ type: "blob" });
         saveAs(
           zipBlob,
-          `${sanitizeFileName(pdfName)}_signed_by_VassuTech™.zip`
+          `${sanitizeFileName(pdfName)}_signed_by_EducationCa™.zip`
         );
         setSelectType(1);
         props.setIsDownloadModal(false);

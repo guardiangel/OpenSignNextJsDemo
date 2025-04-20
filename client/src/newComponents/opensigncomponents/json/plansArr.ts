@@ -1,6 +1,6 @@
 const plans = [
     {
-        planName: 'VassuTech™ FREE',
+        planName: 'EducationCa™ FREE',
         code: { monthly: 'freeplan', yearly: 'freeplan' },
         img: 'free.png',
         currency: '',
@@ -19,7 +19,7 @@ const plans = [
             'Automatic e-signatures',
             'Completion certificates',
             'Send in order',
-            'Organize docs in VassuTech™ Drive',
+            'Organize docs in EducationCa™ Drive',
             'Document templates',
             'Import from Dropbox',
             'Contact book',
@@ -38,7 +38,7 @@ const plans = [
             'Automatic e-signatures',
             'Completion certificates',
             'Send in order',
-            'Organize docs in VassuTech™ Drive',
+            'Organize docs in EducationCa™ Drive',
             'Document templates',
             'Import from Dropbox',
             'Contact book',
@@ -50,7 +50,7 @@ const plans = [
         ],
     },
     {
-        planName: 'VassuTech™ PROFESSIONAL',
+        planName: 'EducationCa™ PROFESSIONAL',
         code: {
             monthly: 'professional-monthly',
             yearly: 'professional-yearly',
@@ -61,14 +61,14 @@ const plans = [
         yearlyPrice: `9.99<sup style="font-size: 17px;">/month</sup>`,
         subtitle: 'Exclusive Access to advanced features.',
         btn: { text: 'Subscribe', color: 'op-btn-primary' },
-        url: 'https://vassutech.com',
-        yearlyUrl: 'https://vassutech.com',
+        url: 'https://EducationCa.com',
+        yearlyUrl: 'https://EducationCa.com',
         target: '_self',
         benefits: [
-            'Everything in VassuTech™ free',
+            'Everything in EducationCa™ free',
             'Field validations',
             'Regular expression validations',
-            'Organize docs in VassuTech™ Drive',
+            'Organize docs in EducationCa™ Drive',
             'Webhooks',
             'Zapier integration',
             'API Access',
@@ -82,10 +82,10 @@ const plans = [
             'Embedded signing',
         ],
         yearlyBenefits: [
-            'Everything in VassuTech™ free',
+            'Everything in EducationCa™ free',
             'Field validations',
             'Regular expression validations',
-            'Organize docs in VassuTech™ Drive',
+            'Organize docs in EducationCa™ Drive',
             'Webhooks',
             'Zapier integration',
             'API Access',
@@ -100,7 +100,7 @@ const plans = [
         ],
     },
     {
-        planName: 'VassuTech™ TEAMS',
+        planName: 'EducationCa™ TEAMS',
         code: { monthly: 'teams-monthly', yearly: 'teams-yearly' },
         img: 'teams.png',
         currency: '$',
@@ -108,11 +108,11 @@ const plans = [
         yearlyPrice: `19.99<sup style="font-size: 17px;">/user/month</sup>`,
         subtitle: 'Exclusive Access to advanced features.',
         btn: { text: 'Subscribe', color: 'op-btn-accent' },
-        url: 'https://vassutech.com',
-        yearlyUrl: 'https://vassutech.com',
+        url: 'https://EducationCa.com',
+        yearlyUrl: 'https://EducationCa.com',
         target: '_self',
         benefits: [
-            'Everything in VassuTech™ professional',
+            'Everything in EducationCa™ professional',
             'upto 100 API signatures',
             'Teams and Organizations',
             'Share Templates with teams',
@@ -124,7 +124,7 @@ const plans = [
             'Mobile app (coming soon)',
         ],
         yearlyBenefits: [
-            'Everything in VassuTech™ professional',
+            'Everything in EducationCa™ professional',
             'upto 500 API signatures',
             'Teams and Organizations',
             'Share Templates with teams',
@@ -137,14 +137,14 @@ const plans = [
         ],
     },
     {
-        planName: 'VassuTech™ ENTERPRISE',
+        planName: 'EducationCa™ ENTERPRISE',
         img: 'enterprise.png',
         currency: '',
         monthlyPrice: `<p style="font-size: 22px;">Request Price</p>`,
         yearlyPrice: `<p style="font-size: 22px;">Request Price</p>`,
         subtitle: 'Scalable Features with priority support.',
         btn: { text: 'Contact us', color: 'op-btn-primary' },
-        url: 'https://vassutech.com/',
+        url: 'https://EducationCa.com/',
         target: '_blank',
         benefits: [
             'All features',
@@ -232,8 +232,8 @@ export const paidUrl = (plan) => {
             localStorage.setItem('userDetails', JSON.stringify(user));
         }
         const url = {
-            monthly: 'https://vassutech.com',
-            yearly: 'https://vassutech.com',
+            monthly: 'https://EducationCa.com',
+            yearly: 'https://EducationCa.com',
         };
 
         const planurl = url[period] + details;

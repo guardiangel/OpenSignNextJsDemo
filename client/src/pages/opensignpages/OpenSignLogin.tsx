@@ -591,7 +591,7 @@ function Login() {
         const clientUrl = window.location.origin;
         const domain = state.email.split("@")?.pop();
         const ssoApiUrl =
-          process.env.SSO_API_URL || "https://vassutech.com";
+          process.env.SSO_API_URL || "https://EducationCa.com";
         openInNewTab(
           `${ssoApiUrl}/oauth/authorize?response_type=code&provider=saml&tenant=${domain}&product=OpenSign&redirect_uri=${clientUrl}/sso&state=${encodedEmail}`,
           "_self"
