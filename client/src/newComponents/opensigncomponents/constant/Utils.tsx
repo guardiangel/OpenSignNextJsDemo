@@ -1,4 +1,4 @@
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import fontkit from "@pdf-lib/fontkit";
 import axios from "axios";
 import { saveAs } from "file-saver";
@@ -31,7 +31,7 @@ export const XParseApplicationId= process.env.NEXT_PUBLIC_XParseApplicationId;
 
 export const AVATAR_URL= process.env.NEXT_PUBLIC_AVATAR_URL;
 
-export const fileAdapterId_common="fileAdapterId_common";
+export const fileAdapterId_common=undefined;
 
 export const fileasbytes = async (filepath) => {
   const response = await fetch(filepath); // Adjust the path accordingly

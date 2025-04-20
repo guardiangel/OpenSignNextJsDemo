@@ -14,7 +14,7 @@ import DropboxChooser from "@/newComponents/opensigncomponents/shared/fields/Dro
 import SelectFolder from "@/newComponents/opensigncomponents/shared/fields/SelectFolder";
 import SignersInput from "@/newComponents/opensigncomponents/shared/fields/SignersInput";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";

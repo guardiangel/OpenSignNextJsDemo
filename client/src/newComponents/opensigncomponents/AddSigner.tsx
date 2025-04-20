@@ -1,4 +1,4 @@
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { emailRegex } from "./constant/const";

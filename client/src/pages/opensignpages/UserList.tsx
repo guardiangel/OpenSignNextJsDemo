@@ -8,7 +8,7 @@ import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import SubscribeCard from "@/newComponents/opensigncomponents/primitives/SubscribeCard";
 import Tooltip from "@/newComponents/opensigncomponents/primitives/Tooltip";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

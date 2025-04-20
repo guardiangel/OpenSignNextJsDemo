@@ -1,4 +1,4 @@
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import { useMsal } from "@azure/msal-react";
 import axios from "axios";
 import { useState } from "react";

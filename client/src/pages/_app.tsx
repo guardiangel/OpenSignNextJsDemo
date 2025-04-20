@@ -10,7 +10,7 @@ import {
     TouchTransition
 } from "react-dnd-multi-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import "@/newComponents/opensigncomponents/parseClient"; // Don't delete this, otherwise, we need to import the page separately GuiquanSun20250325
+import Parse from "@/newComponents/opensigncomponents/parseClient"; // Don't delete this, otherwise, we need to import the page separately GuiquanSun20250325
 import { pdfjs } from "react-pdf";
 import createEmotionCache from '../createEmotionCache';
 import "../i18n"; // don't delete this line if we need to use useTransaction 20250227 Guiquan Sun
@@ -24,6 +24,8 @@ import '../styles/opensigndrive.css';
 import '../styles/quill.css';
 import '../styles/signature.css';
 import theme from '../theme';
+import Sidebar from "@/pages/SideBar";
+
 if (typeof window !== 'undefined') {
   //Keep the same as the definition in package.json, don't upgrade pdfjs-dist and react-pdf defined in package.json
   pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.6.172/pdf.worker.min.js`;
@@ -62,7 +64,12 @@ function App({
             <ThemeProvider theme={theme}>
                  <DndProvider options={HTML5toTouch}>
                 <CssBaseline />
-                   <Component {...pageProps} />
+                <div className="flex">
+                        <Sidebar />
+                        <main className="ml-64 p-4 w-full">
+                            <Component {...pageProps} />
+                        </main>
+                    </div>
                 </DndProvider>
             </ThemeProvider>
 

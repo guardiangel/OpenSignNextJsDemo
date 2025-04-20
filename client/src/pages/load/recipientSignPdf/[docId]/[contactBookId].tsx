@@ -50,7 +50,7 @@ import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import PdfDeclineModal from "@/newComponents/opensigncomponents/primitives/PdfDeclineModal";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import moment from "moment";

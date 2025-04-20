@@ -4,7 +4,7 @@ import ReportTable from "@/newComponents/opensigncomponents/primitives/GetReport
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

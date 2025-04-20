@@ -1,4 +1,4 @@
-import "@/newComponents/opensigncomponents/parseClient";
+import Parse from "@/newComponents/opensigncomponents/parseClient";
 import { Tour } from "@reactour/tour";
 import axios from 'axios';
 import Image from "next/image";

@@ -4,7 +4,7 @@ import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import { useRouter } from "next/navigation";

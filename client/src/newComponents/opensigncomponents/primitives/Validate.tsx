@@ -1,4 +1,4 @@
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import { XParseApplicationId } from "@newComponents/opensigncomponents/constant/Utils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";

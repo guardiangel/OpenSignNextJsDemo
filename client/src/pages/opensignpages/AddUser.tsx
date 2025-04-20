@@ -2,7 +2,7 @@ import { emailRegex, isEnableSubscription } from "@/newComponents/opensigncompon
 import { copytoData, fetchSubscriptionInfo } from "@/newComponents/opensigncomponents/constant/Utils";
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import Title from "@/newComponents/opensigncomponents/Title";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 function generatePassword(length) {

@@ -1,6 +1,4 @@
 import createCache from '@emotion/cache';
-import { CacheProvider } from '@emotion/react';
-import { ThemeProvider } from '@mui/material/styles';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -12,11 +10,10 @@ export const muiCache = createCache({
 
 export default function Home() {
     const router = useRouter();
-    
     return (
         <>
             <Head>
-                <title>DocVenture</title>
+                <title>OPenSignDemo</title>
                 <meta name="description" content="Created by EducationCa" />
                 <meta
                     name="viewport"
@@ -24,9 +21,10 @@ export default function Home() {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <CacheProvider value={muiCache}>
-                    
-            </CacheProvider>
+            <div>
+                <h1 className="text-2xl font-bold mb-4">Welcome to OPenSignDemo</h1>
+                <p>This is your dashboard content.</p>
+            </div>
         </>
     );
 }

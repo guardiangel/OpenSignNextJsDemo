@@ -1,6 +1,6 @@
 import HandleError from "@/newComponents/opensigncomponents/primitives/HandleError";
 import LoaderWithMsg from "@/newComponents/opensigncomponents/primitives/LoaderWithMsg";
-import "@/newComponents/opensigncomponents/parseClient";;
+import Parse from "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import { useRouter } from "next/router";
