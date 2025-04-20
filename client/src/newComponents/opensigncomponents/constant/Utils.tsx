@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import fontkit from "@pdf-lib/fontkit";
 import axios from "axios";
 import { saveAs } from "file-saver";
@@ -72,7 +72,7 @@ export async function fetchSubscription(
     const url = `${baseURL}/functions/getsubscriptions`;
     const token = jwtToken
       ? { jwttoken: jwtToken }
-      : { sessionToken: localStorage.getItem("accesstoken") };
+      : { sessionToken: localStorage.getItem("accesstoken")! };
     const headers = {
       "Content-Type": "application/json",
       "X-Parse-Application-Id": "openSignApp",
@@ -112,7 +112,7 @@ export async function fetchSubscriptionInfo() {
       const headers = {
         "Content-Type": "application/json",
         "X-Parse-Application-Id": XParseApplicationId,
-        sessionToken: localStorage.getItem("accesstoken")
+        sessionToken: localStorage.getItem("accesstoken")!
       };
       const params = { extUserId: extUser };
       const tenatRes = await axios.post(url, params, { headers: headers });
@@ -213,7 +213,7 @@ export const getDrive = async (documentId, skip = 0, limit = 100) => {
       headers: {
         "Content-Type": "application/json",
         "X-Parse-Application-Id": XParseApplicationId,
-        sessiontoken: localStorage.getItem("accesstoken")
+        sessiontoken: localStorage.getItem("accesstoken")!
       }
     })
     .then((Listdata) => {
@@ -1030,7 +1030,7 @@ export const onChangeHeightOfTextArea = (
   }
 };
 //calculate width and height
-export const calculateInitialWidthHeight = (widgetData) => {
+export const calculateInitialWidthHeight = (widgetData,dragTypeValue) => {
   const intialText = widgetData;
   const span = document.createElement("span");
   span.textContent = intialText;

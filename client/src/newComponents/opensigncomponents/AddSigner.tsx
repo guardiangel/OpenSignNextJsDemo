@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { emailRegex } from "./constant/const";
@@ -29,7 +29,7 @@ const AddSigner = (props) => {
   }, [addYourself]);
 
   const checkUserExist = async () => {
-    const user = Parse.User.current();
+    const user:any = Parse.User.current();
     try {
       const query = new Parse.Query("contracts_Contactbook");
       query.equalTo("CreatedBy", user);
@@ -53,7 +53,7 @@ const AddSigner = (props) => {
       setIsLoader(true);
       if (localStorage.getItem("TenantId")) {
         try {
-          const user = Parse.User.current();
+          const user:any  = Parse.User.current();
           const query = new Parse.Query("contracts_Contactbook");
           query.equalTo("CreatedBy", user);
           query.notEqualTo("IsDeleted", true);
@@ -87,7 +87,7 @@ const AddSigner = (props) => {
               }
               const user = await _user.save();
               if (user) {
-                const currentUser = Parse.User.current();
+                const currentUser:any = Parse.User.current();
                 contactQuery.set(
                   "CreatedBy",
                   Parse.User.createWithoutData(currentUser.id)
@@ -130,7 +130,7 @@ const AddSigner = (props) => {
               if (err.code === 202) {
                 const params = { email: email };
                 const userRes = await Parse.Cloud.run("getUserId", params);
-                const currentUser = Parse.User.current();
+                const currentUser:any = Parse.User.current();
                 contactQuery.set(
                   "CreatedBy",
                   Parse.User.createWithoutData(currentUser.id)

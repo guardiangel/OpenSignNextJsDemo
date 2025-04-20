@@ -9,13 +9,16 @@ import {
 } from "@/newComponents/opensigncomponents/constant/Utils";
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useRouter } from "next/navigation";
 
 const AddAdmin = () => {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t, i18n } = useTranslation();
   // const navigate = useNavigate();
   const router = useRouter();

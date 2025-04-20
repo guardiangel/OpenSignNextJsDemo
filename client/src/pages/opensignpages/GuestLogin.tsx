@@ -10,7 +10,7 @@ import {
 } from "@/newComponents/opensigncomponents/constant/Utils";
 import SelectLanguage from "@/newComponents/opensigncomponents/pdf/SelectLanguage";
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

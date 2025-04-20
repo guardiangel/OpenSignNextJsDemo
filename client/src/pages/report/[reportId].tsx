@@ -4,7 +4,7 @@ import ReportTable from "@/newComponents/opensigncomponents/primitives/GetReport
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -12,19 +12,22 @@ import { useTranslation } from "react-i18next";
 import OpenSignPageNotFound from "../opensignpages/OpenSignPageNotFound";
 
 const Report = () => {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
 //   const { id } = useParams();
   const router = useRouter();
-  const [List, setList] = useState([]);
+  const [List, setList] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(true);
   const [reportName, setReportName] = useState("");
-  const [reporthelp, setReportHelp] = useState("");
-  const [actions, setActions] = useState([]);
-  const [heading, setHeading] = useState([]);
+  const [reporthelp, setReportHelp] = useState<any>("");
+  const [actions, setActions] = useState<any[]>([]);
+  const [heading, setHeading] = useState<any[]>([]);
   const [isNextRecord, setIsNextRecord] = useState(false);
   const [isMoreDocs, setIsMoreDocs] = useState(true);
-  const [form, setForm] = useState("");
-  const [tourData, setTourData] = useState([]);
+  const [form, setForm] = useState<any>("");
+  const [tourData, setTourData] = useState<any[]>([]);
   const [isDontShow, setIsDontShow] = useState(false);
   const [isPublic, setIsPublic] = useState({});
   const docPerPage = 10;
@@ -70,7 +73,7 @@ const Report = () => {
       setReportName(json.reportName);
       setForm(json.form);
       setReportHelp(json?.helpMsg);
-      const currentUser = Parse.User.current()?.id;
+      const currentUser:any = Parse.User.current()?.id;
 
       const headers = {
         "Content-Type": "application/json",
@@ -94,6 +97,7 @@ const Report = () => {
                 <TourContentWithBtn
                   message={t("tour-mssg.report-1")}
                   isChecked={handleDontShow}
+                  video={false}
                 />
               ),
               position: "top",
@@ -109,6 +113,7 @@ const Report = () => {
                   <TourContentWithBtn
                     message={t(`tour-mssg.${data?.action}`)}
                     isChecked={handleDontShow}
+                    video={false}
                   />
                 ),
                 position: "top",
@@ -123,7 +128,7 @@ const Report = () => {
         if (reportId === "4Hhwbp482K") {
           const listData = res.data?.result.filter((x) => x.Signers.length > 0);
 
-          let arr = [];
+          let arr:any[] = [];
           for (const obj of listData) {
             const isSigner = obj.Signers.some(
               (item) => item.UserId.objectId === currentUser
@@ -190,7 +195,7 @@ const Report = () => {
   };
   return (
     <>
-      <Title title={reportName} />
+      <Title title={reportName} drive={""}/>
       {isLoader ? (
         <div className="h-[100vh] flex justify-center items-center">
           <Loader />

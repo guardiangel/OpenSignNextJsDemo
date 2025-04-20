@@ -1,6 +1,6 @@
 import HandleError from "@/newComponents/opensigncomponents/primitives/HandleError";
 import LoaderWithMsg from "@/newComponents/opensigncomponents/primitives/LoaderWithMsg";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -68,50 +68,53 @@ import Upgrade from "@/newComponents/opensigncomponents/primitives/Upgrade";
 import Title from "@/newComponents/opensigncomponents/Title";
 
 function PlaceHolderSign() {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
-  const editorRef = useRef();
-  const [pdfDetails, setPdfDetails] = useState([]);
+  const editorRef = useRef<any>();
+  const [pdfDetails, setPdfDetails] = useState<any[]>([]);
   const [isMailSend, setIsMailSend] = useState(false);
   const [allPages, setAllPages] = useState(null);
   const numPages = 1;
   const [pageNumber, setPageNumber] = useState(1);
-  const [signBtnPosition, setSignBtnPosition] = useState([]);
+  const [signBtnPosition, setSignBtnPosition] = useState<any>([]);
   const [xySignature, setXYSignature] = useState({});
   const [dragKey, setDragKey] = useState();
-  const [signersdata, setSignersData] = useState([]);
-  const [signerPos, setSignerPos] = useState([]);
-  const [isSelectListId, setIsSelectId] = useState();
-  const [isSendAlert, setIsSendAlert] = useState({});
+  const [signersdata, setSignersData] = useState<any[]>([]);
+  const [signerPos, setSignerPos] = useState<any[]>([]);
+  const [isSelectListId, setIsSelectId] = useState<any>();
+  const [isSendAlert, setIsSendAlert] = useState<any>({});
   const [isSend, setIsSend] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isAddSigner, setIsAddSigner] = useState(false);
-  const [fontSize, setFontSize] = useState();
-  const [fontColor, setFontColor] = useState();
-  const [isLoading, setIsLoading] = useState({
+  const [fontSize, setFontSize] = useState<any>();
+  const [fontColor, setFontColor] = useState<any>();
+  const [isLoading, setIsLoading] = useState<any>({
     isLoad: true,
     message: t("loading-mssg")
   });
-  const [handleError, setHandleError] = useState();
+  const [handleError, setHandleError] = useState<any>();
   const [currentId, setCurrentId] = useState("");
   const [pdfNewWidth, setPdfNewWidth] = useState();
   const [placeholderTour, setPlaceholderTour] = useState(true);
   const [checkTourStatus, setCheckTourStatus] = useState(false);
   const [tourStatus, setTourStatus] = useState([]);
   const [signerUserId, setSignerUserId] = useState();
-  const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
-  const [containerWH, setContainerWH] = useState();
+  const [pdfOriginalWH, setPdfOriginalWH] = useState<any>([]);
+  const [containerWH, setContainerWH] = useState<any>();
 
   const router = useRouter();
-  const { placeHolderSignDocId,state } = router.query; 
+  const { placeHolderSignDocId,state }:any = router.query; 
 
-  const signRef = useRef(null);
-  const dragRef = useRef(null);
-  const divRef = useRef(null);
+  const signRef = useRef<any>(null);
+  const dragRef = useRef<any>(null);
+  const divRef = useRef<any>(null);
   const [isShowEmail, setIsShowEmail] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState(false);
   const [isResize, setIsResize] = useState(false);
   const [zIndex, setZIndex] = useState(1);
-  const [signKey, setSignKey] = useState();
+  const [signKey, setSignKey] = useState<any>();
   const [tempSignerId, setTempSignerId] = useState("");
   const [blockColor, setBlockColor] = useState("");
   const [defaultBody, setDefaultBody] = useState("");
@@ -119,7 +122,7 @@ function PlaceHolderSign() {
   const [isTextSetting, setIsTextSetting] = useState(false);
   const [pdfLoad, setPdfLoad] = useState(false);
   const [isPageCopy, setIsPageCopy] = useState(false);
-  const [uniqueId, setUniqueId] = useState("");
+  const [uniqueId, setUniqueId] = useState<any>("");
   const [roleName, setRoleName] = useState("");
   const [isAddUser, setIsAddUser] = useState({});
   const [signerExistModal, setSignerExistModal] = useState(false);
@@ -129,8 +132,8 @@ function PlaceHolderSign() {
   const [widgetType, setWidgetType] = useState("");
   const [isUiLoading, setIsUiLoading] = useState(false);
   const [isRadio, setIsRadio] = useState(false);
-  const [currWidgetsDetails, setCurrWidgetsDetails] = useState({});
-  const [selectWidgetId, setSelectWidgetId] = useState("");
+  const [currWidgetsDetails, setCurrWidgetsDetails] = useState<any>({});
+  const [selectWidgetId, setSelectWidgetId] = useState<any>("");
   const [isCheckbox, setIsCheckbox] = useState(false);
   const [isNameModal, setIsNameModal] = useState(false);
   const [widgetName, setWidgetName] = useState(false);
@@ -139,8 +142,8 @@ function PlaceHolderSign() {
   const [isSubscribe, setIsSubscribe] = useState(false);
   const [requestSubject, setRequestSubject] = useState("");
   const [requestBody, setRequestBody] = useState("");
-  const [pdfArrayBuffer, setPdfArrayBuffer] = useState("");
-  const isHeader = useSelector((state) => state.showHeader);
+  const [pdfArrayBuffer, setPdfArrayBuffer] = useState<any>("");
+  const isHeader = useSelector((state:any) => state.showHeader);
   const [activeMailAdapter, setActiveMailAdapter] = useState("");
   const [isRotate, setIsRotate] = useState({
     status: false,
@@ -192,7 +195,7 @@ function PlaceHolderSign() {
     const user = JSON.parse(
       localStorage.getItem(
         `Parse/${XParseApplicationId}/currentUser`
-      )
+      )!
     );
     if (user) {
       try {
@@ -202,7 +205,7 @@ function PlaceHolderSign() {
         setDefaultSubject(defaultSubject);
         setRequestBody(defaultRequestBody);
         setRequestSubject(defaultSubject);
-        const tenantDetails = await getTenantDetails(user?.objectId);
+        const tenantDetails = await getTenantDetails(user?.objectId,undefined,undefined);
         if (tenantDetails && tenantDetails === "user does not exist!") {
           alert(t("user-not-exist"));
         } else if (tenantDetails) {
@@ -246,8 +249,8 @@ function PlaceHolderSign() {
     router.push("/subscription");
   };
   async function checkIsSubscribed() {
-    const res = await fetchSubscription();
-    const plan = res.plan;
+    const res = await fetchSubscription(undefined,undefined,undefined,undefined,undefined);
+    const plan:any = res.plan;
     const billingDate = res.billingDate;
     setPlanCode(plan);
     if (plan === "freeplan") {
@@ -257,17 +260,17 @@ function PlaceHolderSign() {
         setIsSubscribe(true);
         return true;
       } else {
-        handleNavigation(plan);
+        handleNavigation();
       }
     } else {
-      handleNavigation(plan);
+      handleNavigation();
     }
   }
   //function for get document details
   const getDocumentDetails = async () => {
     const tenantSignTypes = await fetchTenantDetails();
     //getting document details
-    const documentData = await contractDocument(documentId);
+    const documentData = await contractDocument(documentId,undefined);
     if (documentData && documentData.length > 0) {
       const url = documentData[0] && documentData[0]?.URL;
       //convert document url in array buffer format to use embed widgets in pdf using pdf-lib
@@ -285,7 +288,8 @@ function PlaceHolderSign() {
       }
       setExtUserId(documentData[0]?.ExtUserPtr?.objectId);
       if (isEnableSubscription) {
-        checkIsSubscribed(documentData[0]?.ExtUserPtr?.Email);
+        // checkIsSubscribed(documentData[0]?.ExtUserPtr?.Email);
+        checkIsSubscribed();
       }
       const alreadyPlaceholder = documentData[0]?.SignedUrl;
       // Check if document is sent for signing
@@ -457,7 +461,7 @@ function PlaceHolderSign() {
       setHandleError(t("no-data-avaliable"));
       setIsLoading({ isLoad: false });
     }
-    const res = await contractUsers();
+    const res = await contractUsers(undefined);
     if (res === "Error: Something went wrong!") {
       setHandleError(t("something-went-wrong-mssg"));
       setIsLoading({ isLoad: false });
@@ -499,7 +503,7 @@ function PlaceHolderSign() {
         pageNumber,
         containerWH
       );
-      let dropData = [];
+      let dropData:any[] = [];
       let placeHolder;
       const dragTypeValue = item?.text ? item.text : monitor.type;
       const widgetWidth =
@@ -530,7 +534,7 @@ function PlaceHolderSign() {
         const offset = monitor.getClientOffset();
         //This method returns the offset of the current pointer (mouse) position relative to the client viewport.
         const containerRect = document
-          .getElementById("container")
+          .getElementById("container")!
           .getBoundingClientRect();
         //`containerRect.left`,  The distance from the left of the viewport to the left side of the element.
         //`containerRect.top` The distance from the top of the viewport to the top of the element.
@@ -660,7 +664,7 @@ function PlaceHolderSign() {
 
   //function for get pdf page details
   const pageDetails = async (pdf) => {
-    let pdfWHObj = [];
+    let pdfWHObj:any[] = [];
     const totalPages = pdf?.numPages;
     for (let index = 0; index < totalPages; index++) {
       const getPage = await pdf.getPage(index + 1);
@@ -680,8 +684,8 @@ function PlaceHolderSign() {
 
   //function for set and update x and y postion after drag and drop signature tab
   const handleStop = (event, dragElement, signerId, key) => {
-    setFontColor();
-    setFontSize();
+    setFontColor("");
+    setFontSize("");
     if (!isResize && isDragging) {
       const dataNewPlace = addZIndex(signerPos, key, setZIndex);
       let updateSignPos = [...signerPos];
@@ -749,7 +753,7 @@ function PlaceHolderSign() {
   };
   //function for delete signature block
   const handleDeleteSign = (key, Id) => {
-    const updateData = [];
+    const updateData:any[] = [];
     const filterSignerPos = signerPos.filter((data) => data.Id === Id);
     if (filterSignerPos.length > 0) {
       const getPlaceHolder = filterSignerPos[0].placeHolder;
@@ -790,7 +794,7 @@ function PlaceHolderSign() {
               }
               return obj;
             });
-            let signerupdate = [];
+            let signerupdate:any[] = [];
             signerupdate = signerPos.filter((data) => data.Id !== Id);
             signerupdate.push(newUpdatePos[0]);
             setSignerPos(signerupdate);
@@ -1060,7 +1064,7 @@ function PlaceHolderSign() {
   };
   //function show signer list and share link to share signUrl
   const handleShareList = () => {
-    const shareLinkList = [];
+    const shareLinkList:any[] = [];
     let signerMail = signersdata;
     for (let i = 0; i < signerMail.length; i++) {
       const objectId = signerMail[i].objectId;
@@ -1079,7 +1083,7 @@ function PlaceHolderSign() {
           className="flex flex-row justify-between items-center mb-1"
           key={ind}
         >
-          {copied && <Alert type="success">{t("copied")}</Alert>}
+          {copied && <Alert type="success" className={""}>{t("copied")}</Alert>}
           <span className="w-[220px] md:w-[300px] whitespace-nowrap overflow-hidden text-ellipsis  ">
             {data.signerEmail}
           </span>
@@ -1275,6 +1279,7 @@ function PlaceHolderSign() {
         <TourContentWithBtn
           message={t("tour-mssg.placeholder-sign-1")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1286,6 +1291,7 @@ function PlaceHolderSign() {
         <TourContentWithBtn
           message={t("tour-mssg.placeholder-sign-3")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1297,6 +1303,7 @@ function PlaceHolderSign() {
         <TourContentWithBtn
           message={t("tour-mssg.placeholder-sign-4")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1308,6 +1315,7 @@ function PlaceHolderSign() {
         <TourContentWithBtn
           message={t("tour-mssg.placeholder-sign-5")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1319,6 +1327,7 @@ function PlaceHolderSign() {
         <TourContentWithBtn
           message={t("tour-mssg.placeholder-sign-6")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1462,8 +1471,8 @@ function PlaceHolderSign() {
         }
       }
     }
-    setFontSize();
-    setFontColor();
+    setFontSize("");
+    setFontColor("");
   };
   const handleWidgetdefaultdata = (defaultdata, isSignWidget) => {
     if (isSignWidget) {
@@ -1556,8 +1565,8 @@ function PlaceHolderSign() {
       }
     }
     setCurrWidgetsDetails({});
-    setFontSize();
-    setFontColor();
+    setFontSize("");
+    setFontColor("");
     handleNameModal();
   };
 
@@ -1580,7 +1589,7 @@ function PlaceHolderSign() {
   const closeTour = async () => {
     setPlaceholderTour(false);
     if (isDontShow) {
-      let updatedTourStatus = [];
+      let updatedTourStatus:any[] = [];
       if (tourStatus.length > 0) {
         updatedTourStatus = [...tourStatus];
         const placeholderIndex = tourStatus.findIndex(
@@ -1773,7 +1782,7 @@ function PlaceHolderSign() {
   };
   return (
     <>
-      <Title title={state?.title ? state.title : "New Document"} />
+      <Title title={state?.title ? state.title : "New Document"} drive={""}/>
       <DndProvider backend={HTML5Backend}>
         {isLoading.isLoad ? (
           <LoaderWithMsg isLoading={isLoading} />
@@ -1798,6 +1807,7 @@ function PlaceHolderSign() {
                 //isOpen is takes boolean value to open
                 <Tour
                   onRequestClose={closeTour}
+                  //@ts-ignore
                   steps={tourConfig}
                   isOpen={placeholderTour}
                   rounded={5}
@@ -1806,6 +1816,7 @@ function PlaceHolderSign() {
               )}
               <Tour
                 onRequestClose={() => setSignerExistModal(false)}
+                //@ts-ignore
                 steps={signerAssignTour}
                 isOpen={signerExistModal}
                 rounded={5}
@@ -1813,6 +1824,7 @@ function PlaceHolderSign() {
               />
               <Tour
                 onRequestClose={() => setIsSendAlert({})}
+                //@ts-ignore
                 steps={textFieldTour}
                 isOpen={isSendAlert.mssg === textWidget}
                 rounded={5}
@@ -1827,6 +1839,9 @@ function PlaceHolderSign() {
                 setSignBtnPosition={setSignBtnPosition}
                 pageNumber={pageNumber}
                 pdfRotateBase64={pdfRotateBase64}
+                signerPos={""}              
+                signerObjectId={""}        
+                containerWH={""}     
               />
               {/* pdf render view */}
               <div className=" w-full md:w-[57%] flex mr-4">
@@ -1846,6 +1861,7 @@ function PlaceHolderSign() {
                       (isSendAlert.mssg === "confirm" && t("send-mail"))
                     }
                     handleClose={() => handleCloseSendmailModal()}
+                    reduceWidth={true} 
                   >
                     <div className="max-h-96 overflow-y-scroll scroll-hide p-[20px] text-base-content">
                       {isSendAlert.mssg === "sure" ? (
@@ -1941,6 +1957,7 @@ function PlaceHolderSign() {
                       setSignerPos([]);
                       router.push("/report/1MwEuxLEkF");
                     }}
+                    reduceWidth={true} 
                   >
                     <div className="h-[100%] p-[20px]">
                       {mailStatus === "success" ? (
@@ -1953,6 +1970,7 @@ function PlaceHolderSign() {
                         <div className="flex flex-col gap-y-3">
                           <QuotaCard
                             emailResetDate={emailResetDate}
+                            //@ts-ignore
                             handleClose={() => {
                               setIsSend(false);
                               setSignerPos([]);
@@ -2008,6 +2026,7 @@ function PlaceHolderSign() {
                     isOpen={isShowEmail}
                     title={t("signers-alert")}
                     handleClose={() => setIsShowEmail(false)}
+                    reduceWidth={true} 
                   >
                     <div className="h-[100%] p-[20px]">
                       <p>{t("placeholder-alert-7")}</p>
@@ -2112,6 +2131,7 @@ function PlaceHolderSign() {
                         pdfDetails={pdfDetails}
                         signerPos={signerPos}
                         successEmail={false}
+                        //@ts-ignore
                         numPages={numPages}
                         pageDetails={pageDetails}
                         placeholder={true}
@@ -2164,6 +2184,7 @@ function PlaceHolderSign() {
                   {isMobile ? (
                     <div>
                       <WidgetComponent
+                      //@ts-ignore
                         pdfUrl={isMailSend}
                         dragSignature={dragSignature}
                         signRef={signRef}
@@ -2228,6 +2249,7 @@ function PlaceHolderSign() {
                             signRef={signRef}
                             handleDivClick={handleDivClick}
                             handleMouseLeave={handleMouseLeave}
+                            //@ts-ignore
                             isDragSign={isDragSign}
                             dragStamp={dragStamp}
                             dragRef={dragRef}
@@ -2249,6 +2271,8 @@ function PlaceHolderSign() {
           isOpen={isAlreadyPlace.status}
           title={t("document-alert")}
           showClose={false}
+          reduceWidth={true} 
+          handleClose={()=>{}}
         >
           <div className="h-[100%] p-[20px]">
             <p>{isAlreadyPlace.message}</p>

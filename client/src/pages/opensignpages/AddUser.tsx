@@ -2,7 +2,7 @@ import { emailRegex, isEnableSubscription } from "@/newComponents/opensigncompon
 import { copytoData, fetchSubscriptionInfo } from "@/newComponents/opensigncomponents/constant/Utils";
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 function generatePassword(length) {
@@ -18,6 +18,9 @@ function generatePassword(length) {
 }
 
 const AddUser = (props) => {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
   const [formdata, setFormdata] = useState<any>({
     name: "",
@@ -175,7 +178,7 @@ const AddUser = (props) => {
 
             const user = await _user.save();
             if (user) {
-              const currentUser = Parse.User.current();
+              const currentUser:any = Parse.User.current();
               extUser.set(
                 "CreatedBy",
                 Parse.User.createWithoutData(currentUser.id)
@@ -223,7 +226,7 @@ const AddUser = (props) => {
             if (err.code === 202) {
               const params = { email: formdata.email };
               const userRes = await Parse.Cloud.run("getUserId", params);
-              const currentUser = Parse.User.current();
+              const currentUser:any = Parse.User.current();
               extUser.set(
                 "CreatedBy",
                 Parse.User.createWithoutData(currentUser.id)

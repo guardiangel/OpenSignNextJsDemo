@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ModalUi from "../../primitives/ModalUi";

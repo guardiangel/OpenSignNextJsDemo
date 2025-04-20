@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -85,7 +85,7 @@ const SignersInput = (props) => {
   };
   const loadOptions = async (inputValue) => {
     try {
-      const currentUser = Parse.User.current();
+      const currentUser:any = Parse.User.current();
       const contactbook = new Parse.Query("contracts_Contactbook");
       contactbook.equalTo(
         "CreatedBy",

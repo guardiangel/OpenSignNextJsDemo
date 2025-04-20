@@ -3,6 +3,19 @@ import { useTranslation } from "react-i18next";
 import { Document, Page } from "react-pdf";
 import { useSelector } from "react-redux";
 
+interface RenderAllPdfPageProp{
+  signPdfUrl?,
+  allPages?,
+  setAllPages?,
+  setPageNumber?,
+  setSignBtnPosition?,
+  pageNumber?,
+  signerPos?,
+  signerObjectId?,
+  containerWH?,
+  pdfRotateBase64?
+}
+
 function RenderAllPdfPage({
   signPdfUrl,
   allPages,
@@ -14,7 +27,7 @@ function RenderAllPdfPage({
   signerObjectId,
   containerWH,
   pdfRotateBase64
-}) {
+}:RenderAllPdfPageProp) {
   const { t } = useTranslation();
   const [signPageNumber, setSignPageNumber] = useState<any>([]);
   const [bookmarkColor, setBookmarkColor] = useState("");

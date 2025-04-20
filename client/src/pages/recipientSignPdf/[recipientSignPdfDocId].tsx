@@ -50,7 +50,7 @@ import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import PdfDeclineModal from "@/newComponents/opensigncomponents/primitives/PdfDeclineModal";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import moment from "moment";
@@ -64,42 +64,45 @@ import { useSelector } from "react-redux";
 
 
 function PdfRequestFiles(props) {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
-  const [pdfDetails, setPdfDetails] = useState([]);
-  const [signedSigners, setSignedSigners] = useState([]);
-  const [unsignedSigners, setUnSignedSigners] = useState([]);
+  const [pdfDetails, setPdfDetails] = useState<any[]>([]);
+  const [signedSigners, setSignedSigners] = useState<any[]>([]);
+  const [unsignedSigners, setUnSignedSigners] = useState<any[]>([]);
   const [isSignPad, setIsSignPad] = useState(false);
   const [pdfUrl, setPdfUrl] = useState();
   const [allPages, setAllPages] = useState(null);
   const numPages = 1;
   const [pageNumber, setPageNumber] = useState(1);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<any>(null);
   const [isImageSelect, setIsImageSelect] = useState(false);
   const [signature, setSignature] = useState();
   const [isStamp, setIsStamp] = useState(false);
   const [signKey, setSignKey] = useState();
   const [imgWH, setImgWH] = useState({});
   const imageRef = useRef(null);
-  const [handleError, setHandleError] = useState();
+  const [handleError, setHandleError] = useState<string>();
   const [selectWidgetId, setSelectWidgetId] = useState("");
   const [otpLoader, setOtpLoader] = useState(false);
   const [isCelebration, setIsCelebration] = useState(false);
   const [requestSignTour, setRequestSignTour] = useState(true);
   const [tourStatus, setTourStatus] = useState([]);
-  const [isLoading, setIsLoading] = useState({
+  const [isLoading, setIsLoading] = useState<any>({
     isLoad: true,
     message: t("loading-mssg")
   });
-  const [defaultSignImg, setDefaultSignImg] = useState();
+  const [defaultSignImg, setDefaultSignImg] = useState<any>();
   const [isDocId, setIsDocId] = useState(false);
   const [pdfNewWidth, setPdfNewWidth] = useState();
-  const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
-  const [signerPos, setSignerPos] = useState([]);
+  const [pdfOriginalWH, setPdfOriginalWH] = useState<any[]>([]);
+  const [signerPos, setSignerPos] = useState<any[]>([]);
   const [signerObjectId, setSignerObjectId] = useState();
-  const [isUiLoading, setIsUiLoading] = useState(false);
-  const [isDecline, setIsDecline] = useState({ isDeclined: false });
+  const [isUiLoading, setIsUiLoading] = useState<any>(false);
+  const [isDecline, setIsDecline] = useState<any>({ isDeclined: false });
   const [currentSigner, setCurrentSigner] = useState(false);
-  const [isAlert, setIsAlert] = useState({ isShow: false, alertMessage: "" });
+  const [isAlert, setIsAlert] = useState<any>({ isShow: false, alertMessage: "" });
   const [unSignedWidgetId, setUnSignedWidgetId] = useState("");
   const [expiredDate, setExpiredDate] = useState("");
   const [isResize, setIsResize] = useState(false);
@@ -111,11 +114,11 @@ function PdfRequestFiles(props) {
     alertMessage: ""
   });
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isCompleted, setIsCompleted] = useState({
+  const [isCompleted, setIsCompleted] = useState<any>({
     isCertificate: false,
     isModal: false
   });
-  const [myInitial, setMyInitial] = useState("");
+  const [myInitial, setMyInitial] = useState<any>("");
   const [isInitial, setIsInitial] = useState(false);
   const [pdfLoad, setPdfLoad] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
@@ -124,14 +127,14 @@ function PdfRequestFiles(props) {
   const [containerWH, setContainerWH] = useState({});
   const [validateAlert, setValidateAlert] = useState(false);
   const [widgetsTour, setWidgetsTour] = useState(false);
-  const [minRequiredCount, setminRequiredCount] = useState();
+  const [minRequiredCount, setminRequiredCount] = useState<any>();
   const [sendInOrder, setSendInOrder] = useState(false);
   const [currWidgetsDetails, setCurrWidgetsDetails] = useState({});
   const [isSubscriptionExpired, setIsSubscriptionExpired] = useState(false);
   const [extUserId, setExtUserId] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(true);
   const [isVerifyModal, setIsVerifyModal] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState<any>("");
   const [contractName, setContractName] = useState("");
   const [zoomPercent, setZoomPercent] = useState(0);
   const [scale, setScale] = useState(1);
@@ -140,14 +143,14 @@ function PdfRequestFiles(props) {
   const [contact, setContact] = useState({ name: "", phone: "", email: "" });
   const [isOtp, setIsOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [publicRes, setPublicRes] = useState({});
+  const [publicRes, setPublicRes] = useState<any>({});
   const [documentId, setDocumentId] = useState("");
   const [isPublicContact, setIsPublicContact] = useState(false);
   const [plancode, setPlanCode] = useState("");
-  const isHeader = useSelector((state) => state.showHeader);
-  const divRef = useRef(null);
+  const isHeader = useSelector((state:any) => state.showHeader);
+  const divRef = useRef<any>(null);
   const [isDownloadModal, setIsDownloadModal] = useState(false);
-  const [signatureType, setSignatureType] = useState([]);
+  const [signatureType, setSignatureType] = useState<any[]>([]);
   const isMobile = window.innerWidth < 767;
 
   let isGuestSignFlow = false;
@@ -175,7 +178,7 @@ function PdfRequestFiles(props) {
   useEffect(() => {
     if (getDocumentId) {
       setDocumentId(getDocumentId);
-      getDocumentDetails(getDocumentId);
+      getDocumentDetails(getDocumentId,undefined);
     } else if (props.templateId) {
       getTemplateDetails();
     }
@@ -204,7 +207,7 @@ function PdfRequestFiles(props) {
     setOtpLoader(true);
     const localuser = localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
     const currentUser = JSON.parse(localuser);
     await handleSendOTP(currentUser?.email);
     setOtpLoader(false);
@@ -216,7 +219,7 @@ function PdfRequestFiles(props) {
     setOtpLoader(true);
     const localuser = localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
     const currentUser = JSON.parse(localuser);
     try {
       const resEmail = await Parse.Cloud.run("verifyemail", {
@@ -233,7 +236,7 @@ function PdfRequestFiles(props) {
       setOtp("");
       setIsVerifyModal(false);
       //handleRecipientSign();
-    } catch (error) {
+    } catch (error:any) {
       alert(error.message);
     } finally {
       setOtpLoader(false);
@@ -244,7 +247,7 @@ function PdfRequestFiles(props) {
     setIsVerifyModal(true);
     const localuser = localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
     const currentUser = JSON.parse(localuser);
     await handleSendOTP(currentUser?.email);
   };
@@ -259,7 +262,8 @@ function PdfRequestFiles(props) {
       extUserId,
       contactId,
       isGuestSign,
-      isPublic
+      isPublic,
+      undefined
     );
     const plan = res.plan;
     const billingDate = res?.billingDate;
@@ -275,7 +279,7 @@ function PdfRequestFiles(props) {
         if (isGuestSign) {
           setIsSubscriptionExpired(true);
         } else {
-          handleNavigation(plan);
+          handleNavigation();
         }
       }
     } else if (isGuestSign) {
@@ -289,7 +293,7 @@ function PdfRequestFiles(props) {
       if (isGuestSign) {
         setIsSubscriptionExpired(true);
       } else {
-        handleNavigation(res.plan);
+        handleNavigation();
       }
     }
   }
@@ -342,7 +346,7 @@ function PdfRequestFiles(props) {
             setUniqueId(getUniqueIdDetails.Id);
           }
           setSignerPos(documentData[0]?.Placeholders);
-          let placeholdersOrSigners = [];
+          let placeholdersOrSigners:any[] = [];
           // const placeholder = documentData[0]?.Placeholders;
           for (const placeholder of documentData[0].Placeholders) {
             //`emailExist` variable to handle condition for quick send flow and show unsigned signers list
@@ -390,7 +394,7 @@ function PdfRequestFiles(props) {
     const user = JSON.parse(
       localStorage.getItem(
         `Parse/${XParseApplicationId}/currentUser`
-      )
+      )!
     );
     try {
       const tenantDetails = await getTenantDetails(
@@ -418,7 +422,7 @@ function PdfRequestFiles(props) {
     try {
       const senderUser = localStorage.getItem(
         `Parse/${XParseApplicationId}/currentUser`
-      );
+      )!;
       const jsonSender = JSON.parse(senderUser);
       const contactId = jsonSender?.objectId
         ? ""
@@ -427,7 +431,7 @@ function PdfRequestFiles(props) {
       // `currUserId` will be contactId or extUserId
       let currUserId;
       //getting document details
-      const documentData = await contractDocument(docId);
+      const documentData = await contractDocument(docId,undefined);
       if (documentData && documentData.length > 0) {
         const userSignatureType =
           documentData[0]?.ExtUserPtr?.SignatureType || signatureTypes;
@@ -580,10 +584,10 @@ function PdfRequestFiles(props) {
           }
         }
 
-        let signers = [];
-        let unSignedSigner = [];
+        let signers:any[] = [];
+        let unSignedSigner:any[] = [];
 
-        const placeholdersOrSigners = [];
+        const placeholdersOrSigners:any[] = [];
         for (const placeholder of documentData[0].Placeholders) {
           //`emailExist` variable to handle condition for quick send flow and show unsigned signers list
           const signerIdExist = placeholder?.signerObjId;
@@ -677,7 +681,7 @@ function PdfRequestFiles(props) {
           } else {
             //else condition to check current user exist in contracts_Users class and check tour message status
             //if not then check user exist in contracts_Contactbook class and check tour message status
-            const res = await contractUsers();
+            const res = await contractUsers(undefined);
             if (res === "Error: Something went wrong!") {
               setHandleError(t("something-went-wrong-mssg"));
             } else if (res[0] && res?.length) {
@@ -750,7 +754,7 @@ function PdfRequestFiles(props) {
     //for emailVerified data checking first in localstorage
     const localuser = localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
     let currentUser = JSON.parse(localuser);
     let isEmailVerified = currentUser?.emailVerified;
     const isEnableOTP = pdfDetails?.[0]?.IsEnableOTP || false;
@@ -933,7 +937,7 @@ function PdfRequestFiles(props) {
             let pdfArrBuffer;
             //`contractDocument` function used to get updated SignedUrl
             // to resolve issue of widgets get remove automatically when more than 1 signers try to sign doc at a time
-            const documentData = await contractDocument(documentId);
+            const documentData = await contractDocument(documentId,undefined);
             if (documentData && documentData.length > 0) {
               const url = documentData[0]?.SignedUrl || documentData[0]?.URL;
               //convert document url in array buffer format to use embed widgets in pdf using pdf-lib
@@ -1187,7 +1191,7 @@ function PdfRequestFiles(props) {
   ];
   //function for get pdf page details
   const pageDetails = async (pdf) => {
-    let pdfWHObj = [];
+    let pdfWHObj:any[] = [];
     const totalPages = pdf.numPages; // Get the total number of pages
     for (let index = 0; index < totalPages; index++) {
       const getPage = await pdf.getPage(index + 1);
@@ -1258,7 +1262,7 @@ function PdfRequestFiles(props) {
     let imgWH = { width: width ? width : "", height: height ? height : "" };
     setIsSignPad(false);
     setIsImageSelect(false);
-    setImage();
+    setImage(null);
 
     //get current signers placeholder position data
     const currentSigner = signerPos.filter(
@@ -1311,7 +1315,7 @@ function PdfRequestFiles(props) {
   const declineDoc = async (reason) => {
     const senderUser = localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
     const jsonSender = JSON.parse(senderUser);
     setIsDecline({ isDeclined: false });
     setIsUiLoading(true);
@@ -1429,7 +1433,7 @@ function PdfRequestFiles(props) {
           console.log("update tour messages error", e);
         }
       } else {
-        let updatedTourStatus = [];
+        let updatedTourStatus:any[] = [];
         if (tourStatus.length > 0) {
           updatedTourStatus = [...tourStatus];
           const requestSignIndex = tourStatus.findIndex(
@@ -1473,6 +1477,7 @@ function PdfRequestFiles(props) {
           <TourContentWithBtn
             message={t("tour-mssg.pdf-request-file-1")}
             isChecked={handleDontShow}
+            video={false}
           />
         ),
         position: "top",
@@ -1484,6 +1489,7 @@ function PdfRequestFiles(props) {
           <TourContentWithBtn
             message={t("tour-mssg.pdf-request-file-2")}
             isChecked={handleDontShow}
+            video={false}
           />
         ),
         position: "top",
@@ -1495,6 +1501,7 @@ function PdfRequestFiles(props) {
           <TourContentWithBtn
             message={t("tour-mssg.pdf-request-file-3")}
             isChecked={handleDontShow}
+            video={false}
           />
         ),
         position: "top",
@@ -1507,6 +1514,7 @@ function PdfRequestFiles(props) {
         <TourContentWithBtn
           message={t("tour-mssg.pdf-request-file-4")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1525,6 +1533,7 @@ function PdfRequestFiles(props) {
         <TourContentWithBtn
           message={t("tour-mssg.pdf-request-file-5")}
           isChecked={handleDontShow}
+          video={false}
         />
       ),
       position: "top",
@@ -1543,6 +1552,7 @@ function PdfRequestFiles(props) {
     return (
       <Tour
         onRequestClose={closeRequestSignTour}
+        //@ts-ignore
         steps={isMobile ? tourConfig : defaultSignTour}
         isOpen={true}
         closeWithMask={false}
@@ -1601,7 +1611,7 @@ function PdfRequestFiles(props) {
             alertMessage: t("something-went-wrong-mssg")
           });
         }
-      } catch (e) {
+      } catch (e:any) {
         console.log("e", e);
         if (
           e?.response?.data?.error === "Insufficient Credit" ||
@@ -1689,7 +1699,7 @@ function PdfRequestFiles(props) {
           let _user = user.data.result;
           const parseId = XParseApplicationId;
           await Parse.User.become(_user.sessionToken);
-          const contractUserDetails = await contractUsers();
+          const contractUserDetails = await contractUsers(undefined);
           localStorage.setItem("UserInformation", JSON.stringify(_user));
           localStorage.setItem(
             `Parse/${parseId}/currentUser`,
@@ -1720,7 +1730,7 @@ function PdfRequestFiles(props) {
     setIsPublicContact(false);
     setLoading(false);
     setIsOtp(false);
-    setOtp();
+    setOtp("");
     setContact({ name: "", email: "", phone: "" });
   };
 
@@ -1790,12 +1800,14 @@ function PdfRequestFiles(props) {
   };
   return (
     <DndProvider backend={HTML5Backend}>
-      <Title title={props.templateId ? "Public Sign" : "Request Sign"} />
+      <Title title={props.templateId ? "Public Sign" : "Request Sign"} drive={""}/>
       {isSubscriptionExpired ? (
         <ModalUi
           title={t("subscription-expired")}
           isOpen={isSubscriptionExpired}
           showClose={false}
+          handleClose={()=>{}}
+          reduceWidth={true} 
         >
           <div className="flex flex-col justify-center items-center py-4 md:py-5 gap-5">
             <p className="text-sm md:text-lg font-normal">
@@ -1850,6 +1862,7 @@ function PdfRequestFiles(props) {
                   showNavigation={false}
                   showNavigationNumber={false}
                   onRequestClose={closeTour}
+                  //@ts-ignore
                   steps={tourConfig}
                   isOpen={widgetsTour}
                   rounded={5}
@@ -1897,6 +1910,7 @@ function PdfRequestFiles(props) {
                   isOpen={isPublicContact}
                   title={isOtp ? t("verify-email-1") : t("contact-details")}
                   handleClose={() => handleCloseOtp()}
+                  reduceWidth={true} 
                 >
                   <div className="h-full p-[20px]">
                     {isOtp ? (
@@ -2019,6 +2033,7 @@ function PdfRequestFiles(props) {
                   handleClose={() =>
                     setDefaultSignAlert({ isShow: false, alertMessage: "" })
                   }
+                  reduceWidth={true} 
                 >
                   <div className="h-full p-[20px]">
                     <p>{defaultSignAlert.alertMessage}</p>
@@ -2127,7 +2142,8 @@ function PdfRequestFiles(props) {
                               onClick={() =>
                                 handleDownloadCertificate(
                                   pdfDetails,
-                                  setIsDownloading
+                                  setIsDownloading,
+                                  undefined
                                 )
                               }
                               className="font-[500] text-[13px] mr-[5px] op-btn op-btn-secondary"
@@ -2176,6 +2192,7 @@ function PdfRequestFiles(props) {
                           : t("pdf-download")
                       }
                       handleClose={() => setIsDownloading("")}
+                      reduceWidth={true} 
                     >
                       <div className="p-3 md:p-5 text-[13px] md:text-base text-center text-base-content">
                         {isDownloading === "certificate"}{" "}
@@ -2215,6 +2232,7 @@ function PdfRequestFiles(props) {
                       changePage={changePage}
                       pdfDetails={pdfDetails}
                       signerPos={signerPos}
+                      //@ts-ignore
                       isSigned={isSigned}
                       isCompleted={isCompleted.isCertificate}
                       embedWidgetsData={
@@ -2247,6 +2265,7 @@ function PdfRequestFiles(props) {
                           pdfDetails={pdfDetails}
                           signerPos={signerPos}
                           successEmail={false}
+                           //@ts-ignore
                           pdfUrl={pdfUrl}
                           numPages={numPages}
                           pageDetails={pageDetails}
@@ -2350,6 +2369,7 @@ function PdfRequestFiles(props) {
             isOpen={validateAlert}
             title={t("validation-alert")}
             handleClose={() => setValidateAlert(false)}
+            reduceWidth={true}
           >
             <div className="h-[100%] p-[20px]">
               <p>{t("validation-alert-1")}</p>
@@ -2373,6 +2393,7 @@ function PdfRequestFiles(props) {
             isOpen={isAlert.isShow}
             title={isAlert?.title || t("alert-message")}
             handleClose={() => setIsAlert({ isShow: false, alertMessage: "" })}
+            reduceWidth={true}
           >
             <div className="h-full p-[20px]">
               <p>{isAlert.alertMessage}</p>

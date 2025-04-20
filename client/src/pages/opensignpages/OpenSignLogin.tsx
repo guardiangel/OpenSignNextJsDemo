@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useMsal } from "@azure/msal-react";
 import axios from "axios";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 // import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { appInfo } from "@/newComponents/opensigncomponents/constant/appinfo";
 import { emailRegex, isEnableSubscription } from "@/newComponents/opensigncomponents/constant/const";
+import { showTenant } from "@/newComponents/opensigncomponents/redux/reducers/ShowTenant";
 import {
   fetchSubscription,
   openInNewTab,
@@ -17,12 +18,14 @@ import { useWindowSize } from "@/newComponents/opensigncomponents/hook/useWindow
 import Alert from "@/newComponents/opensigncomponents/primitives/Alert";
 import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
-import { showTenant } from "@/newComponents/opensigncomponents/redux/reducers/ShowTenant";
 import Title from "@/newComponents/opensigncomponents/Title";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Login() {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t, i18n } = useTranslation();
   // const navigate = useNavigate();
     const router = useRouter();
@@ -43,7 +46,7 @@ function Login() {
     loading: false,
     thirdpartyLoader: false
   });
-  const [userDetails, setUserDetails] = useState({
+  const [userDetails, setUserDetails] = useState<any>({
     Company: "",
     Destination: ""
   });
@@ -81,7 +84,7 @@ function Login() {
       if (email && password) {
         try {
           setState({ ...state, loading: true });
-          localStorage.setItem("appLogo", appInfo.applogo);
+          localStorage.setItem("appLogo", String(appInfo.applogo));
           // Pass the username and password to logIn function
           const user = await Parse.User.logIn(email, password);
           if (user) {
@@ -89,7 +92,7 @@ function Login() {
             localStorage.setItem("UserInformation", JSON.stringify(_user));
             localStorage.setItem("userEmail", email);
             localStorage.setItem("accesstoken", _user.sessionToken);
-            localStorage.setItem("scriptId", true);
+            localStorage.setItem("scriptId", "true");
             if (_user.ProfilePic) {
               localStorage.setItem("profileImg", _user.ProfilePic);
             } else {
@@ -198,7 +201,7 @@ function Login() {
                   setTimeout(() => setState({ ...state, alertMsg: "" }), 2000);
                   console.error("Error while fetching Follow", error);
                 });
-            } catch (error) {
+            } catch (error:any) {
               setState({
                 ...state,
                 loading: false,
@@ -256,6 +259,7 @@ function Login() {
     // if (isFreeplan) {
     //   await handleFreePlan(res.data.objectId);
     // }
+    const isFreeplan=true;
     await Parse.User.become(sessionToken).then(() => {
       window.localStorage.setItem("accesstoken", sessionToken);
     });
@@ -264,7 +268,7 @@ function Login() {
       localStorage.setItem("UserInformation", JSON.stringify(_user));
       localStorage.setItem("userEmail", _user.email);
       localStorage.setItem("accesstoken", _user.sessionToken);
-      localStorage.setItem("scriptId", true);
+      localStorage.setItem("scriptId", "true");
       if (_user.ProfilePic) {
         localStorage.setItem("profileImg", _user.ProfilePic);
       } else {
@@ -301,38 +305,38 @@ function Login() {
                       Name: extInfo?.TenantId?.TenantName || ""
                     };
                     localStorage.setItem("TenantId", tenant?.Id);
-                    dispatch(showTenant(tenant?.Name));
+                    // dispatch(showTenant(tenant?.Name));
                     localStorage.setItem("TenantName", tenant?.Name);
                   }
                   localStorage.setItem("PageLanding", menu.pageId);
                   localStorage.setItem("defaultmenuid", menu.menuId);
                   localStorage.setItem("pageType", menu.pageType);
                   if (isEnableSubscription) {
-                    const res = await fetchSubscription();
+                    const res = await fetchSubscription(undefined,undefined,undefined,undefined,undefined);
                     const plan = res.plan;
                     const billingDate = res.billingDate;
                     if (plan === "freeplan") {
-                      navigate(redirectUrl);
+                      router.push(redirectUrl);
                     } else if (billingDate) {
                       if (new Date(billingDate) > new Date()) {
                         localStorage.removeItem("userDetails");
-                        navigate(redirectUrl);
+                        router.push(redirectUrl);
                       } else {
                         if (isFreeplan) {
-                          navigate(redirectUrl);
+                          router.push(redirectUrl);
                         } else {
-                          handlePaidRoute(plan);
+                          handlePaidRoute();
                         }
                       }
                     } else {
                       if (isFreeplan) {
-                        navigate(redirectUrl);
+                        router.push(redirectUrl);
                       } else {
-                        handlePaidRoute(plan);
+                        handlePaidRoute();
                       }
                     }
                   } else {
-                    navigate(redirectUrl);
+                    router.push(redirectUrl);
                   }
                 } else {
                   setState({
@@ -371,7 +375,7 @@ function Login() {
             const payload = { sessionToken: sessionToken };
             handleSubmitbtn(payload);
           });
-      } catch (error) {
+      } catch (error:any) {
         setState({
           ...state,
           alertType: "danger",
@@ -389,11 +393,11 @@ function Login() {
   const GetLoginData = async () => {
     setState({ ...state, loading: true });
     try {
-      const user = await Parse.User.become(localStorage.getItem("accesstoken"));
+      const user = await Parse.User.become(localStorage.getItem("accesstoken")!);
       const _user = user.toJSON();
       localStorage.setItem("UserInformation", JSON.stringify(_user));
       localStorage.setItem("accesstoken", _user.sessionToken);
-      localStorage.setItem("scriptId", true);
+      localStorage.setItem("scriptId", "true");
       if (_user.ProfilePic) {
         localStorage.setItem("profileImg", _user.ProfilePic);
       } else {
@@ -426,7 +430,7 @@ function Login() {
                   Name: extInfo?.TenantId?.TenantName || ""
                 };
                 localStorage.setItem("TenantId", tenant?.Id);
-                dispatch(showTenant(tenant?.Name));
+                //dispatch(showTenant(tenant?.Name));
                 localStorage.setItem("TenantName", tenant?.Name);
               }
               localStorage.setItem("PageLanding", menu.pageId);
@@ -440,25 +444,25 @@ function Login() {
                   company: results[0]?.get("Company")
                 };
                 localStorage.setItem("userDetails", JSON.stringify(userInfo));
-                const res = await fetchSubscription();
+                const res = await fetchSubscription(undefined,undefined,undefined,undefined,undefined);
                 const billingDate = res.billingDate;
                 const plan = res.plan;
                 if (plan === "freeplan") {
-                  navigate(redirectUrl);
+                  router.push(redirectUrl);
                 } else if (billingDate) {
                   if (new Date(billingDate) > new Date()) {
                     localStorage.removeItem("userDetails");
                     // Redirect to the appropriate URL after successful login
-                    navigate(redirectUrl);
+                    router.push(redirectUrl);
                   } else {
-                    handlePaidRoute(plan);
+                    handlePaidRoute();
                   }
                 } else {
-                  handlePaidRoute(plan);
+                  handlePaidRoute();
                 }
               } else {
                 // Redirect to the appropriate URL after successful login
-                navigate(redirectUrl);
+                router.push(redirectUrl);
               }
             } else {
               setState({ ...state, loading: false });
@@ -505,7 +509,7 @@ function Login() {
       setThirdpartyLoader(true);
       // console.log("handelSubmit", userDetails);
       // const payload = await Parse.User.logIn(state.email, state.password);
-      const payload = { sessionToken: localStorage.getItem("accesstoken") };
+      const payload:any = { sessionToken: localStorage.getItem("accesstoken") };
       const userInformation = JSON.parse(
         localStorage.getItem("UserInformation")!
       );
@@ -570,12 +574,12 @@ function Login() {
     localStorage.clear();
     saveLanguageInLocal(i18n);
 
-    localStorage.setItem("appLogo", applogo);
-    localStorage.setItem("defaultmenuid", defaultmenuid);
-    localStorage.setItem("PageLanding", PageLanding);
-    localStorage.setItem("userSettings", appdata);
-    localStorage.setItem("baseUrl", baseUrl);
-    localStorage.setItem("parseAppId", appid);
+    localStorage.setItem("appLogo", String(applogo));
+    localStorage.setItem("defaultmenuid", String(defaultmenuid));
+    localStorage.setItem("PageLanding", String(PageLanding));
+    localStorage.setItem("userSettings", String(appdata));
+    localStorage.setItem("baseUrl", String(baseUrl));
+    localStorage.setItem("parseAppId", String(appid));
   };
 
   // `handleSignInWithSSO` is trigger when user click sign in with sso and open sso authorize endpoint
@@ -604,7 +608,7 @@ function Login() {
     </div>
   ) : (
     <div>
-      <Title title={"Login Page"} />
+      <Title title={"Login Page"} drive={""}/>
       {state.loading && (
         <div
           aria-live="assertive"
@@ -715,7 +719,7 @@ function Login() {
                       <button
                         type="button"
                         className="op-btn op-btn-primary"
-                        onClick={(e) => handleAzureLogin(e)}
+                        onClick={(e) => handleAzureLogin()}
                       >
                         {"Azure Login "}
                       </button>
@@ -766,13 +770,15 @@ function Login() {
             </div>
             {/* <SelectLanguage /> */}
             {state.alertMsg && (
-              <Alert type={state.alertType}>{state.alertMsg}</Alert>
+              <Alert type={state.alertType} className={""}>{state.alertMsg}</Alert>
             )}
           </div>
           <ModalUi
             isOpen={isModal}
             title={t("additional-info")}
             showClose={false}
+            reduceWidth={true} 
+            handleClose={()=>{}}
           >
             <form className="px-4 py-3 text-base-content">
               <div className="mb-3">

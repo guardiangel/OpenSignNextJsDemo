@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { XParseApplicationId } from "@newComponents/opensigncomponents/constant/Utils";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ const Validate = () => {
           // Use the session token to validate the user
           const userQuery = new Parse.Query(Parse.User);
           const user = await userQuery.get(userDetails?.objectId, {
-            sessionToken: localStorage.getItem("accesstoken")
+            sessionToken: localStorage.getItem("accesstoken") ?? undefined
           });
           if (user) {
             setIsUserValid(true);

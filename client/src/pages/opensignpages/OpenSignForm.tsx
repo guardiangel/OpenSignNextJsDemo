@@ -14,9 +14,7 @@ import DropboxChooser from "@/newComponents/opensigncomponents/shared/fields/Dro
 import SelectFolder from "@/newComponents/opensigncomponents/shared/fields/SelectFolder";
 import SignersInput from "@/newComponents/opensigncomponents/shared/fields/SignersInput";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
-import { useMutation } from "@apollo/client";
-import { useMsal } from '@azure/msal-react';
+import "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
@@ -30,6 +28,10 @@ import OpenSignPageNotFound from "./OpenSignPageNotFound";
 
 // `Form` render all type of Form on this basis of their provided in path
 function OpenSignForm() {
+
+  if (typeof window === "undefined") {
+    return null; 
+  }
   
   const searchParams = useSearchParams();
   const id = searchParams.get("id")!;
@@ -49,12 +51,12 @@ const Forms = (props) => {
   const { t } = useTranslation("translation");
   const maxFileSize = 20;
   const abortController = new AbortController();
-  const inputFileRef = useRef(null);
+  const inputFileRef = useRef<any>(null);
   // const navigate = useNavigate();
   const router = useRouter();
   const [signers, setSigners] = useState([]);
   const [folder, setFolder] = useState({ ObjectId: "", Name: "" });
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     Name: "",
     Description: "",
     Note: "",
@@ -91,10 +93,6 @@ const Forms = (props) => {
     return () => abortController.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.title]);
-
-  const { accounts } = useMsal();
-  const [createFileInFolder] = useMutation(CreateFileInFolderMutation, {});
-  const [fileData, setFileData]=useState({});
 
   useEffect(() => {
     fetchSubscription();
@@ -138,19 +136,22 @@ const Forms = (props) => {
         if (mb > maxFileSize) {
           alert(`${t("file-alert-1")} ${maxFileSize} MB`);
           setFileUpload("");
-          e.target?.value = "";
+          if (e.target) {
+            e.target.value = "";
+          }
           return;
         } else {
           if (files?.[0]?.type === "application/pdf") {
             try {
-              const res = await getFileAsArrayBuffer(files[0]);
+              const res:any = await getFileAsArrayBuffer(files[0]);
               await PDFDocument.load(res);
               handleFileUpload(files[0]);
             } catch (err:any) {
               if (err?.message?.includes("is encrypted")) {
                 try {
+                  const user:any = Parse.User.current();
                   await Parse.Cloud.run("encryptedpdf", {
-                    email: Parse.User.current().getEmail()
+                    email: user.getEmail()
                   });
                 } catch (err:any) {
                   console.log("err in sending posthog encryptedpdf", err);
@@ -163,7 +164,7 @@ const Forms = (props) => {
                   let formData = new FormData();
                   formData.append("file", files[0]);
                   formData.append("password", "");
-                  const config = {
+                  const config:any = {
                     headers: { "content-type": "multipart/form-data" },
                     responseType: "blob"
                   };
@@ -179,7 +180,7 @@ const Forms = (props) => {
                   const fileAdapterId =
                     extUserData?.TenantId?.ActiveFileAdapter || fileAdapterId_common;
                   if (fileAdapterId) {
-                    const base64 = await toDataUrl(pdfFile);
+                    const base64:any = await toDataUrl(pdfFile);
                     const fileBase64 = base64.split(",").pop();
                     const ext = files?.[0]?.name?.split(".").pop();
                     const fileRes = await saveToCustomFile(
@@ -200,7 +201,9 @@ const Forms = (props) => {
                       setfileload(false);
                       setpercentage(0);
                       setFileUpload("");
-                      e.target?.value = "";
+                      if(e.target) {
+                        e.target.value = "";
+                      }
                     }
                   } else {
                     // Upload the file to Parse Server
@@ -240,19 +243,23 @@ const Forms = (props) => {
                   } else {
                     console.log("Error uploading file: ", err?.response);
                     setIsDecrypting(false);
-                    e.target?.value = "";
+                    if(e.target) {
+                      e.target.value = "";
+                    }
                   }
                 }
               } else {
                 console.log("err ", err);
                 setFileUpload("");
-                e.target?.value = "";
+                if(e.target) {
+                  e.target.value = "";
+                }
               }
             }
           } else {
             const isImage = files?.[0]?.type.includes("image/");
             if (isImage) {
-              const image = await toDataUrl(files[0]);
+              const image:any = await toDataUrl(files[0]);
               const pdfDoc = await PDFDocument.create();
               let embedImg;
               if (files?.[0]?.type === "image/png") {
@@ -299,7 +306,9 @@ const Forms = (props) => {
                 } else {
                   setfileload(false);
                   setpercentage(0);
-                  e.target?.value = "";
+                  if(e.target) {
+                    e.target.value = "";
+                  }
                 }
               } else {
                 const getFile = await pdfDoc.save({
@@ -336,7 +345,9 @@ const Forms = (props) => {
                     return response.url();
                   }
                 } catch (error) {
-                  e.target?.value = "";
+                  if(e.target) {
+                    e.target.value = "";
+                  }
                   setfileload(false);
                   setpercentage(0);
                   console.error("Error uploading file:", error);
@@ -349,10 +360,11 @@ const Forms = (props) => {
                   const url = "https://ai.nxglabs.in/docxtopdf";
                   let formData = new FormData();
                   formData.append("file", files[0]);
+                  const user:any = Parse.User.current();
                   const config = {
                     headers: {
                       "content-type": "multipart/form-data",
-                      sessiontoken: Parse.User.current().getSessionToken()
+                      sessiontoken: user.getSessionToken()
                     },
                     signal: abortController.signal
                   };
@@ -364,7 +376,9 @@ const Forms = (props) => {
                     setFormData((obj) => ({ ...obj, Name: title }));
                   }
                 } catch (err:any) {
-                  e.target?.value = "";
+                  if(e.target) {
+                    e.target.value = "";
+                  }
                   setfileload(false);
                   setpercentage(0);
                   console.log("err in libreconverter ", err);
@@ -380,7 +394,7 @@ const Forms = (props) => {
         alert(t("file-alert-2"));
         return false;
       }
-    } catch (error) {
+    } catch (error:any) {
       alert(error.message);
       return false;
     }
@@ -409,49 +423,6 @@ const Forms = (props) => {
       }
       return { url: "" };
     }
-  };
-
-  /**
-   * upload file to azure server.
-   * @param file 
-   * @returns 
-   */
-  const saveUploadedFiletoAzure = (file) => {
-    if (file?.size > 1000000) {
-      console.log("OpensignForm file.size is too large: " + file.size);
-      return;
-    }
-      getFile(file).then((res: any) => {
-        createFileInFolder({
-            variables: {
-                createFileInput: {
-                    createdById: accounts[0]?.localAccountId,
-                    encodedContent: res.documentEncodedContent,
-                    encodingType: 'UTF-8',
-                    folderId: '',
-                    mimeType: res.documentMIMEType,
-                    name: res.documentName,
-                    size: String(res.documentSize) ?? 'N/A',
-                },
-            },
-        })
-            .then((data) => {
-               formatDoc(data?.data?.createFileInFolder);
-               setFileData((preData)=>data?.data?.createFileInFolder);
-               if (data?.data?.createFileInFolder?.blobUrl) {
-                console.log(data?.data?.createFileInFolder?.blobUrl);
-                setFileUpload(data?.data?.createFileInFolder?.blobUrl);
-                const tenantId = localStorage.getItem("TenantId");
-                const title = generateTitleFromFilename(file.name);
-                setFormData((obj) => ({ ...obj, Name: title }));
-              }
-              setfileload(false);
-              setpercentage(100);
-            })
-            .catch((error) => {
-              console.log(`OpenSignForm saveUploadedFiletoAzure error: ${error}}`)
-            });
-    });
   };
 
 /**
@@ -499,7 +470,7 @@ const Forms = (props) => {
       const fileAdapterId = extUserData?.TenantId?.ActiveFileAdapter || fileAdapterId_common;
            
       if (fileAdapterId) {
-        const base64 = await toDataUrl(file);
+        const base64:any = await toDataUrl(file);
         const fileBase64 = base64.split(",").pop();
         const ext = file?.name?.split(".").pop();
         const fileRes = await saveToCustomFile(
@@ -576,7 +547,7 @@ const Forms = (props) => {
       const name = generatePdfName(16);
       const fileAdapterId = extUserData?.TenantId?.ActiveFileAdapter || fileAdapterId_common;
       if (fileAdapterId) {
-        const base64 = await uriToBase64(url);
+        const base64:any = await uriToBase64(url);
         const fileBase64 = base64.split(",").pop();
         const ext = file?.name?.split(".").pop();
         const fileRes = await saveToCustomFile(
@@ -632,7 +603,7 @@ const Forms = (props) => {
     if (fileupload) {
       setIsSubmit(true);
       try {
-        const currentUser = Parse.User.current();
+        const currentUser:any = Parse.User.current();
 
         const object = new Parse.Object(props.Cls);
         object.set("Name", formData?.Name);
@@ -794,8 +765,8 @@ const Forms = (props) => {
 
   return (
     <div className="shadow-md rounded-box my-[2px] p-3 bg-base-100 text-base-content">
-      <Title title={props?.title} />
-      {isAlert?.message && <Alert type={isAlert.type}>{isAlert.message}</Alert>}
+      <Title title={props?.title} drive={""}/>
+      {isAlert?.message && <Alert type={isAlert.type} className={""}>{isAlert.message}</Alert>}
       {isSubmit ? (
         <div className="h-[300px] flex justify-center items-center">
           <Loader />
@@ -806,6 +777,7 @@ const Forms = (props) => {
             isOpen={isPassword}
             handleClose={() => handeCloseModal()}
             title={t("enter-pdf-password")}
+            reduceWidth={true} 
           >
             <form onSubmit={handlePasswordSubmit}>
               <div className="px-6 pt-3 pb-2">
@@ -885,7 +857,11 @@ const Forms = (props) => {
                     </div>
                   </div>
                   {process.env.REACT_APP_DROPBOX_API_KEY && (
-                    <DropboxChooser onSuccess={dropboxSuccess} />
+                    <DropboxChooser onSuccess={dropboxSuccess} onCancel={()=>{}} >
+                       <button className="cursor-pointer op-input op-input-bordered focus:outline-none hover:border-base-content max-h-[35px] max-w-[45px] flex justify-center items-center">
+                        <i className="fa-brands fa-dropbox"></i>
+                      </button>
+                    </DropboxChooser>
                   )}
                 </div>
               ) : (
@@ -907,7 +883,11 @@ const Forms = (props) => {
                     required
                   />
                   {process.env.REACT_APP_DROPBOX_API_KEY && (
-                    <DropboxChooser onSuccess={dropboxSuccess} />
+                   <DropboxChooser onSuccess={dropboxSuccess} onCancel={()=>{}} >
+                    <button className="cursor-pointer op-input op-input-bordered focus:outline-none hover:border-base-content max-h-[35px] max-w-[45px] flex justify-center items-center">
+                      <i className="fa-brands fa-dropbox"></i>
+                    </button>
+                  </DropboxChooser>
                   )}
                 </div>
               )}
@@ -971,6 +951,7 @@ const Forms = (props) => {
                 onSuccess={handleFolder}
                 folderCls={props.Cls}
                 isReset={isReset}
+                required={true}
               />
             ) : (
               <div className="flex flex-col md:flex-row w-full mt-4 md:mt-10 gap-3 ">
@@ -980,6 +961,7 @@ const Forms = (props) => {
                       onSuccess={handleFolder}
                       folderCls={props.Cls}
                       isReset={isReset}
+                      required={true}
                     />
                   ) : (
                     <>

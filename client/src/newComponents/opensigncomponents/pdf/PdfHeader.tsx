@@ -10,6 +10,39 @@ import Loader from "../../../newComponents/opensigncomponents/primitives/Loader"
 import ModalUi from "../../../newComponents/opensigncomponents/primitives/ModalUi";
 import PrevNext from "./PrevNext";
 
+interface HeaderProp {
+  isPdfRequestFiles?,
+  isPlaceholder?,
+  setIsDecline?,
+  pageNumber?,
+  allPages?,
+  changePage?,
+  pdfUrl?,
+  embedWidgetsData?,
+  pdfDetails?,
+  signerPos?,
+  signersdata?,
+  isMailSend?,
+  alertSendEmail?,
+  isCompleted?,
+  isShowHeader?,
+  decline?,
+  currentSigner?,
+  alreadySign?,
+  isSignYourself?,
+  setIsEmail?,
+  completeBtnTitle?,
+  setIsEditTemplate?,
+  isPublicTemplate?,
+  clickOnZoomIn?,
+  clickOnZoomOut?,
+  handleRotationFun?,
+  isDisableRotate?,
+  templateId?,
+  setIsDownloadModal?,
+  disabledBackBtn?
+}
+
 function Header({
   isPdfRequestFiles,
   isPlaceholder,
@@ -41,7 +74,7 @@ function Header({
   templateId,
   setIsDownloadModal,
   disabledBackBtn
-}) {
+}:HeaderProp) {
   const { t } = useTranslation();
   const filterPrefill =
     signerPos && signerPos?.filter((data) => data.Role !== "prefill");

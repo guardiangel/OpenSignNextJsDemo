@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -72,7 +72,7 @@ const BulkSendUi = (props) => {
         }
         const token = props.jwttoken
           ? { jwttoken: props.jwttoken }
-          : { "X-Parse-Session-Token": localStorage.getItem("accesstoken") };
+          : { "X-Parse-Session-Token": localStorage.getItem("accesstoken")! };
         const axiosres = await axios.post(
           `${OpenSignServerURL}/functions/allowedcredits`,
           {},
@@ -288,7 +288,7 @@ const BulkSendUi = (props) => {
   const batchQuery = async (Documents) => {
     const token = props.jwttoken
       ? { jwttoken: props.jwttoken }
-      : { "X-Parse-Session-Token": localStorage.getItem("accesstoken") };
+      : { "X-Parse-Session-Token": localStorage.getItem("accesstoken")! };
     const functionsUrl = `${OpenSignServerURL}/functions/batchdocuments`;
     const headers = {
       "Content-Type": "application/json",

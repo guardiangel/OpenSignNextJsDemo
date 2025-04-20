@@ -50,7 +50,7 @@ import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import PdfDeclineModal from "@/newComponents/opensigncomponents/primitives/PdfDeclineModal";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import moment from "moment";
@@ -62,7 +62,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
+
 function PdfRequestFiles(props) {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
   const [pdfDetails, setPdfDetails] = useState<any[]>([]);
   const [signedSigners, setSignedSigners] = useState<any[]>([]);
@@ -148,14 +152,14 @@ function PdfRequestFiles(props) {
   const divRef = useRef<any>(null);
   const [isDownloadModal, setIsDownloadModal] = useState(false);
   const [signatureType, setSignatureType] = useState<any[]>([]);
-  const isMobile = window.innerWidth < 767;
+  const isMobile = (window as any).innerWidth < 767;
 
   let isGuestSignFlow = false;
   let sendmail;
   let getDocId = "";
   let contactBookId = "";
-  const route = !props.templateId && window.location.pathname;
-  const getQuery = !props.templateId && window.location?.search?.split("?"); //['','sendmail=false']
+  const route = !props.templateId && (window as any).location.pathname;
+  const getQuery = !props.templateId && (window as any).location?.search?.split("?"); //['','sendmail=false']
   if (getQuery) {
     sendmail = getQuery?.[1]?.split("=")[1]; //false
   }
@@ -1831,8 +1835,8 @@ function PdfRequestFiles(props) {
               {isCelebration && (
                 <div className="relative z-[1000]">
                   <Confetti
-                    width={window.innerWidth}
-                    height={window.innerHeight}
+                    width={(window as any).innerWidth}
+                    height={(window as any).innerHeight}
                     recycle={false} // Prevents confetti from repeating
                     gravity={0.1} // Adjust the gravity to control the speed
                   />

@@ -8,7 +8,7 @@ import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import SubscribeCard from "@/newComponents/opensigncomponents/primitives/SubscribeCard";
 import Tooltip from "@/newComponents/opensigncomponents/primitives/Tooltip";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -17,8 +17,11 @@ import AddUser from "./AddUser";
 const heading = ["Sr.No", "Name", "Email", "Phone", "Role", "Team", "Active"];
 // const actions = [];
 const UserList = () => {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);
   const [isModal, setIsModal] = useState({
     form: false,
@@ -37,7 +40,7 @@ const UserList = () => {
   const [isAlert, setIsAlert] = useState({ type: "success", msg: "" });
   const [isActiveModal, setIsActiveModal] = useState({});
   const [isActLoader, setIsActLoader] = useState({});
-  const [isSubscribe, setIsSubscribe] = useState({
+  const [isSubscribe, setIsSubscribe] = useState<any>({
     plan: "",
     isValid: false,
     priceperUser: 0
@@ -52,7 +55,7 @@ const UserList = () => {
 
   const getPaginationRange = () => {
     const totalPageNumbers = 7; // Adjust this value to show more/less page numbers
-    const pages = [];
+    const pages:any[] = [];
     const totalPages = Math.ceil(userList.length / recordperPage);
     if (totalPages <= totalPageNumbers) {
       for (let i = 1; i <= totalPages; i++) {
@@ -116,7 +119,7 @@ const UserList = () => {
         localStorage.getItem("Extand_Class")! &&
         JSON.parse(localStorage.getItem("Extand_Class")!)?.[0];
       if (isEnableSubscription) {
-        const subscribe = await fetchSubscriptionInfo();
+        const subscribe:any = await fetchSubscriptionInfo();
         if (subscribe?.plan_code?.includes("team")) {
           const isSupAdmin =
             subscribe?.adminId && extUser?.objectId === subscribe?.adminId;
@@ -252,14 +255,14 @@ const UserList = () => {
     setIsBuyLoader(true);
     try {
       const resAddon = await Parse.Cloud.run("buyaddonusers", {
-        users: parseInt(amount.quantity)
+        users: amount.quantity
       });
       if (resAddon) {
         const _resAddon = JSON.parse(JSON.stringify(resAddon));
         if (_resAddon.status === "success") {
           setUserCounts((obj) => ({
             ...obj,
-            allowed: parseInt(obj.allowed) + parseInt(amount.quantity),
+            allowed: obj.allowed + amount.quantity,
             totalAllowed: parseInt(_resAddon.addon)
           }));
           setAmount((obj) => ({ ...obj, quantity: 1 }));
@@ -283,14 +286,14 @@ const UserList = () => {
     if (allowed && totalAllowed) {
       setUserCounts((obj) => ({
         ...obj,
-        allowed: parseInt(obj.allowed) + parseInt(allowed),
+        allowed: obj.allowed + parseInt(allowed),
         totalAllowed: parseInt(totalAllowed)
       }));
     }
   };
   return (
     <div className="relative">
-      <Title title={isAdmin ? "Users" : "Page not found"} />
+      <Title title={isAdmin ? "Users" : "Page not found"} drive={""}/>
       {isLoader && (
         <div className="absolute w-full h-[300px] md:h-[400px] flex justify-center items-center z-30 rounded-box">
           <Loader />
@@ -305,7 +308,7 @@ const UserList = () => {
         <>
           {isAdmin ? (
             <div className="p-2 w-full bg-base-100 text-base-content op-card shadow-lg">
-              {isAlert.msg && <Alert type={isAlert.type}>{isAlert.msg}</Alert>}
+              {isAlert.msg && <Alert type={isAlert.type} className={""}>{isAlert.msg}</Alert>}
               <div className="flex flex-row items-center justify-between my-2 mx-3 text-[20px] md:text-[23px]">
                 <div className="font-light">
                   {t("report-name.Users")}{" "}
@@ -394,6 +397,7 @@ const UserList = () => {
                                     isOpen
                                     title={t("user-status")}
                                     handleClose={handleClose}
+                                    reduceWidth={true} 
                                   >
                                     <div className="m-[20px]">
                                       <div className="text-lg font-normal text-black">
@@ -492,6 +496,7 @@ const UserList = () => {
                 isOpen={isModal.form}
                 title={formHeader}
                 handleClose={() => handleModal("form")}
+                reduceWidth={true} 
               >
                 <AddUser
                   setIsAlert={setIsAlert}
@@ -505,6 +510,7 @@ const UserList = () => {
                 isOpen={isModal.addseats}
                 title="Add Seats"
                 handleClose={() => handleModal("addseats")}
+                reduceWidth={true} 
               >
                 {isBuyLoader && (
                   <div className="absolute w-full h-full inset-0 flex justify-center items-center bg-base-content/30 z-50">
@@ -560,7 +566,7 @@ const UserList = () => {
       )}
       {isEnableSubscription && !validplan[isSubscribe.plan] && !isLoader && (
         <div data-tut="apisubscribe">
-          <SubscribeCard plan="TEAMS" />
+          <SubscribeCard plan="TEAMS" price={0}/>
         </div>
       )}
     </div>

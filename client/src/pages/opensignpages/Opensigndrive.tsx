@@ -4,7 +4,7 @@ import Loader from "@/newComponents/opensigncomponents/primitives/Loader";
 import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -22,6 +22,9 @@ const AppLoader = () => {
   );
 };
 function Opensigndrive() {
+  if (typeof window === "undefined") {
+    return null; 
+  }
   const { t } = useTranslation();
   // const navigate = useNavigate();
   const router = useRouter();

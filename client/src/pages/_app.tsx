@@ -3,7 +3,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from 'next/app';
-import { useState } from 'react';
 import { HTML5Backend } from "react-dnd-html5-backend";
 import {
     DndProvider,
@@ -11,10 +10,8 @@ import {
     TouchTransition
 } from "react-dnd-multi-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-
-import "@/pages/parseClient"; // Don't delete this, otherwise, we need to import the page separately GuiquanSun20250325
+import "@/newComponents/opensigncomponents/parseClient"; // Don't delete this, otherwise, we need to import the page separately GuiquanSun20250325
 import { pdfjs } from "react-pdf";
-import { Provider } from 'react-redux';
 import createEmotionCache from '../createEmotionCache';
 import "../i18n"; // don't delete this line if we need to use useTransaction 20250227 Guiquan Sun
 import '../styles/AddUser.css';

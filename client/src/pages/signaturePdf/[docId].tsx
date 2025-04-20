@@ -48,7 +48,7 @@ import LoaderWithMsg from "@/newComponents/opensigncomponents/primitives/LoaderW
 import ModalUi from "@/newComponents/opensigncomponents/primitives/ModalUi";
 import TourContentWithBtn from "@/newComponents/opensigncomponents/primitives/TourContentWithBtn";
 import Title from "@/newComponents/opensigncomponents/Title";
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import Tour from "@reactour/tour";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -66,14 +66,17 @@ interface ContainerSize {
 
 //For signYourself inProgress section signer can add sign and complete doc sign.
 function SignYourSelf() {
+  if (typeof window === "undefined") {
+    return null; 
+  }
 
   const { t } = useTranslation();
-  const [pdfDetails, setPdfDetails] = useState([]);
+  const [pdfDetails, setPdfDetails] = useState<any[]>([]);
   const [isSignPad, setIsSignPad] = useState(false);
   const [allPages, setAllPages] = useState(null);
   const [pdfUrl, setPdfUrl] = useState();
-  const [xyPostion, setXyPostion] = useState([]);
-  const [defaultSignImg, setDefaultSignImg] = useState();
+  const [xyPostion, setXyPostion] = useState<any[]>([]);
+  const [defaultSignImg, setDefaultSignImg] = useState<any>();
   const numPages = 1;
   const [pageNumber, setPageNumber] = useState(1);
   const [image, setImage] = useState(null);
@@ -81,24 +84,24 @@ function SignYourSelf() {
   const [signature, setSignature] = useState();
   const [isStamp, setIsStamp] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
-  const [signBtnPosition, setSignBtnPosition] = useState([]);
+  const [signBtnPosition, setSignBtnPosition] = useState<any[]>([]);
   const [xySignature, setXYSignature] = useState({});
   const signRef = useRef(null);
   const dragRef = useRef(null);
-  const [dragKey, setDragKey] = useState();
-  const [fontSize, setFontSize] = useState();
-  const [fontColor, setFontColor] = useState();
-  const [signKey, setSignKey] = useState();
+  const [dragKey, setDragKey] = useState<any>();
+  const [fontSize, setFontSize] = useState<any>();
+  const [fontColor, setFontColor] = useState<any>();
+  const [signKey, setSignKey] = useState<any>();
   const [imgWH, setImgWH] = useState({});
   const [pdfNewWidth, setPdfNewWidth] = useState(0);
-  const [pdfOriginalWH, setPdfOriginalWH] = useState([]);
+  const [pdfOriginalWH, setPdfOriginalWH] = useState<any[]>([]);
   const [successEmail, setSuccessEmail] = useState(false);
   const imageRef = useRef(null);
-  const [myInitial, setMyInitial] = useState("");
+  const [myInitial, setMyInitial] = useState<any>("");
   const [isInitial, setIsInitial] = useState(false);
   const [isUiLoading, setIsUiLoading] = useState(false);
   const [validateAlert, setValidateAlert] = useState(false);
-  const [isLoading, setIsLoading] = useState({
+  const [isLoading, setIsLoading] = useState<any>({
     isLoad: true,
     message: t("loading-mssg")
   });
@@ -114,36 +117,36 @@ function SignYourSelf() {
   const [contractName, setContractName] = useState("");
   const [containerWH, setContainerWH] =  useState<ContainerSize>({ width: 0, height: 0 });
   const [isPageCopy, setIsPageCopy] = useState(false);
-  const [selectWidgetId, setSelectWidgetId] = useState("");
+  const [selectWidgetId, setSelectWidgetId] = useState<any>("");
   const [otpLoader, setOtpLoader] = useState(false);
-  const [showAlreadySignDoc, setShowAlreadySignDoc] = useState({
+  const [showAlreadySignDoc, setShowAlreadySignDoc] = useState<any>({
     status: false
   });
   const [isTextSetting, setIsTextSetting] = useState(false);
-  const [currWidgetsDetails, setCurrWidgetsDetails] = useState({});
+  const [currWidgetsDetails, setCurrWidgetsDetails] = useState<any>({});
   const [isCheckbox, setIsCheckbox] = useState(false);
   const [widgetType, setWidgetType] = useState("");
   const [pdfLoad, setPdfLoad] = useState(false);
-  const [isAlert, setIsAlert] = useState({ isShow: false, alertMessage: "" });
+  const [isAlert, setIsAlert] = useState<any>({ isShow: false, alertMessage: "" });
   const [isDontShow, setIsDontShow] = useState(false);
   const [extUserId, setExtUserId] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCelebration, setIsCelebration] = useState(false);
-  const [pdfArrayBuffer, setPdfArrayBuffer] = useState("");
+  const [pdfArrayBuffer, setPdfArrayBuffer] = useState<any>("");
   const [activeMailAdapter, setActiveMailAdapter] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(true);
   const [isVerifyModal, setIsVerifyModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [zoomPercent, setZoomPercent] = useState(0);
-  const isHeader = useSelector((state) => state.showHeader);
+  const isHeader = useSelector((state:any) => state.showHeader);
   const [scale, setScale] = useState(1);
   const [pdfRotateBase64, setPdfRotatese64] = useState("");
   const [isRotate, setIsRotate] = useState({ status: false, degree: 0 });
   const [isSubscribe, setIsSubscribe] = useState({ plan: "", isValid: true });
   const [isDownloadModal, setIsDownloadModal] = useState(false);
   const [isResize, setIsResize] = useState(false);
-  const divRef = useRef<HTMLDivElement>();
-  const nodeRef = useRef<HTMLDivElement>(null);
+  const divRef = useRef<any>();
+  const nodeRef = useRef<any>(null);
 
   const [, drop] = useDrop({
     accept: "BOX",
@@ -169,8 +172,8 @@ function SignYourSelf() {
     return object.pageNumber === pageNumber;
   });
   const rowLevel =
-    localStorage.getItem("rowlevel") &&
-    JSON.parse(localStorage.getItem("rowlevel"));
+    localStorage.getItem("rowlevel")! &&
+    JSON.parse(localStorage.getItem("rowlevel")!);
   const signObjId =
     rowLevel && rowLevel?.id
       ? rowLevel.id
@@ -180,10 +183,10 @@ function SignYourSelf() {
   const senderUser =
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    ) &&
+    )! &&
     localStorage.getItem(
       `Parse/${XParseApplicationId}/currentUser`
-    );
+    )!;
 
   const jsonSender = JSON.parse(senderUser);
 
@@ -218,7 +221,7 @@ function SignYourSelf() {
   //function for get document details for perticular signer with signer'object id
   const getDocumentDetails = async (showComplete) => {
     try {
-      const subscribe = await checkIsSubscribed();
+      const subscribe = await checkIsSubscribed(undefined);
       setIsSubscribe(subscribe);
     } catch (err:any) {
       console.log("getDocumentDetails err in fetch sub", err);
@@ -286,7 +289,7 @@ function SignYourSelf() {
         setHandleError("Error: Something went wrong!");
         setIsLoading({ isLoad: false });
       }
-      const contractUsersRes = await contractUsers();
+      const contractUsersRes = await contractUsers(undefined);
 
       if (contractUsersRes === "Error: Something went wrong!") {
         setHandleError(t("something-went-wrong-mssg"));
@@ -422,7 +425,7 @@ function SignYourSelf() {
 
     setCurrWidgetsDetails({});
     const key = randomId();
-    let dropData = [];
+    let dropData:any = [];
     let dropObj = {};
     let filterDropPos = xyPostion?.filter(
       (data) => data.pageNumber === pageNumber
@@ -442,7 +445,7 @@ function SignYourSelf() {
       // `getBoundingClientRect()` is used to get accurate measurement height of the div
       const divHeight = divRef?.current?.getBoundingClientRect().height;
       const getWidth = widgetTypeExist
-        ? calculateInitialWidthHeight(dragTypeValue, widgetValue).getWidth
+        ? calculateInitialWidthHeight(widgetValue,dragTypeValue).getWidth
         : defaultWidthHeight(dragTypeValue).width;
       const getHeight = defaultWidthHeight(dragTypeValue).height;
 
@@ -464,7 +467,7 @@ function SignYourSelf() {
       //This method returns the offset of the current pointer (mouse) position relative to the client viewport.
       const offset = monitor.getClientOffset();
       const containerRect = document
-        .getElementById("container")
+        .getElementById("container")!
         .getBoundingClientRect();
       //`containerRect.left`,  The distance from the left of the viewport to the left side of the element.
       //`containerRect.top` The distance from the top of the viewport to the top of the element.
@@ -474,7 +477,7 @@ function SignYourSelf() {
       const getXPosition = signBtnPosition[0] ? x - signBtnPosition[0].xPos : x;
       const getYPosition = signBtnPosition[0] ? y - signBtnPosition[0].yPos : y;
       const getWidth = widgetTypeExist
-        ? calculateInitialWidthHeight(widgetValue).getWidth
+        ? calculateInitialWidthHeight(widgetValue,dragTypeValue).getWidth
         : defaultWidthHeight(dragTypeValue).width;
       const getHeight = defaultWidthHeight(dragTypeValue).height;
       dropObj = {
@@ -543,7 +546,7 @@ function SignYourSelf() {
   const handleResend = async (e) => {
     e.preventDefault();
     setOtpLoader(true);
-    await handleSendOTP(Parse.User.current().getEmail());
+    await handleSendOTP(Parse.User.current()?.getEmail());
     setOtpLoader(false);
     alert(t("otp-sent-alert"));
   };
@@ -554,7 +557,7 @@ function SignYourSelf() {
     try {
       const resEmail = await Parse.Cloud.run("verifyemail", {
         otp: otp,
-        email: Parse.User.current().getEmail()
+        email: Parse.User.current()?.getEmail()
       });
       if (resEmail?.message === "Email is verified.") {
         setIsEmailVerified(true);
@@ -566,7 +569,7 @@ function SignYourSelf() {
       setOtp("");
       setIsVerifyModal(false);
       // handleRecipientSign();
-    } catch (error) {
+    } catch (error:any) {
       alert(error.message);
     } finally {
       setOtpLoader(false);
@@ -575,8 +578,8 @@ function SignYourSelf() {
   //`handleVerifyBtn` function is used to send otp on user mail
   const handleVerifyBtn = async () => {
     setIsVerifyModal(true);
-    console.log("[docId] handleVerifyBtn currentEmail:",Parse.User.current().getEmail());
-    await handleSendOTP(Parse.User.current().getEmail());
+    console.log("[docId] handleVerifyBtn currentEmail:",Parse.User.current()?.getEmail());
+    await handleSendOTP(Parse.User.current()?.getEmail());
   };
 
   useEffect(() => {
@@ -614,7 +617,7 @@ function SignYourSelf() {
       try {
         const userQuery = new Parse.Query(Parse.User);
         const user = await userQuery.get(currentUser.objectId, {
-          sessionToken: localStorage.getItem("accesstoken")
+          sessionToken: localStorage.getItem("accesstoken")??undefined
         });
         if (user) {
           isEmailVerified = user?.get("emailVerified");
@@ -737,7 +740,7 @@ function SignYourSelf() {
   const signPdfFun = async (base64Url, documentId) => {
     let isCustomCompletionMail = false;
 
-    const tenantDetails = await getTenantDetails(jsonSender.objectId);
+    const tenantDetails = await getTenantDetails(jsonSender.objectId,undefined,undefined);
     if (tenantDetails && tenantDetails === "user does not exist!") {
       alert(t("user-not-exist"));
     } else {
@@ -774,7 +777,7 @@ function SignYourSelf() {
       }
     }
     //change image width and height to 300/120 in png base64
-    const imagebase64 = await changeImageWH(base64Sign);
+    const imagebase64 = await changeImageWH(base64Sign) as any;
     //remove suffiix of base64 (without type)
     const suffixbase64 = imagebase64 && imagebase64.split(",").pop();
     const params = {
@@ -800,8 +803,8 @@ function SignYourSelf() {
   };
   //function for set and update x and y postion after drag and drop signature tab
   const handleStop = (event, dragElement) => {
-    setFontSize();
-    setFontColor();
+    setFontSize("");
+    setFontColor("");
     if (!isResize && isDragging && dragElement) {
       event.preventDefault();
       const containerScale = getContainerScale(
@@ -843,7 +846,7 @@ function SignYourSelf() {
   };
   //function for get pdf page details
   const pageDetails = async (pdf) => {
-    let pdfWHObj = [];
+    let pdfWHObj:any[] = [];
     const totalPages = pdf?.numPages;
     for (let index = 0; index < totalPages; index++) {
       const getPage = await pdf.getPage(index + 1);
@@ -883,7 +886,7 @@ function SignYourSelf() {
     let imgWH = { width: width ? width : "", height: height ? height : "" };
     setIsSignPad(false);
     setIsImageSelect(false);
-    setImage();
+    setImage(null);
     if (isDefaultSign) {
       const img = new Image();
       img.src = defaultSignImg;
@@ -934,7 +937,7 @@ function SignYourSelf() {
   //function for delete signature block
   const handleDeleteSign = (key) => {
     setCurrWidgetsDetails({});
-    const updateResizeData = [];
+    const updateResizeData:any[] = [];
     let filterData = xyPostion[index].pos.filter((data) => data.key !== key);
     //delete and update block position
     if (filterData.length > 0) {
@@ -994,7 +997,7 @@ function SignYourSelf() {
   const closeTour = async () => {
     setSignTour(false);
     if (isDontShow) {
-      let updatedTourStatus = [];
+      let updatedTourStatus:any[] = [];
       if (tourStatus.length > 0) {
         updatedTourStatus = [...tourStatus];
         const signyourselfIndex = tourStatus.findIndex(
@@ -1096,8 +1099,8 @@ function SignYourSelf() {
         handleCloseModal();
       }
     }
-    setFontSize();
-    setFontColor();
+    setFontSize("");
+    setFontColor("");
   };
   const handleCloseModal = () => {
     setCurrWidgetsDetails({});
@@ -1134,8 +1137,8 @@ function SignYourSelf() {
         return obj;
       });
       setXyPostion(updateXYposition);
-      setFontSize();
-      setFontColor();
+      setFontSize("");
+      setFontColor("");
       handleTextSettingModal(false);
     }
   };
@@ -1191,7 +1194,7 @@ function SignYourSelf() {
   };
   return (
     <DndProvider backend={HTML5Backend}>
-      <Title title={"Self Sign"} />
+      <Title title={"Self Sign"} drive={""}/>
       {isLoading.isLoad ? (
         <LoaderWithMsg isLoading={isLoading} />
       ) : handleError ? (
@@ -1233,6 +1236,7 @@ function SignYourSelf() {
             {pdfLoad && !checkTourStatus && (
               <Tour
                 onRequestClose={closeTour}
+                //@ts-ignore
                 steps={tourConfig}
                 isOpen={signTour}
                 rounded={5}
@@ -1266,6 +1270,7 @@ function SignYourSelf() {
                   handleClose={() =>
                     setIsAlert({ isShow: false, alertMessage: "" })
                   }
+                  reduceWidth={true} 
                 >
                   <div className="p-[20px] h-full">
                     <p>{isAlert.alertMessage}</p>
@@ -1277,6 +1282,7 @@ function SignYourSelf() {
                   isOpen={showAlreadySignDoc.status}
                   title={t("document-signed")}
                   handleClose={() => setShowAlreadySignDoc({ status: false })}
+                  reduceWidth={true} 
                 >
                   <div className="p-[20px] h-full">
                     <p>{showAlreadySignDoc.mssg}</p>
@@ -1369,6 +1375,7 @@ function SignYourSelf() {
                   handleRotationFun={handleRotationFun}
                   clickOnZoomIn={clickOnZoomIn}
                   clickOnZoomOut={clickOnZoomOut}
+                  //@ts-ignore
                   widgetsDetails={xyPostion}
                   setIsDownloadModal={setIsDownloadModal}
                 />
@@ -1380,6 +1387,7 @@ function SignYourSelf() {
                       pdfNewWidth={pdfNewWidth}
                       drop={drop}
                       successEmail={successEmail}
+                      //@ts-ignore
                       nodeRef={nodeRef}
                       handleTabDrag={handleTabDrag}
                       handleStop={handleStop}
@@ -1429,6 +1437,7 @@ function SignYourSelf() {
                 {!isCompleted ? (
                   <div>
                     <WidgetComponent
+                    //@ts-ignore
                       pdfUrl={pdfUrl}
                       dragSignature={dragSignature}
                       signRef={signRef}
@@ -1459,6 +1468,7 @@ function SignYourSelf() {
         isOpen={validateAlert}
         title={t("validation-alert")}
         handleClose={() => setValidateAlert(false)}
+        reduceWidth={true} 
       >
         <div className="p-[20px] h-full">
           <p>{t("validate-alert-mssg")}</p>

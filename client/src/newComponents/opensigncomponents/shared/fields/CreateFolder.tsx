@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Alert from "../../primitives/Alert";
@@ -52,7 +52,7 @@ const CreateFolder = ({ parentFolderId, onSuccess, folderCls }) => {
     event.preventDefault();
     handleLoader(true);
     if (name) {
-      const currentUser = Parse.User.current();
+      const currentUser:any = Parse.User.current();
       const exsitQuery = new Parse.Query(folderCls);
       exsitQuery.equalTo("Name", name);
       exsitQuery.equalTo("Type", "Folder");

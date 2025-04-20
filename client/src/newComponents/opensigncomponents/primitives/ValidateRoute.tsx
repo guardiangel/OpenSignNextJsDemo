@@ -1,4 +1,4 @@
-import Parse from "@/pages/parseClient";
+import "@/newComponents/opensigncomponents/parseClient";;
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
@@ -11,8 +11,9 @@ const ValidateRoute = () => {
         try {
           // Use the session token to validate the user
           const userQuery = new Parse.Query(Parse.User);
-          const user = await userQuery.get(Parse?.User?.current()?.id, {
-            sessionToken: localStorage.getItem("accesstoken")
+          const userId:any = Parse.User.current()?.id;
+          const user = await userQuery.get(userId, {
+            sessionToken: localStorage.getItem("accesstoken")??undefined
           });
           if (!user) {
             handlelogout();
