@@ -25,6 +25,8 @@ import '../styles/quill.css';
 import '../styles/signature.css';
 import theme from '../theme';
 import Sidebar from "@/pages/SideBar";
+import NoSSR from '@/newComponents/utils/NoSSR';
+import {useState, useEffect} from "react";
 
 if (typeof window !== 'undefined') {
   //Keep the same as the definition in package.json, don't upgrade pdfjs-dist and react-pdf defined in package.json
@@ -59,17 +61,21 @@ function App({
     emotionCache = clientSideEmotionCache,
     pageProps,
 }: MyAppProps) {
+  const [isClient, setIsClient] = useState(false);
+
     return (
         <CacheProvider value={emotionCache}>
             <ThemeProvider theme={theme}>
                  <DndProvider options={HTML5toTouch}>
                 <CssBaseline />
+                <NoSSR>
                 <div className="flex">
                         <Sidebar />
                         <main className="ml-64 p-4 w-full">
                             <Component {...pageProps} />
                         </main>
                     </div>
+                    </NoSSR>
                 </DndProvider>
             </ThemeProvider>
 
@@ -77,4 +83,4 @@ function App({
     );
 }
 
-export default appWithTranslation(App);
+export default (appWithTranslation(App));

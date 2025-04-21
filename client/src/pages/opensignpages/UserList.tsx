@@ -17,9 +17,7 @@ import AddUser from "./AddUser";
 const heading = ["Sr.No", "Name", "Email", "Phone", "Role", "Team", "Active"];
 // const actions = [];
 const UserList = () => {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+  
   const { t } = useTranslation();
   const [userList, setUserList] = useState<any[]>([]);
   const [isLoader, setIsLoader] = useState(false);

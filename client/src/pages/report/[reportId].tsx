@@ -12,9 +12,7 @@ import { useTranslation } from "react-i18next";
 import OpenSignPageNotFound from "../opensignpages/OpenSignPageNotFound";
 
 const Report = () => {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+  
   const { t } = useTranslation();
 //   const { id } = useParams();
   const router = useRouter();

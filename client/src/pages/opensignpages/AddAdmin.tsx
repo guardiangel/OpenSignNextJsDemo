@@ -16,9 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 
 const AddAdmin = () => {
-  // if (typeof window === "undefined") {
-  //   return null; 
-  // }
+  
   const { t, i18n } = useTranslation();
   // const navigate = useNavigate();
   const router = useRouter();

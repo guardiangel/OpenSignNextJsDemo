@@ -66,9 +66,7 @@ interface ContainerSize {
 
 //For signYourself inProgress section signer can add sign and complete doc sign.
 function SignYourSelf() {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+
 
   const { t } = useTranslation();
   const [pdfDetails, setPdfDetails] = useState<any[]>([]);

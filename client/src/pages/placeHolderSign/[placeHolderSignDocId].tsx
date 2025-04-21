@@ -68,9 +68,7 @@ import Upgrade from "@/newComponents/opensigncomponents/primitives/Upgrade";
 import Title from "@/newComponents/opensigncomponents/Title";
 
 function PlaceHolderSign() {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+ 
   const { t } = useTranslation();
   const editorRef = useRef<any>();
   const [pdfDetails, setPdfDetails] = useState<any[]>([]);

@@ -23,9 +23,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function Login() {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+  
   const { t, i18n } = useTranslation();
   // const navigate = useNavigate();
     const router = useRouter();

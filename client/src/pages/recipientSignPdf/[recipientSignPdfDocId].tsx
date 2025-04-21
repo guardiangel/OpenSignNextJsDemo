@@ -64,9 +64,7 @@ import { useSelector } from "react-redux";
 
 
 function PdfRequestFiles(props) {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+  
   const { t } = useTranslation();
   const [pdfDetails, setPdfDetails] = useState<any[]>([]);
   const [signedSigners, setSignedSigners] = useState<any[]>([]);

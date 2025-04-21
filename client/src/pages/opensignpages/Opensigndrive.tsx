@@ -22,9 +22,7 @@ const AppLoader = () => {
   );
 };
 function Opensigndrive() {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+ 
   const { t } = useTranslation();
   // const navigate = useNavigate();
   const router = useRouter();

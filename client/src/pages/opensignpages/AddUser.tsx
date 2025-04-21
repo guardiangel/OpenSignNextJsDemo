@@ -18,9 +18,7 @@ function generatePassword(length) {
 }
 
 const AddUser = (props) => {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+ 
   const { t } = useTranslation();
   const [formdata, setFormdata] = useState<any>({
     name: "",

@@ -2,9 +2,7 @@
 import Title from "@/newComponents/opensigncomponents/Title";
 
 const OpenSignPageNotFound = ({ prefix }) => {
-  if (typeof window === "undefined") {
-    return null; 
-  }
+
   return (
     <div className="flex items-center justify-center h-screen w-full bg-base-100 text-base-content rounded-box">
       <Title title={"Page Not Found"} drive={""}/>

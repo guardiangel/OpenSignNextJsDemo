@@ -29,9 +29,6 @@ import OpenSignPageNotFound from "./OpenSignPageNotFound";
 // `Form` render all type of Form on this basis of their provided in path
 function OpenSignForm() {
 
-  if (typeof window === "undefined") {
-    return null; 
-  }
   
   const searchParams = useSearchParams();
   const id = searchParams.get("id")!;
