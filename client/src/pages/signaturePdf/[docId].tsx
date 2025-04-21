@@ -679,6 +679,9 @@ function SignYourSelf() {
             if (!HeaderDocId) {
               await embedDocId(pdfDoc, documentId, allPages);
             }
+
+            console.log("Begin to execute multiSignEmbed......")
+
             //embed multi signature in pdf
             const pdfBytes = await multiSignEmbed(
               xyPostion,

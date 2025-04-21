@@ -155,7 +155,7 @@ function Login() {
                           setState({ ...state, loading: false });
                           // Redirect to the appropriate URL after successful login
                           console.log("OpenSignLogin after login:", redirectUrl)
-                          router.push("/dashboard");
+                          router.push("/");
                         }
                       } else {
                         setState({ ...state, loading: false });

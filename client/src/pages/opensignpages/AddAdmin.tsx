@@ -196,7 +196,7 @@ const AddAdmin = () => {
               });
               ///navigate(`/${menu.pageType}/${menu.pageId}`);
               //console.log("handleNavigation:",`/${menu.pageType}/${menu.pageId}`)
-              router.push(`/dashboard`);
+              router.push(`/`);
             } else {
               setState({
                 loading: false,

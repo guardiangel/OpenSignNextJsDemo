@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import * as Parse from 'parse/node';
 dotenv.config();
 
-export const fileAdapterId_common = 'fileAdapterId_common';
+export const fileAdapterId_common = undefined;
 
 export const cloudServerUrl = process.env.OpenSignServerURL;
 export const AVATAR_URL = process.env.AVATAR_URL;

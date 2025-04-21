@@ -1124,6 +1124,7 @@ export const embedDocId = async (pdfDoc, documentId, allPages) => {
     const textContent = documentId && `EducationCa™ DocumentId: ${documentId} `;
     const pages = pdfDoc.getPages();
     const page = pages[i];
+    console.log("1127 page:",page);
     try {
       const getObj = compensateRotation(
         page.getRotation().angle,
@@ -1341,17 +1342,22 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
   const fontBytes = await fileasbytes(
     "/fonts/times.ttf"
   );
+
   pdfDoc.registerFontkit(fontkit);
   const font = await pdfDoc.embedFont(fontBytes, { subset: true });
   let hasError = false;
   for (let item of widgets) {
     if (hasError) break; // Stop the outer loop if an error occurred
     const typeExist = item.pos.some((data) => data?.type);
+
+    console.log("multiSignEmbed typeExist:",typeExist)
+
     let updateItem;
 
     if (typeExist) {
       if (signyourself) {
         updateItem = item.pos;
+        console.log("multiSignEmbed signyourself updateItem:",updateItem)
       } else {
         // Checking required and optional widget types
         // For both required and optional widgets, handle signurl, defaultValue, and response as the widget's data
@@ -1374,6 +1380,9 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
     const pages = pdfDoc.getPages();
     const form = pdfDoc.getForm();
     const page = pages[pageNo - 1];
+
+    console.log("Utils.tsx page.getRotation()===",page.getRotation())
+
     const images = await Promise.all(
       widgetsPositionArr.map(async (widget) => {
         // `SignUrl` this is wrong nomenclature and maintain for older code in this options we save base64 of signature image from sign pad
@@ -1489,6 +1498,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
               }
 
               if (!position?.options?.isHideLabel) {
+                console.log("1501 page:",page)
                 // below line of code is used to embed label with radio button in pdf
                 const optionsPosition = compensateRotation(
                   page.getRotation().angle,
@@ -1509,7 +1519,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
                 width: checkboxSize,
                 height: checkboxSize
               };
-              checkboxObj = getWidgetPosition(page, checkboxObj, 1);
+              checkboxObj = getWidgetPosition(page, checkboxObj, 1,pdfDoc);
               checkbox.addToPage(page, checkboxObj);
 
               //applied which checkbox should be checked
@@ -1582,6 +1592,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
           let y = yPos(position);
           // Embed each line on the page
           for (const line of lines) {
+            console.log("1595 page:",page);
             const textPosition = compensateRotation(
               page.getRotation().angle,
               x,
@@ -1621,7 +1632,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
             width: widgetWidth,
             height: widgetHeight
           };
-          const dropdownOption = getWidgetPosition(page, dropdownObj, 1);
+          const dropdownOption = getWidgetPosition(page, dropdownObj, 1,pdfDoc);
           const dropdownSelected = { ...dropdownOption, font: font };
           dropdown.defaultUpdateAppearances(font);
           dropdown.addToPage(page, dropdownSelected);
@@ -1642,8 +1653,8 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
                 radioOptionGapFromTop = fontSize + 10 || 25;
               }
               if (!position?.options?.isHideLabel) {
+                console.log("1656 page:",page);
                 // below line of code is used to embed label with radio button in pdf
-
                 const optionsPosition = compensateRotation(
                   page.getRotation().angle,
                   xPos(position) + radioTextGapFromLeft,
@@ -1665,7 +1676,7 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
                 height: radioSize
               };
 
-              radioObj = getWidgetPosition(page, radioObj, 1);
+              radioObj = getWidgetPosition(page, radioObj, 1,pdfDoc);
               radioGroup.addOptionToPage(item, page, radioObj);
             });
           }
@@ -1683,11 +1694,11 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
             height: widgetHeight
           };
 
-          const imageOptions = getWidgetPosition(page, signature, 1);
+          const imageOptions = getWidgetPosition(page, signature, 1,pdfDoc);
           page.drawImage(img, imageOptions);
         }
       } catch (err:any) {
-        console.log("Err in embed widget on page ", pageNo, err?.message);
+        console.log("Err in embed widget on page ", pageNo, err);
         hasError = true; // Set the flag to stop both loops
         break; // Exit inner loop
       }
@@ -2356,22 +2367,28 @@ function compensateRotation(
     drawX = coordsFromBottomLeft.x;
     drawY = coordsFromBottomLeft.y;
   }
-  if (font) {
-    return {
-      x: drawX,
-      y: drawY,
-      font,
-      color: updateColorInRgb,
-      size: fontSize,
-      rotate: page.getRotation()
-    };
-  } else {
-    return { x: drawX, y: drawY };
+  try {
+    if (font) {
+      console.log("page*****",page);
+      return {
+        x: drawX,
+        y: drawY,
+        font,
+        color: updateColorInRgb,
+        size: fontSize,
+        rotate: page.getRotation()
+      };
+    } else {
+      return { x: drawX, y: drawY };
+    }
+  }catch(error:any) {
+    console.log(" page.getRotation()4 error:", error);
+    throw error;
   }
 }
 
 // `getWidgetPosition` is used to calulcate position of image type widget like x, y, width, height for pdf-lib
-function getWidgetPosition(page, image, sizeRatio) {
+function getWidgetPosition(page, image, sizeRatio,pdfDoc) {
   let pageWidth;
   // pageHeight;
   if ([90, 270].includes(page.getRotation().angle)) {
@@ -2384,11 +2401,14 @@ function getWidgetPosition(page, image, sizeRatio) {
     image["vpWidth"] = pageWidth;
   }
 
+
   const pageRatio = pageWidth / (image.vpWidth * sizeRatio);
   const imageWidth = image.width * sizeRatio * pageRatio;
   const imageHeight = image.height * sizeRatio * pageRatio;
   const imageX = image.x * sizeRatio * pageRatio;
   const imageYFromTop = image.y * sizeRatio * pageRatio;
+
+  console.log("2410:", page.getRotation());
 
   const correction = compensateRotation(
     page.getRotation().angle,
@@ -2397,9 +2417,9 @@ function getWidgetPosition(page, image, sizeRatio) {
     1,
     page.getSize(),
     imageHeight,
-    "red",
-    "bond",
-    undefined
+    rgb(0.5, 0.5, 0.5),
+   undefined,
+    page
   );
 
   return {

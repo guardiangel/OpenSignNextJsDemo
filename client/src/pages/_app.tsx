@@ -4,6 +4,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from 'next/app';
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { store } from "@/newComponents/opensigncomponents/redux/store";
+import { Provider } from 'react-redux';
 import {
     DndProvider,
     MouseTransition,
@@ -66,6 +68,7 @@ function App({
     return (
         <CacheProvider value={emotionCache}>
             <ThemeProvider theme={theme}>
+            <Provider store={store}>
                  <DndProvider options={HTML5toTouch}>
                 <CssBaseline />
                 <NoSSR>
@@ -77,8 +80,8 @@ function App({
                     </div>
                     </NoSSR>
                 </DndProvider>
+                </Provider>
             </ThemeProvider>
-
         </CacheProvider>
     );
 }

@@ -18,7 +18,7 @@ interface HeaderProp {
   allPages?,
   changePage?,
   pdfUrl?,
-  embedWidgetsData?,
+  embedWidgetsData,
   pdfDetails?,
   signerPos?,
   signersdata?,

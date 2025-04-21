@@ -1,6 +1,7 @@
 import fontkit from '@pdf-lib/fontkit';
 import fs from 'node:fs';
 import { PDFDocument, rgb } from 'pdf-lib';
+import * as path from 'path';
 
 export default async function GenerateCertificate(docDetails) {
   const pdfDoc = await PDFDocument.create();
@@ -8,7 +9,9 @@ export default async function GenerateCertificate(docDetails) {
   const fontBytes = fs.readFileSync('./font/times.ttf'); //
   pdfDoc.registerFontkit(fontkit);
   const timesRomanFont = await pdfDoc.embedFont(fontBytes, { subset: true });
-  const pngUrl = fs.readFileSync('./images/logo.png').buffer;
+  const imagePath = path.join(process.cwd(), 'images', 'logo.png');
+  // const pngUrl = fs.readFileSync('./images/logo.png').buffer;
+  const pngUrl = fs.readFileSync(imagePath);
   const pngImage = await pdfDoc.embedPng(pngUrl);
   const page = pdfDoc.addPage();
   const { width, height } = page.getSize();

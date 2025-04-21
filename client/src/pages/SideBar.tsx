@@ -11,6 +11,21 @@ const Sidebar = () => {
         <Link href="/opensignpages/OpenSignLogin" className="hover:bg-gray-700 p-2 rounded">
           Login
         </Link>
+        <Link href="/opensignpages/OpenSignForm?id=sHAnZphf69" className="hover:bg-gray-700 p-2 rounded">
+          Self signature
+        </Link>
+        <Link href="/opensignpages/OpenSignForm?id=8mZzFxbG1z" className="hover:bg-gray-700 p-2 rounded">
+          Request signature
+        </Link>
+        <Link href="/opensignpages/UserList" className="hover:bg-gray-700 p-2 rounded">
+         UserList
+        </Link>
+        <Link href="/opensignpages/Opensigndrive" className="hover:bg-gray-700 p-2 rounded">
+        Drive
+        </Link>
+        <Link href="/opensignpages/Report" className="hover:bg-gray-700 p-2 rounded">
+        Report
+        </Link>
         <Link href="/settings" className="hover:bg-gray-700 p-2 rounded">
           Settings
         </Link>
