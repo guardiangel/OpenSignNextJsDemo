@@ -24,10 +24,13 @@ This app supports Azure Blob Storage. To enable it, follow these steps:
 Set the following environment variables:
 
 1.Set up the below content:
+
 AZURE_CONNECTION=''
 CONTAINER_NAME=''
 BLOB_URL_PREFIX=''
+
 2.Assign a valid value to this fileAdapterId_common in the Utils.tsx (currently undefined)
+
 3.Assign a valid value to this fileAdapterId_common in the UtilsForOpenSign.ts (currently undefined)
 
 📝 Usage Instructions
