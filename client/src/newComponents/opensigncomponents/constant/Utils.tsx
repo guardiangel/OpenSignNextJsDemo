@@ -1124,7 +1124,6 @@ export const embedDocId = async (pdfDoc, documentId, allPages) => {
     const textContent = documentId && `EducationCa™ DocumentId: ${documentId} `;
     const pages = pdfDoc.getPages();
     const page = pages[i];
-    console.log("1127 page:",page);
     try {
       const getObj = compensateRotation(
         page.getRotation().angle,
@@ -1350,14 +1349,11 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
     if (hasError) break; // Stop the outer loop if an error occurred
     const typeExist = item.pos.some((data) => data?.type);
 
-    console.log("multiSignEmbed typeExist:",typeExist)
-
     let updateItem;
 
     if (typeExist) {
       if (signyourself) {
         updateItem = item.pos;
-        console.log("multiSignEmbed signyourself updateItem:",updateItem)
       } else {
         // Checking required and optional widget types
         // For both required and optional widgets, handle signurl, defaultValue, and response as the widget's data
@@ -1380,8 +1376,6 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
     const pages = pdfDoc.getPages();
     const form = pdfDoc.getForm();
     const page = pages[pageNo - 1];
-
-    console.log("Utils.tsx page.getRotation()===",page.getRotation())
 
     const images = await Promise.all(
       widgetsPositionArr.map(async (widget) => {
@@ -1498,7 +1492,6 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
               }
 
               if (!position?.options?.isHideLabel) {
-                console.log("1501 page:",page)
                 // below line of code is used to embed label with radio button in pdf
                 const optionsPosition = compensateRotation(
                   page.getRotation().angle,
@@ -1592,7 +1585,6 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
           let y = yPos(position);
           // Embed each line on the page
           for (const line of lines) {
-            console.log("1595 page:",page);
             const textPosition = compensateRotation(
               page.getRotation().angle,
               x,
@@ -1653,7 +1645,6 @@ export const multiSignEmbed = async (widgets, pdfDoc, signyourself, scale) => {
                 radioOptionGapFromTop = fontSize + 10 || 25;
               }
               if (!position?.options?.isHideLabel) {
-                console.log("1656 page:",page);
                 // below line of code is used to embed label with radio button in pdf
                 const optionsPosition = compensateRotation(
                   page.getRotation().angle,
@@ -1792,7 +1783,6 @@ export const contractDocument = async (documentId, JwtToken) => {
     ? { jwtToken: JwtToken }
     : { sessionToken: localStorage.getItem("accesstoken") };
     //cloudServerUrl
-    console.log("contractDocument token:",token);
   const documentDeatils = await axios
     .post(`${OpenSignServerURL}/functions/getDocument`, data, {
       headers: {
@@ -2162,12 +2152,6 @@ export const handleToPrint = async (
   setIsDownloading,
   pdfDetails
 ) => {
-  // console.log("Utils.tsx handleToPrint event:",event);
-  // console.log("Utils.tsx handleToPrint pdfUrl:",pdfUrl);
-  // console.log("Utils.tsx handleToPrint setIsDownloading:",setIsDownloading);
-  // console.log("Utils.tsx handleToPrint pdfDetails:",pdfDetails);
-
-  // console.log("Utils.tsx handleToPrint typeof window :",typeof window);
 
   if (typeof window === "undefined") return; 
   
@@ -2179,9 +2163,7 @@ export const handleToPrint = async (
       ? pdfDetails?.[0]?.FileAdapterId
       : fileAdapterId_common;
     try {
-      console.log("Utils.tsx handleToPrint router before.............:");
       //const router = useRouter();
-      console.log("Utils.tsx handleToPrint router after.............:");
 
       // const url = await Parse.Cloud.run("getsignedurl", { url: pdfUrl });
       //`OpenSignServerURL` is also use in public-profile flow for public-sign
@@ -2197,8 +2179,6 @@ export const handleToPrint = async (
           }
         }
       );
-
-      console.log(`Utils.tsx handleToPrint evdocIdent:${docId},FileAdapterId:${FileAdapterId}`);
 
       const url = axiosRes.data.result;
       const pdf = await getBase64FromUrl(url,undefined);
@@ -2369,7 +2349,6 @@ function compensateRotation(
   }
   try {
     if (font) {
-      console.log("page*****",page);
       return {
         x: drawX,
         y: drawY,
@@ -2408,8 +2387,6 @@ function getWidgetPosition(page, image, sizeRatio,pdfDoc) {
   const imageX = image.x * sizeRatio * pageRatio;
   const imageYFromTop = image.y * sizeRatio * pageRatio;
 
-  console.log("2410:", page.getRotation());
-
   const correction = compensateRotation(
     page.getRotation().angle,
     imageX,
@@ -2442,9 +2419,6 @@ export const getContainerScale = (pdfOriginalWH, pageNumber, containerWH) => {
 
 //function to get default signatur eof current user from `contracts_Signature` class
 export const getDefaultSignature = async (objectId) => {
-  console.log("getDefaultSignature begins in Utils file objectId............",objectId)
-  console.log("Parse.initialized:", Parse.applicationId);
-  console.log("Parse current user:", await Parse.User.current());
 
   if (typeof window === "undefined") {
     throw new Error("This function can only be run in the client-side environment.");
@@ -2457,11 +2431,7 @@ export const getDefaultSignature = async (objectId) => {
       objectId: objectId
     });
 
-    console.log("getDefaultSignature query:",query);
-
     const result = await query.first();
-
-    console.log("getDefaultSignature result:",result);
 
     if (result) {
       const res = JSON.parse(JSON.stringify(result));
