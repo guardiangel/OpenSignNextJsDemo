@@ -6,6 +6,7 @@ This is a demo project for PDF editing using Next.js, NestJS, MongoDB, Docker, a
 https://github.com/OpenSignLabs/OpenSign
 
 🚀 Getting Started
+
 1.Navigate to the client directory and rename env.local to .env.local.
 
 2.Navigate to the server directory and rename env to .env.
@@ -40,4 +41,4 @@ BLOB_URL_PREFIX=''
 ![alt text](image-3.png)
 ![alt text](image-4.png)
 
-I hope this helps everyone who needs it, and if you like, please star ⭐ the original repository:https://github.com/OpenSignLabs/OpenSign
+I hope this can help everyone who needs it, and if you like, please star ⭐ the original repository:https://github.com/OpenSignLabs/OpenSign
