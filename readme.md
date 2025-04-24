@@ -43,5 +43,15 @@ BLOB_URL_PREFIX=''
 ![alt text](image-2.png)
 ![alt text](image-3.png)
 ![alt text](image-4.png)
-
+4.Request Signature  
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-8.png)
+![alt text](image-7.png)
+![alt text](image-11.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
+![alt text](image-11.png)
+5.View the documents
+![alt text](image-12.png)
 I hope this can help everyone who needs it, and if you like, please star ⭐ the original repository:https://github.com/OpenSignLabs/OpenSign
