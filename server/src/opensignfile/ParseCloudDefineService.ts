@@ -32,14 +32,49 @@ import { defineSendOTPMailV1 } from './parse-cloud-functions/SendOTPMailV1';
 import { defineSignPDF } from './parse-cloud-functions/signPDF';
 import { defineUpdatecontacttour } from './parse-cloud-functions/updatecontacttour';
 import { defineVerifyemail } from './parse-cloud-functions/verifyemail';
+import { Pinecone } from '@pinecone-database/pinecone';
+import { defineLoadPDF } from './parse-cloud-functions/aiChatBot';
+import { Configuration, OpenAIApi } from 'openai-edge';
+import {
+  Document as LlamaDocument,
+  LlamaParseReader,
+  Metadata,
+} from 'llamaindex';
 
 @Injectable()
 @Public()
 export class ParseCloudDefineService implements OnModuleInit {
+  private getPineconeClient: Pinecone;
+  private openai: OpenAIApi;
+  private llamaReader: LlamaParseReader;
+  private config: Configuration;
   constructor(
     private configService: ConfigService,
     private readonly emailService: EmailService,
-  ) {}
+  ) {
+    this.initPinecone();
+    this.initOpenAI();
+    this.initLlama();
+  }
+
+  private initPinecone(): void {
+    this.getPineconeClient = new Pinecone({
+      //environment: process.env.PINECONE_ENVIRONMENT!,
+      apiKey: this.configService.get('PINECONE_API_KEY'),
+    });
+  }
+  private initOpenAI(): void {
+    this.config = new Configuration({
+      apiKey: this.configService.get('OPENAI_API_KEY'),
+    });
+    this.openai = new OpenAIApi(this.config);
+  }
+  private initLlama(): void {
+    this.llamaReader = new LlamaParseReader({
+      resultType: 'markdown',
+      apiKey: this.configService.get('LLAMA_CLOUD_API_KEY'),
+    });
+  }
 
   async onModuleInit() {
     // Define Parse Cloud Function inside NestJS
@@ -102,6 +137,14 @@ export class ParseCloudDefineService implements OnModuleInit {
     defineSavecontact();
 
     defineGetsigners();
+
+    defineLoadPDF(
+      this.getPineconeClient,
+      this.openai,
+      this.llamaReader,
+      this.config,
+      this.configService,
+    );
 
     console.log('Parse Cloud Functions registered in NestJS ✅');
   }
