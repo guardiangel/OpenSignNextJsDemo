@@ -67,4 +67,8 @@ PINECONE_API_KEY=''
 OPENAI_TEXT_EMBEDDING_MODEL='text-embedding-3-small'
 PINECONE_ENVIRONMENT=''
 
+If you find the loading speed of pdf is slow, the reason is in the getDocumentDetails method:  
+The reason is:  
+ When loading a document,this method invokes AI method to parse the document. Solution: Invoke AI method to parse the document after loading the document.
+
 I hope this can help everyone who needs it, and if you like, please star ⭐ the original repository:https://github.com/OpenSignLabs/OpenSign
