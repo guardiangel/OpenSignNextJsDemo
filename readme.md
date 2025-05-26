@@ -57,15 +57,15 @@ BLOB_URL_PREFIX=''
 6.Chat with AI tool
 ![alt text](image-13.png)
 
-Note: If you want to use the ai chatbot tool, please apply it on pinecone website for test purpose.
-#Fill in PINECONE_API_KEY/OPENAI_TEXT_EMBEDDING_MODEL/PINECONE_ENVIRONMENT
-#ai chatbot
-LLAMA_CLOUD_API_KEY=''
-OPENAI_API_KEY=''
-#PINECONE_API_KEY=''
-PINECONE_API_KEY=''
-OPENAI_TEXT_EMBEDDING_MODEL='text-embedding-3-small'
-PINECONE_ENVIRONMENT=''
+Note: If you want to use the ai chatbot tool, please apply it on pinecone website for test purpose.  
+#Fill in PINECONE_API_KEY/OPENAI_TEXT_EMBEDDING_MODEL/PINECONE_ENVIRONMENT  
+#ai chatbot  
+LLAMA_CLOUD_API_KEY=''  
+OPENAI_API_KEY=''  
+#PINECONE_API_KEY=''  
+PINECONE_API_KEY=''  
+OPENAI_TEXT_EMBEDDING_MODEL='text-embedding-3-small'  
+PINECONE_ENVIRONMENT=''  
 
 If you find the loading speed of pdf is slow, the reason is in the getDocumentDetails method:  
 The reason is:  
