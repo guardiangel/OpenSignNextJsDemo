@@ -90,7 +90,7 @@ async function bootstrap() {
   );
   app1.useGlobalFilters(new HttpExceptionFilter());
 
-  await app1.listen(4000);
+  await app1.listen(4000, '0.0.0.0');
 }
 
 bootstrap();
